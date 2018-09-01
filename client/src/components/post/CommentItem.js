@@ -6,6 +6,7 @@ class CommentItem extends React.Component{
 	constructor(props){
 		super(props)
 
+
 		this.onDeleteClick = this.onDeleteClick.bind(this)
 	}
 

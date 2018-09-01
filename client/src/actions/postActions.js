@@ -41,7 +41,7 @@ export const getPost = (id) => {
 }
 
 
-//get all posts
+//get all the posts
 export const getPosts = () => {
 	return (dispatch) => {
 		dispatch(setPostLoading())
