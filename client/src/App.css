@@ -13,11 +13,11 @@ img {
 }
 
 .landing-inner {
-  padding-top: 80px;
+  padding-top: 120px;
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -36,4 +36,17 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+
+.logo {
+  width: 50px;
+  height: 43px;
+}
+
+.text-shadow{
+  text-shadow: 0px 1px 2px #000;
+}
+
+hr{
+  border-top: 1px solid rgba(0,0,0,0)
 }

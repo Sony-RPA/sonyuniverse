@@ -63,7 +63,7 @@ class Navbar extends React.Component{
 			<div>
 			  <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 			    <div className="container">
-			      <Link className="navbar-brand" to="/">DevConnector</Link>
+			      <Link className="navbar-brand" to="/"><img src="https://i.imgur.com/yQEaj3l.jpg" className="logo"/></Link>
 			      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
 			        <span className="navbar-toggler-icon"></span>
 			      </button>
@@ -71,7 +71,7 @@ class Navbar extends React.Component{
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link" to="/api/profiles"> Developers
+			            <Link className="nav-link" to="/api/profiles"> Professionals
 			            </Link>
 			          </li>
 			        </ul>
