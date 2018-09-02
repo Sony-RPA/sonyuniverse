@@ -3,6 +3,7 @@ const isEmpty = require("./is-empty")
 
 const validateRegisterInput = (data) => {
 	let errors = {}
+	const validEmailDomains = ["sony.com", "spe.sony.com", "playstation.com"]
 
 	data.name = isEmpty(data.name) ? "" : data.name
 	data.email = isEmpty(data.email) ? "" : data.email
@@ -23,6 +24,14 @@ const validateRegisterInput = (data) => {
 
 	if(!Validator.isEmail(data.email)){
 		errors.email = "Email is invalid"
+	}
+
+	//extract email domain from user email
+	const emailDomain = data.email.slice(data.email.indexOf("@") + 1)
+
+	//check if the email domain is acceptable in our array
+	if(!validEmailDomains.includes(emailDomain)){
+		errors.email = "You must use your Sony email to create an account"
 	}
 
 	if(Validator.isEmpty(data.password)){
