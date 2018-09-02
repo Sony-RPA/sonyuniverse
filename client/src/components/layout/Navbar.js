@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { logoutUser } from "../../actions/authActions"
 import { clearCurrentProfile } from "../../actions/profileActions"
+import sonyUniverseLogo from"../common/sonyuniverselogo.png"
 
 class Navbar extends React.Component{
 	constructor(props){
@@ -63,7 +64,7 @@ class Navbar extends React.Component{
 			<div>
 			  <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 			    <div className="container">
-			      <Link className="navbar-brand" to="/"><img src="https://i.imgur.com/yQEaj3l.jpg" className="logo"/></Link>
+			      <Link className="navbar-brand" to="/"><img src={sonyUniverseLogo} className="logo"/></Link>
 			      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
 			        <span className="navbar-toggler-icon"></span>
 			      </button>
