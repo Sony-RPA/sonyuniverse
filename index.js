@@ -1,4 +1,5 @@
 //dependencies
+const compression = require("compression")
 const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
@@ -15,6 +16,9 @@ mongoose
 	.connect(db)
 	.then(() => console.log("mongoDB connected"))
 	.catch((error) => console.log(error))
+
+//enable gzip compression
+app.use(compression())
 
 //passport middleware
 app.use(passport.initialize()) //enables authentication with passport
