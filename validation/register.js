@@ -30,9 +30,9 @@ const validateRegisterInput = (data) => {
 	const emailDomain = data.email.slice(data.email.indexOf("@") + 1)
 
 	//check if the email domain is acceptable in our array
-	if(!validEmailDomains.includes(emailDomain)){
-		errors.email = "You must use your Sony email to create an account"
-	}
+	// if(!validEmailDomains.includes(emailDomain)){
+	// 	errors.email = "You must use your Sony email to create an account"
+	// }
 
 	if(Validator.isEmpty(data.password)){
 		errors.password = "Password field is required"
