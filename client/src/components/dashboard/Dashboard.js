@@ -41,15 +41,14 @@ class Dashboard extends React.Component{
 						</p>
 						<ProfileActions/>
 
-						
 						<Experience 
 							experience={profile.experience}
 						/>
 
-
 						<Education
 							education={profile.education}
 						/>
+
 						<div style={{ marginBottom: "60px" }}></div>
 						<button 
 							className="btn btn-danger"

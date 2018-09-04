@@ -82,7 +82,7 @@ class Register extends React.Component{
 			          		value={this.state.email}
 			          		onChange={this.onChange}
 			          		error={errors.email}
-			          		info="This site uses Gravatar so if you want a profile, use a Gravatar email."
+			          		info="Please provide your Sony registered email address."
 			          	/>
 			          	<TextFieldGroup
 			          		placeholder="Password"

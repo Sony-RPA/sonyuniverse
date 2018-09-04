@@ -46,6 +46,25 @@ export const loginUser = (userData) => {
 
 }
 
+//update avatar
+export const updateAvatar = (avatar, history) => {
+	return (dispatch) => {
+		axios.post("/api/users/avatar", avatar)
+			.then((res) => {
+				dispatch({
+					type: "SET_AVATAR",
+					payload: avatar.avatar
+				})
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
 //set logged in user
 export const setCurrentUser = (decoded) => {
 	return {

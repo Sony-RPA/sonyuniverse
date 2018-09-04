@@ -45,7 +45,7 @@ class PostItem extends React.Component{
                     <img 
                     	className="rounded-circle d-none d-md-block" 
                     	src={post.avatar}
-                      	alt="" 
+                      alt="" 
                       />
                   </a>
                   <br />

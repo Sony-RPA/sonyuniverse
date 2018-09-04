@@ -11,6 +11,7 @@ import Login from "../components/auth/Login"
 import Dashboard from "../components/dashboard/Dashboard"
 import CreateProfile from "../components/create-profile/CreateProfile"
 import EditProfile from "../components/edit-profile/EditProfile"
+import EditAvatar from "../components/update-avatar/EditAvatar"
 import AddExperience from "../components/add-credentials/AddExperience"
 import AddEducation from "../components/add-credentials/AddEducation"
 import Profiles from "../components/profiles/Profiles"
@@ -67,6 +68,9 @@ class App extends React.Component{
 							</Switch>
 							<Switch>
 								<PrivateRoute path="/edit-profile" component={EditProfile}/>
+							</Switch>
+							<Switch>
+								<PrivateRoute path="/edit-avatar" component={EditAvatar}/>
 							</Switch>
 							<Switch>
 								<PrivateRoute path="/add-experience" component={AddExperience}/>

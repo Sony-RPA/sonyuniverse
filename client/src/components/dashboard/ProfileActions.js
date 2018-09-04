@@ -8,6 +8,10 @@ const ProfileActions = () => {
 				<i className="fas fa-user-circle text-info mr-1"></i>
 				Edit Profile
 			</Link>
+			<Link to="/edit-avatar" className="btn btn-dark">
+				<i className="fas fa-camera text-info mr-1"></i>
+				Edit Avatar
+			</Link>			
 			<Link to="/add-experience" className="btn btn-dark">
 				<i className="fab fa-black-tie text-info mr-1"></i>
 				Add Experience
