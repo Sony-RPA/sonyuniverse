@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, withRouter } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import TextFieldGroup from "../common/TextFieldGroup"
 import { updateAvatar } from "../../actions/authActions"
@@ -31,7 +31,7 @@ class EditAvatar extends React.Component{
 			avatar: this.state.avatar
 		}
 
-		this.props.updateAvatar(newAvatar, this.props.history)
+		this.props.updateAvatar(newAvatar)
 	}
 
 	onChange = (event) => {
@@ -56,18 +56,18 @@ class EditAvatar extends React.Component{
 								<img 
 									src={currentAvatar}
 									className="rounded-circle"
-									style={{maxWidth: "200px"}}
+									style={{height: "200px", width: "200px"}}
 								/>
 							</div>
 							<small className="d-block pb-3">* = required fields</small>
 							<form onSubmit={this.onSubmit}>
 								<TextFieldGroup
-									placeholder="* Image URL"
+									placeholder="* URL - https://i.imgur.com/FRK6meX.png"
 									name="avatar"
 									value={this.state.avatar}
 									onChange={this.onChange}
 									error={errors.avatar}
-									info="Provide a url: https://dxf1.com/images/jdownloads/screenshots/sony.png"
+									info="Use images with equal dimensions (200 x 200) for best quality" 
 								/>
 								<input
 									type="submit" value="Submit"
@@ -91,10 +91,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		updateAvatar: (avatar, history) => {
-			dispatch(updateAvatar(avatar, history))
+		updateAvatar: (avatar) => {
+			dispatch(updateAvatar(avatar))
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditAvatar))
+export default connect(mapStateToProps, mapDispatchToProps)(EditAvatar)

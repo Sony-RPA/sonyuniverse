@@ -47,7 +47,7 @@ export const loginUser = (userData) => {
 }
 
 //update avatar
-export const updateAvatar = (avatar, history) => {
+export const updateAvatar = (avatar) => {
 	return (dispatch) => {
 		axios.post("/api/users/avatar", avatar)
 			.then((res) => {

@@ -43,6 +43,11 @@ img {
   height: 43px;
 }
 
+.avatar {
+  max-width: 148px;
+  max-height: 148px;
+}
+
 .text-shadow{
   text-shadow: 0px 1px 2px #000;
 }
