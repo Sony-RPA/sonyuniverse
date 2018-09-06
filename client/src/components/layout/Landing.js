@@ -20,12 +20,12 @@ class Landing extends React.Component{
 			    	<div className="container">
 			    		<div className="row">
 			          		<div className="col-md-12 text-center">
-			            		<h1 className="display-3 mb-4 text-shadow" 
+			            		<h1 className="display-3 mb-4" 
 			            			style={{fontFamily: "Sarpanch", fontWeight: "bolder"}}
 			            		>
 			            			SONY UNIVERSE
 			            		</h1>
-			            		<p className="lead text-shadow" style={{fontFamily: "Kanit"}}>
+			            		<p className="lead" style={{fontFamily: "Kanit"}}>
 			            			Create your profile and join the family.
 			            			<br/>
 			            			Share. Connect. Live.
