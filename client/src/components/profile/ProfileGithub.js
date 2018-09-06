@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios"
 
 class ProfileGithub extends React.Component{
 	constructor(props){
@@ -16,14 +17,17 @@ class ProfileGithub extends React.Component{
 		const username = this.props.username
 		const { count, sort, clientId, clientSecret } = this.state
 
-		fetch(`https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`)
-			.then((res) => {
-				return res.json()
+		//transformRequest allows us to remove headers on a single request.
+		axios.get(`https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`, {
+			transformRequest: [(data, headers) => {
+    				delete headers.common.Authorization
+    				return data
+				}]			
 			})
-			.then(data => {
+			.then(res => {
 				if(this.refs.myRef){
 					this.setState({
-						repos: data
+						repos: res.data
 					})
 				}
 			})
