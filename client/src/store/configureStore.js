@@ -1,5 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux"
-import { composeWithDevTools } from "redux-devtools-extension"
+import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import authReducer from "../reducers/authReducer"
 import errorReducer from "../reducers/errorReducer"
 import profileReducer from "../reducers/profileReducer"
@@ -14,6 +13,11 @@ const store = createStore(combineReducers({
 	profile: profileReducer,
 	post: postReducer
 }), initialStoreState,
-	composeWithDevTools(applyMiddleware(thunk)))
+	compose(
+		applyMiddleware(thunk)
+		//need this for redux dev tools to work
+		//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()		
+	)
+)
 
 export default store
