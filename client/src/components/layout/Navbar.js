@@ -40,8 +40,7 @@ class Navbar extends React.Component{
 	            		className="rounded-circle"
 	            		src={user.avatar}
 	            		alt={user.name}
-	            		style={{ width: "25px", marginRight: "5px" }}
-	            		title="You must have a Gravatar connected to your email to display an image"
+	            		style={{ width: "25px", height: "25px", marginRight: "5px" }}
 	            	/>
 	            	Logout
 	            </a>
