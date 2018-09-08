@@ -31,8 +31,8 @@ class Landing extends React.Component{
 			            			Share. Connect. Live.
 			            		</p>
 			            		<hr/>
-			            		<Link to="/register" className="btn btn-lg btn-success mr-2">Sign Up</Link>
-			            		<Link to="/login" className="btn btn-lg btn-info">Login</Link>
+			            		<Link to="/register" className="btn btn-lg btn-outline-success mr-2">Sign Up</Link>
+			            		<Link to="/login" className="btn btn-lg btn-outline-info">Login</Link>
 			          		</div>
 			        	</div>
 			      	</div>
