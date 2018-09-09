@@ -35,8 +35,8 @@ class Profiles extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h1 className="display-4 text-center">Developer Profiles</h1>
-							<p className="lead text-center">Browse and connect with developers</p>
+							<h1 className="display-4 text-center">Sony Family</h1>
+							<p className="lead text-center">Browse and connect with colleagues</p>
 							{profileItems}
 						</div>
 					</div>

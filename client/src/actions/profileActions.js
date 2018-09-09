@@ -15,7 +15,7 @@ export const getCurrentProfile = () => {
 			.catch((errors) => {
 				dispatch({
 					type: "GET_PROFILE",
-					payload: {}
+					payload: null
 				})
 			})
 	}

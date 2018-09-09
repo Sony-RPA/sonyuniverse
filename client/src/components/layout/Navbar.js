@@ -71,7 +71,7 @@ class Navbar extends React.Component{
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link" to="/api/profiles"> Professionals
+			            <Link className="nav-link" to="/profiles"> Colleagues
 			            </Link>
 			          </li>
 			        </ul>

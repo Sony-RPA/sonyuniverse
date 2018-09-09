@@ -58,7 +58,7 @@ class App extends React.Component{
 						<div className="container">
 							<Route path="/register" component={Register}/>
 							<Route path="/login" component={Login}/>
-							<Route path="/api/profiles" component={Profiles} exact={true} />
+							<Route path="/profiles" component={Profiles} exact={true} />
 							<Route path="/profile/:handle" component={Profile}/>
 							<Switch>
 								<PrivateRoute path="/dashboard" component={Dashboard}/>

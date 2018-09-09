@@ -29,11 +29,11 @@ class Dashboard extends React.Component{
 
 		let dashboardContent;
 
-		if(profile === null || loading){
+		if(loading){
 			dashboardContent = <Spinner/>
 		} else{
 			//check if logged in user has profile data
-			if(Object.keys(profile).length > 0){
+			if(profile){
 				dashboardContent = (
 					<div>
 						<p className="lead text-muted">
