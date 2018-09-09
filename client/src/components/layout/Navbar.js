@@ -8,7 +8,6 @@ import sonyUniverseLogo from"../common/sonyuniverselogo.png"
 class Navbar extends React.Component{
 	constructor(props){
 		super(props)
-
 		this.onLogoutClick = this.onLogoutClick.bind(this)
 	}
 
@@ -35,7 +34,7 @@ class Navbar extends React.Component{
  			  	</Link>
  			  </li>
 	          <li className="nav-item">
-	            <a href="" onClick={this.onLogoutClick} className="nav-link">
+	            <a href="/login" onClick={this.onLogoutClick} className="nav-link">
 	            	<img 
 	            		className="rounded-circle"
 	            		src={user.avatar}
