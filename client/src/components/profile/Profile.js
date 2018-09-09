@@ -36,7 +36,7 @@ class Profile extends React.Component{
 				<div>
 					<div className="row">
 						<div className="col-md-12">
-							<Link to="/api/profiles" className="btn btn-secondary mb-3 float-left">
+							<Link to="/profiles" className="btn btn-secondary mb-3 float-left">
 								Back to Profiles
 							</Link>
 						</div>
