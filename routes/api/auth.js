@@ -1,4 +1,5 @@
 const User = require("../../models/User")
+const Post = require("../../models/Post")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const keys = require("../../config/keys")
@@ -120,6 +121,7 @@ const authRoutes = (app) => {
 
 		const avatar = req.body.avatar
 
+		//update user with new avatar
 		User.findOneAndUpdate({ _id: req.user.id }, { avatar: avatar })
 			.then((updatedUser) => {
 				updatedUser.save()
@@ -134,7 +136,22 @@ const authRoutes = (app) => {
 				return res.status(404).json({ couldnotupdate: "Could not update avatar"})
 			})
 
-		//TODO: change the avatars for all posts and comments
+		//update all user posts with the new avatar
+		Post.updateMany({ user: req.user.id }, { avatar: avatar })
+			.then((updatedPosts) => {
+				updatedPosts.save()
+					.then((savedPosts) => {
+						console.log(savedPosts)
+					})
+					.catch((errors) => {
+						console.log(errors)
+					})
+			})
+			.catch((errors) => {
+				return res.status(404).json({ couldnotupdate: "Could not update post avatars"})
+			})
+
+		//TODO: change the avatars and comments
 	})
 
 
