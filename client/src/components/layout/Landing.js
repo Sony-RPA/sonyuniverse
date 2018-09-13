@@ -20,7 +20,7 @@ class Landing extends React.Component{
 			    	<div className="container">
 			    		<div className="row">
 			          		<div className="col-md-12 text-center">
-			            		<h1 className="display-3 mb-4" 
+			            		<h1 className="display-4 mb-4" 
 			            			style={{fontFamily: "Sarpanch", fontWeight: "bolder"}}
 			            		>
 			            			SONY UNIVERSE

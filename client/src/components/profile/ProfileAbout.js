@@ -20,10 +20,10 @@ class ProfileAbout extends React.Component{
 		})
 
 		return(
-          <div className="row">
+          <div className="row mb-3">
             <div className="col-md-12">
-              <div className="card card-body bg-dark mb-3">
-                <h3 className="text-center text-info">{firstName}</h3>
+              <div className="card card-body bg-dark mb-3 p-5">
+                <h3 className="text-center text-info mb-4">{firstName}</h3>
                 <p className="lead text-light">
                 	{isEmpty(profile.bio) ? (<span>{firstName} does not have a bio</span>) : (<span>{profile.bio}</span>)}
                 </p>
