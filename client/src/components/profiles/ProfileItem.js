@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
+import { connect } from "react-redux"
 
 class ProfileItem extends React.Component{
 	constructor(props){
@@ -9,8 +10,12 @@ class ProfileItem extends React.Component{
 
 	render(){
 		const profile = this.props.profile
+		const isAuthenticated = this.props.auth.isAuthenticated
 		return(
-			<div className="card card-body bg-light mb-3">
+			<div 
+				className="card card-body bg-light mb-3"
+				style={{ fontFamily: "Roboto"}}
+			>
 				<div className="row">
 					<div className="col-2">
 						<img 
@@ -30,13 +35,15 @@ class ProfileItem extends React.Component{
 						<Link to={`/profile/${profile.handle}`} className="btn btn-info">
 							View Profile
 						</Link>
+						{ isAuthenticated && <button className="btn btn-success ml-1">Connect</button> }
+
 					</div>
 					<div className="col-md-4 d-none d-md-block">
 						<h4>Skill Set</h4>
 						<ul className="list-group">
 							{ profile.skills.slice(0, 4).map((skill, index) => (
 								<li key={index} className="bg-dark text-light border border-light list-group-item">
-									<i className="fa fa-check pr-1"/>
+									<i className="fa fa-check pr-1 text-success"/>
 									{skill}	
 								</li>
 							))}
@@ -48,4 +55,11 @@ class ProfileItem extends React.Component{
 	}
 }
 
-export default ProfileItem
+const mapStateToProps = (state) => {
+	return{
+		auth: state.auth
+	}
+}
+
+
+export default connect(mapStateToProps)(ProfileItem)

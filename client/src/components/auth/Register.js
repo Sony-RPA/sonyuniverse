@@ -65,8 +65,10 @@ class Register extends React.Component{
 			    <div className="container">
 			      <div className="row">
 			        <div className="col-md-8 m-auto">
-			          <h1 className="display-4 text-center">Sign Up</h1>
-			          <p className="lead text-center">Create your Sony Universe account</p>
+			        	<div style={{fontFamily: "Montserrat"}}>
+				          <h1 className="display-4 text-center">SIGN UP</h1>
+				          <p className="lead text-center">Create your Sony Universe account</p>
+			          	</div>
 			          <form noValidate onSubmit={this.onSubmit}>
 			          	<TextFieldGroup
 			          		placeholder="Name"

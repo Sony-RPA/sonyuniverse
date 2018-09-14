@@ -2,20 +2,8 @@ const mongoose = require("mongoose")
 
 const colleagueSchema = new mongoose.Schema({
 	user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-	connected: [
-		{
-			profileHandle:{
-				type: String
-			}
-		}
-	],
-	pending: [
-		{
-			profileHandle:{
-				type: String
-			}
-		}
-	]
+	connected: [Number],
+	pending: [Number]
 })
 
 const Colleague = mongoose.model("Colleague", colleagueSchema)
