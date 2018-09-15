@@ -35,7 +35,7 @@ class Dashboard extends React.Component{
 			//check if logged in user has profile data
 			if(profile){
 				dashboardContent = (
-					<div>
+					<div style={{fontFamily: "roboto"}}>
 						<p className="lead text-muted">
 							Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
 						</p>
@@ -75,7 +75,12 @@ class Dashboard extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h1 className="display-4">Dashboard</h1>
+							<h1 
+								className="display-4 mb-3"
+								style={{fontFamily: "Montserrat"}}
+							>
+								Dashboard
+							</h1>
 							{dashboardContent}
 						</div>
 					</div>

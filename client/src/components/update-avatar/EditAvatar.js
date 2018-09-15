@@ -48,10 +48,15 @@ class EditAvatar extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
-							<Link to="/dashboard" className="btn btn-secondary">
+							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<h1 className="display-4 text-center">Update your Avatar</h1>
+							<h1 
+								className="display-4 text-center"
+								style={{fontFamily: "Montserrat"}}
+							>
+								Update your Avatar
+							</h1>
 							<div className="text-center mt-4 mb-4">
 								<img 
 									src={currentAvatar}

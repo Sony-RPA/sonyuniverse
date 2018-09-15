@@ -166,12 +166,16 @@ class EditProfile extends React.Component{
 		const options = [
 			{ label: "* Select Professional Status", value: 0 },
 			{ label: "Developer", value: "Developer" },
-			{ label: "Junior Developer", value: "Junior Developer" },
-			{ label: "Senior Developer", value: "Senior Developer" },
+			{ label: "Finance", value: "Finance" },
+			{ label: "Accounting", value: "Accounting" },
 			{ label: "Manager", value: "Manager" },
-			{ label: "Student", value: "Student" },
-			{ label: "Instructor", value: "Instructor" },
-			{ label: "Intern", value: "Intern" },
+			{ label: "Director", value: "Director" },
+			{ label: "Marketing", value: "Marketing" },
+			{ label: "Sales", value: "Sales" },
+			{ label: "HR", value: "HR" },
+			{ label: "Operations", value: "Operations" },
+			{ label: "Support", value: "Support" },
+			{ label: "Designer", value: "Designer" },
 			{ label: "Other", value: "Other" }
 		]
 		return(
@@ -179,10 +183,15 @@ class EditProfile extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
-							<Link to="/dashboard" className="btn btn-secondary">
+							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>						
-							<h1 className="display-4 text-center">Edit Your Profile</h1>
+							<h1 
+								className="display-4 text-center mb-4"
+								style={{fontFamily: "Montserrat"}}
+							>
+								Edit Your Profile
+							</h1>
 							<small className="d-block pb-3">* = required fields</small>
 							<form onSubmit={this.onSubmit}>
 								<TextFieldGroup

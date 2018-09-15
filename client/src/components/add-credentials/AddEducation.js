@@ -69,10 +69,15 @@ class AddEducation extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
-							<Link to="/dashboard" className="btn btn-secondary">
+							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<h1 className="display-4 text-center">Add Education</h1>
+							<h1 
+								className="display-4 text-center"
+								style={{fontFamily: "Montserrat"}}
+							>
+								Add Education
+							</h1>
 							<p className="lead text-center">Add any school or program that you have attended</p>
 							<small className="d-block pb-3">* = required fields</small>
 
