@@ -72,13 +72,10 @@ class AddExperience extends React.Component{
 							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<h1 
-								className="display-4 text-center"
-								style={{fontFamily: "Montserrat"}}
-							>
-								Add Experience
-							</h1>
-							<p className="lead text-center">Add any job or position that you have had in the past or current</p>
+							<div style={{fontFamily: "Montserrat"}}>
+								<h1 className="display-4 text-center">Add Experience</h1>
+								<p className="lead text-center">Tell us about your favorite job experiences</p>
+							</div>
 							<small className="d-block pb-3">* = required fields</small>
 
 							<form onSubmit={this.onSubmit}>

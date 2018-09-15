@@ -72,13 +72,10 @@ class AddEducation extends React.Component{
 							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<h1 
-								className="display-4 text-center"
-								style={{fontFamily: "Montserrat"}}
-							>
-								Add Education
-							</h1>
-							<p className="lead text-center">Add any school or program that you have attended</p>
+							<div style={{fontFamily: "Montserrat"}}>
+								<h1 className="display-4 text-center">Add Education</h1>
+								<p className="lead text-center">Add any school or program that you have attended</p>
+							</div>
 							<small className="d-block pb-3">* = required fields</small>
 
 							<form onSubmit={this.onSubmit}>

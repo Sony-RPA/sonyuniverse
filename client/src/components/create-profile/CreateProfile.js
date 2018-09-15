@@ -141,13 +141,10 @@ class CreateProfile extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
-							<h1 
-								className="display-4 text-center"
-								style={{fontFamily: "Montserrat"}}
-							>
-								Create Your Profile
-							</h1>
-							<p className="lead text-center">Let's get some information to make your profile stand out</p>
+							<div style={{fontFamily: "Montserrat"}}>
+								<h1 className="display-4 text-center">Create Your Profile</h1>
+								<p className="lead text-center">Let's get some information to make your profile stand out</p>
+							</div>
 							<small className="d-block pb-3">* = required fields</small>
 							<form onSubmit={this.onSubmit}>
 								<TextFieldGroup
