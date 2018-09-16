@@ -6,10 +6,6 @@ import Spinner from "../common/Spinner"
 import { getPosts } from "../../actions/postActions"
 
 class Posts extends React.Component{
-	constructor(props){
-		super(props)
-	}
-
 	componentDidMount(){
 		this.props.getPosts()
 	}

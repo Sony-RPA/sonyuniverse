@@ -9,10 +9,6 @@ import { getPost } from "../../actions/postActions"
 
 
 class Post extends React.Component{
-	constructor(props){
-		super(props)
-	}
-
 	componentDidMount(){
 		this.props.getPost(this.props.match.params.id)
 	}

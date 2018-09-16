@@ -7,10 +7,6 @@ import { getColleagues } from "../../actions/colleagueActions"
 
 
 class Profiles extends React.Component{
-	constructor(props){
-		super(props)
-	}
-
 	componentDidMount(){
 		this.props.getProfiles()
 		this.props.getColleagues()

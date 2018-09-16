@@ -9,10 +9,6 @@ import Spinner from "../common/Spinner"
 import { getProfileByHandle } from "../../actions/profileActions"
 
 class Profile extends React.Component{
-	constructor(props){
-		super(props)
-	}
-
 	componentDidMount(){
 		if(this.props.match.params.handle){
 			this.props.getProfileByHandle(this.props.match.params.handle)

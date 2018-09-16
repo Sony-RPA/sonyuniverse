@@ -2,10 +2,6 @@ import React from "react"
 import isEmpty from "../../validation/is-empty"
 
 class ProfileAbout extends React.Component{
-	constructor(props){
-		super(props)
-	}
-
 	render(){
 		const { profile } = this.props
 		//Get first name
