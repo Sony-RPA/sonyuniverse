@@ -3,6 +3,8 @@ const passport = require("passport")
 const Colleague = require("../../models/Colleague")
 
 const colleagueRoutes = (app) => {
+	//@desc get users colleagues
+	//@access private
 	app.get("/api/colleagues", passport.authenticate("jwt", {session: false}), (req, res) => {
 		//find users colleague model
 		Colleague.findOne({ user: req.user.id})
@@ -34,8 +36,8 @@ const colleagueRoutes = (app) => {
 				//add the currentUser to the requested colleague's received array
 				Colleague.findOne({ user: requestedColleague })
 					.then((requestedColleague) => {
-						const recievedColleague = req.user.id
-						requestedColleague.received.unshift(recievedColleague)
+						const receivedColleague = req.user.id
+						requestedColleague.received.unshift(receivedColleague)
 						requestedColleague.save()
 					})
 					.catch((errors) => {
