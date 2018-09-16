@@ -20,7 +20,7 @@ class Landing extends React.Component{
 			    	<div className="container">
 			    		<div className="row">
 			          		<div className="col-md-12 text-center"
-			          			>
+			          			style={{fontFamily: "Kanit"}}>
 			            		<h1 className="display-4 mb-4" style={{fontWeight: "bolder"}}>
 			            			SONY UNIVERSE
 			            		</h1>
@@ -30,8 +30,8 @@ class Landing extends React.Component{
 			            			Share. Connect. Live.
 			            		</p>
 			            		<hr/>
-			            		<Link to="/register" className="btn btn-lg btn-success mr-2">SIGN UP</Link>
-			            		<Link to="/login" className="btn btn-lg btn-info">LOGIN</Link>
+			            		<Link to="/register" className="btn btn-md btn-success mr-2">SIGN UP</Link>
+			            		<Link to="/login" className="btn btn-md btn-info">LOGIN</Link>
 			          		</div>
 			        	</div>
 			      	</div>
