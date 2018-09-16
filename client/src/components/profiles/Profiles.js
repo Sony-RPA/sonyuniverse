@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import Spinner from "../common/Spinner"
 import ProfileItem from "./ProfileItem"
 import { getProfiles } from "../../actions/profileActions"
+import { getColleagues } from "../../actions/colleagueActions"
 
 
 class Profiles extends React.Component{
@@ -12,6 +13,7 @@ class Profiles extends React.Component{
 
 	componentDidMount(){
 		this.props.getProfiles()
+		this.props.getColleagues()
 	}
 
 	render(){
@@ -62,6 +64,9 @@ const mapDispatchToProps = (dispatch) => {
 	return{
 		getProfiles: () => {
 			dispatch(getProfiles())
+		},
+		getColleagues: () => {
+			dispatch(getColleagues())
 		}
 	}
 }

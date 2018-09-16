@@ -19,20 +19,19 @@ class Landing extends React.Component{
 				<div className="dark-overlay landing-inner text-light">
 			    	<div className="container">
 			    		<div className="row">
-			          		<div className="col-md-12 text-center">
-			            		<h1 className="display-4 mb-4" 
-			            			style={{fontFamily: "Sarpanch", fontWeight: "bolder"}}
-			            		>
+			          		<div className="col-md-12 text-center"
+			          			style={{fontFamily: "Kanit"}}>
+			            		<h1 className="display-4 mb-4" style={{fontWeight: "bolder"}}>
 			            			SONY UNIVERSE
 			            		</h1>
-			            		<p className="lead" style={{fontFamily: "Kanit"}}>
+			            		<p className="lead">
 			            			Create your profile and join the family.
 			            			<br/>
 			            			Share. Connect. Live.
 			            		</p>
 			            		<hr/>
-			            		<Link to="/register" className="btn btn-lg btn-success mr-2">Sign Up</Link>
-			            		<Link to="/login" className="btn btn-lg btn-info">Login</Link>
+			            		<Link to="/register" className="btn btn-lg btn-success mr-2">SIGN UP</Link>
+			            		<Link to="/login" className="btn btn-lg btn-info">LOGIN</Link>
 			          		</div>
 			        	</div>
 			      	</div>

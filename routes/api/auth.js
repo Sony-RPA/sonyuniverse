@@ -1,5 +1,6 @@
 const User = require("../../models/User")
 const Post = require("../../models/Post")
+const Colleague = require("../../models/Colleague")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const keys = require("../../config/keys")
@@ -53,6 +54,10 @@ const authRoutes = (app) => {
 							newUser.save()
 								.then((createdUser) => {
 									res.json(createdUser)
+									//create a colleague model for the new user
+									const userId = createdUser._id
+									new Colleague({ user: userId}).save()
+
 								})
 								.catch((err) => {
 									console.log(err)

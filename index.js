@@ -34,11 +34,13 @@ app.use(bodyParser.json())
 const authRoutes = require("./routes/api/auth")
 const postsRoutes = require("./routes/api/posts")
 const profileRoutes = require("./routes/api/profile")
+const colleagueRoutes = require("./routes/api/colleagues")
 
 //Use Routes
 authRoutes(app)
 postsRoutes(app)
 profileRoutes(app)
+colleagueRoutes(app)
 
 //serve static assets if in production
 if(process.env.NODE_ENV === "production"){

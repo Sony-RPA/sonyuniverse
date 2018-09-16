@@ -50,16 +50,16 @@ class Navbar extends React.Component{
 		const guestLinks = (
 	        <ul className="navbar-nav ml-auto">
 	          <li className="nav-item">
-	            <Link className="nav-link" to="/register">Sign Up</Link>
+	            <Link className="nav-link" to="/register">SIGN UP</Link>
 	          </li>
 	          <li className="nav-item">
-	            <Link className="nav-link" to="/login">Login</Link>
+	            <Link className="nav-link" to="/login">LOGIN</Link>
 	          </li>
 	        </ul>
 		)		
 
 		return(
-			<div>
+			<div style={{fontFamily: "Kanit"}}>
 			  <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 			    <div className="container">
 			      <Link className="navbar-brand" to="/"><img src={sonyUniverseLogo} className="logo"/></Link>
@@ -70,7 +70,7 @@ class Navbar extends React.Component{
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link" to="/profiles"> Colleagues
+			            <Link className="nav-link" to="/profiles">COLLEAGUES
 			            </Link>
 			          </li>
 			        </ul>

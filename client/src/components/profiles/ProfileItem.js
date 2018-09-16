@@ -2,10 +2,18 @@ import React from "react"
 import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
 import { connect } from "react-redux"
+import { addColleague } from "../../actions/colleagueActions"
 
 class ProfileItem extends React.Component{
 	constructor(props){
 		super(props)
+
+		this.onClick = this.onClick.bind(this)
+	}
+
+	onClick = (event) => {
+		const requestedColleague = this.props.profile.user._id
+		this.props.addColleague(requestedColleague)
 	}
 
 	render(){
@@ -14,7 +22,15 @@ class ProfileItem extends React.Component{
 		const userId = this.props.auth.user.id
 		let connectButton
 		if(isAuthenticated && userId !== profile.user._id){
-			connectButton = <button className="btn btn-success ml-1">Connect</button>
+			connectButton = (
+				<button  
+					// to={`/api/colleagues/${profile.user._id}`} 
+					className="btn btn-success ml-1"
+					onClick={this.onClick}
+				>
+					Connect
+				</button>
+			)
 		}
 
 		return(
@@ -67,5 +83,13 @@ const mapStateToProps = (state) => {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return{
+		addColleague: (newColleagueId) => {
+			dispatch(addColleague(newColleagueId))
+		}
+	}
+}
 
-export default connect(mapStateToProps)(ProfileItem)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileItem)

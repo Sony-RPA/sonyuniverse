@@ -3,6 +3,7 @@ import authReducer from "../reducers/authReducer"
 import errorReducer from "../reducers/errorReducer"
 import profileReducer from "../reducers/profileReducer"
 import postReducer from "../reducers/postReducer"
+import colleagueReducer from "../reducers/colleagueReducer"
 import thunk from "redux-thunk"
 
 const initialStoreState = {}
@@ -11,7 +12,8 @@ const store = createStore(combineReducers({
 	auth: authReducer,
 	errors: errorReducer,
 	profile: profileReducer,
-	post: postReducer
+	post: postReducer,
+	colleague: colleagueReducer
 }), initialStoreState,
 	compose(
 		applyMiddleware(thunk)
