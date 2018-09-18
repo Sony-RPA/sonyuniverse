@@ -8,7 +8,6 @@ class Landing extends React.Component{
 			this.props.history.push("/dashboard")
 		}
 	}	
-
 	render(){
 		return(
 			<div className="landing">
@@ -21,13 +20,13 @@ class Landing extends React.Component{
 			            			SONY UNIVERSE
 			            		</h1>
 			            		<p className="lead">
-			            			Create your profile and join the family.
+			            			Get started and find your party.
 			            			<br/>
 			            			Share. Connect. Live.
 			            		</p>
 			            		<hr/>
-			            		<Link to="/register" className="btn btn-md btn-success mr-2">SIGN UP</Link>
-			            		<Link to="/login" className="btn btn-md btn-info">LOGIN</Link>
+			            		<Link to="/register" className="btn btn-lg btn-outline-success mr-2">SIGN UP</Link>
+			            		<Link to="/login" className="btn btn-lg btn-outline-info">LOGIN</Link>
 			          		</div>
 			        	</div>
 			      	</div>

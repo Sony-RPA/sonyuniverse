@@ -2,34 +2,80 @@ import React from "react"
 import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
 import { connect } from "react-redux"
-import { addColleague } from "../../actions/colleagueActions"
+import { addColleague, acceptColleague } from "../../actions/colleagueActions"
 
 class ProfileItem extends React.Component{
 	constructor(props){
 		super(props)
 
-		this.onClick = this.onClick.bind(this)
+		this.handleRequestColleague = this.handleRequestColleague.bind(this)
+		this.handleReceivedColleague = this.handleReceivedColleague.bind(this)
 	}
 
-	onClick = (event) => {
+	handleRequestColleague = (event) => {
 		const requestedColleague = this.props.profile.user._id
 		this.props.addColleague(requestedColleague)
+	}
+
+	handleReceivedColleague = (event) => {
+		const receivedColleague = this.props.profile.user._id
+		this.props.acceptColleague(receivedColleague)
 	}
 
 	render(){
 		const profile = this.props.profile
 		const isAuthenticated = this.props.auth.isAuthenticated
 		const userId = this.props.auth.user.id
+		
+		let colleagues = this.props.colleague
+		let connected = colleagues.connected
+		let requested = colleagues.requested
+		let received = colleagues.received
+		let denied = colleagues.denied
+
 		let connectButton
-		if(isAuthenticated && userId !== profile.user._id){
+		if(isAuthenticated &&
+		 userId !== profile.user._id && 
+		 !requested.includes(profile.user._id) && 
+		 !received.includes(profile.user._id) && 
+		 !connected.includes(profile.user._id)){
+		//display connect button
 			connectButton = (
 				<button  
-					// to={`/api/colleagues/${profile.user._id}`} 
 					className="btn btn-success ml-1"
-					onClick={this.onClick}
+					onClick={this.handleRequestColleague}
 				>
 					Connect
 				</button>
+			)
+		} else if(isAuthenticated && requested.includes(profile.user._id)){
+		//display pending invitation button 
+			connectButton = (
+				<button className="btn btn-outline-dark ml-1" disabled>
+					Pending
+				</button>
+			)
+		} else if(isAuthenticated && received.includes(profile.user._id)){
+		//display accept invitation button
+			connectButton = (
+				<button 
+					className="btn btn-outline-success ml-1"
+					onClick={this.handleReceivedColleague}
+				>
+					Accept <i class="fas fa-check-circle"></i>
+				</button>
+			)
+		} else if(isAuthenticated && connected.includes(profile.user._id)){
+		//display messsage button
+			connectButton = (
+				<div style={{display: "inline-block"}}>
+					<button className="btn btn-primary ml-1">
+						<i class="fas fa-comments"></i>
+					</button>
+					<button className="btn btn-outline-danger ml-2">
+						<i class="fas fa-minus-circle"></i>
+					</button>
+				</div>
 			)
 		}
 
@@ -79,7 +125,8 @@ class ProfileItem extends React.Component{
 
 const mapStateToProps = (state) => {
 	return{
-		auth: state.auth
+		auth: state.auth,
+		colleague: state.colleague
 	}
 }
 
@@ -87,6 +134,9 @@ const mapDispatchToProps = (dispatch) => {
 	return{
 		addColleague: (newColleagueId) => {
 			dispatch(addColleague(newColleagueId))
+		},
+		acceptColleague: (receivedColleagueId) => {
+			dispatch(acceptColleague(receivedColleagueId))
 		}
 	}
 }

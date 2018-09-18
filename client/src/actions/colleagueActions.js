@@ -20,7 +20,22 @@ export const getColleagues = () => {
 
 export const addColleague = (newColleagueId) => {
 	return (dispatch) => {
-		axios.get(`/api/colleagues/${newColleagueId}`)
+		axios.post(`/api/colleagues/${newColleagueId}`)
+			.then((res) => {
+				dispatch(getColleagues())
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+export const acceptColleague = (receivedColleagueId) => {
+	return (dispatch) => {
+		axios.put(`/api/colleagues/${receivedColleagueId}`)
 			.then((res) => {
 				dispatch(getColleagues())
 			})

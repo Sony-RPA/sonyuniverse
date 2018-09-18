@@ -1,4 +1,9 @@
-const initialState = {}
+const initialState = {
+	connected: [],
+	requested: [],
+	received: [],
+	denied: []
+}
 
 const colleagueReducer = (state = initialState, action) => {
 	switch(action.type){
