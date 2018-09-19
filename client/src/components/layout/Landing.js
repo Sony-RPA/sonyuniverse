@@ -20,7 +20,7 @@ class Landing extends React.Component{
 			            			SONY UNIVERSE
 			            		</h1>
 			            		<p className="lead">
-			            			Get started and find your party.
+			            			Find your party and get started.
 			            			<br/>
 			            			Share. Connect. Live.
 			            		</p>
