@@ -13,6 +13,7 @@ class Profiles extends React.Component{
 	}
 
 	render(){
+		const { isAuthenticated } = this.props.auth
 		const { profiles, loading } = this.props.profile
 		let profileItems
 
@@ -40,6 +41,14 @@ class Profiles extends React.Component{
 									SONY FAMILY
 								</h1>
 								<p className="lead text-center">Browse and connect with colleagues</p>
+								{ isAuthenticated && (
+									<div className="text-center mb-3" style={{fontFamily: "roboto"}}>
+										<button className="btn btn-outline-success btn-sm">Connected</button>
+										<button className="btn btn-outline-secondary btn-sm ml-2 mr-2">Pending</button>
+										<button className="btn btn-outline-primary btn-sm">Everyone</button>
+									</div>
+									)
+								}
 							</div>
 							{profileItems}
 						</div>
@@ -52,6 +61,7 @@ class Profiles extends React.Component{
 
 const mapStateToProps = (state) => {
 	return{
+		auth: state.auth,
 		profile: state.profile
 	}
 }

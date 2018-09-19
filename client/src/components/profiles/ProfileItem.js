@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
 import { connect } from "react-redux"
-import { addColleague, acceptColleague } from "../../actions/colleagueActions"
+import { addColleague, acceptColleague, removeColleague } from "../../actions/colleagueActions"
 
 class ProfileItem extends React.Component{
 	constructor(props){
@@ -10,6 +10,7 @@ class ProfileItem extends React.Component{
 
 		this.handleRequestColleague = this.handleRequestColleague.bind(this)
 		this.handleReceivedColleague = this.handleReceivedColleague.bind(this)
+		this.handleRemoveColleague = this.handleRemoveColleague.bind(this)
 	}
 
 	handleRequestColleague = (event) => {
@@ -20,6 +21,11 @@ class ProfileItem extends React.Component{
 	handleReceivedColleague = (event) => {
 		const receivedColleague = this.props.profile.user._id
 		this.props.acceptColleague(receivedColleague)
+	}
+
+	handleRemoveColleague = (event) => {
+		const removedColleague = this.props.profile.user._id
+		this.props.removeColleague(removedColleague)
 	}
 
 	render(){
@@ -72,7 +78,10 @@ class ProfileItem extends React.Component{
 					<button className="btn btn-primary ml-1">
 						<i class="fas fa-comments"></i>
 					</button>
-					<button className="btn btn-outline-danger ml-2">
+					<button 
+						className="btn btn-danger ml-2"
+						onClick={this.handleRemoveColleague}
+					>
 						<i class="fas fa-minus-circle"></i>
 					</button>
 				</div>
@@ -107,7 +116,7 @@ class ProfileItem extends React.Component{
 
 					</div>
 					<div className="col-md-4 d-none d-md-block">
-						<h4>Skill Set</h4>
+						<h4>Skills</h4>
 						<ul className="list-group">
 							{ profile.skills.slice(0, 4).map((skill, index) => (
 								<li key={index} className="bg-dark text-light border border-light list-group-item">
@@ -137,9 +146,11 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		acceptColleague: (receivedColleagueId) => {
 			dispatch(acceptColleague(receivedColleagueId))
+		},
+		removeColleague: (removedColleagueId) => {
+			dispatch(removeColleague(removedColleagueId))
 		}
 	}
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileItem)

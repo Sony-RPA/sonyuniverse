@@ -47,3 +47,18 @@ export const acceptColleague = (receivedColleagueId) => {
 			})
 	}
 }
+
+export const removeColleague = (removedColleagueId) => {
+	return (dispatch) => {
+		axios.delete(`/api/colleagues/${removedColleagueId}`)
+			.then((res) => {
+				dispatch(getColleagues())
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}

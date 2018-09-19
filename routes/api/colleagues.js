@@ -33,7 +33,7 @@ const colleagueRoutes = (app) => {
 						res.status(404).json({ couldnotupdate: "could not update this users colleagues"})
 					})
 
-				//add the active user's to the requested colleague's received array
+				//add the active user to the requested colleague's received array
 				Colleague.findOne({ user: requestedColleague })
 					.then((requestedColleague) => {
 						const receivedColleague = req.user.id
@@ -87,6 +87,42 @@ const colleagueRoutes = (app) => {
 
 			.catch((errors) => {
 				res.status(404).json({ couldnotupdate: "could not update this users colleagues"})
+			})
+	})
+
+	//@desc remove colleague
+	//@access private
+	app.delete("/api/colleagues/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+		//find active users colleagues
+		Colleague.findOne({user: req.user.id})
+			.then((userColleagues) => {
+				const removedColleague = req.params.id
+				userColleagues.connected = userColleagues.connected.filter((colleague) => {
+					return colleague !== removedColleague
+				})
+				userColleagues.save()
+					.then((updatedColleagues) => {
+						res.json(updatedColleagues)
+					})
+					.catch((errors) => {
+						res.status(404).json({ couldnotupdate: "could not update active user's colleagues" })
+					})
+				//remove active user from the removedColleague's connected array
+				Colleague.findOne({user: removedColleague})
+					.then((removedColleague) => {
+						console.log(removedColleague)
+						const activeUser = req.user.id
+						removedColleague.connected = removedColleague.connected.filter((colleague) => {
+							return colleague !== activeUser
+						})
+						removedColleague.save()
+					})
+					.catch((errors) => {
+						res.status(404).json({ couldnotupdate: "could not update removedColleague's colleagues" })
+					})
+			})
+			.catch((errors) => {
+				res.status(404).json({ couldnotdelete: "could not delete colleague from user's network" })
 			})
 	})
 }
