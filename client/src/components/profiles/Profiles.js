@@ -7,14 +7,75 @@ import { getColleagues } from "../../actions/colleagueActions"
 
 
 class Profiles extends React.Component{
+	constructor(props){
+		super(props)
+		this.state = {
+			profiles: null
+		}
+
+		this.filterConnectedColleagues = this.filterConnectedColleagues.bind(this)
+	}
+
 	componentDidMount(){
 		this.props.getProfiles()
 		this.props.getColleagues()
 	}
 
+	componentWillReceiveProps(nextProps){
+		if(nextProps.profile){
+			this.setState({
+				profiles: nextProps.profile.profiles
+			})
+		}
+	}
+
+	filterConnectedColleagues = (event) => {
+		const connectedColleagues = this.props.colleague.connected
+		const allProfiles = this.props.profile.profiles
+		//get the profiles of connectedColleagues only
+		const connectedColleaguesProfiles = allProfiles.filter((profile) => {
+			return connectedColleagues.includes(profile.user._id)
+		})
+		this.setState({
+			profiles: connectedColleaguesProfiles
+		})
+	}
+
+	filterPendingColleagues = (event) => {
+		const pendingColleagues = this.props.colleague.requested
+		const allProfiles = this.props.profile.profiles
+		//get the profiles of requestedColleagues only
+		const pendingColleaguesProfiles = allProfiles.filter((profile) => {
+			return pendingColleagues.includes(profile.user._id)
+		})
+		this.setState({
+			profiles: pendingColleaguesProfiles
+		})
+	}
+
+	filterReceivedColleagues = (event) => {
+		const receivedColleagues = this.props.colleague.received
+		const allProfiles = this.props.profile.profiles
+		//get the profiles of the requestedColleagues only
+		const requestedColleaguesProfiles = allProfiles.filter((profile) => {
+			return receivedColleagues.includes(profile.user._id)
+		})
+		this.setState({
+			profiles: requestedColleaguesProfiles
+		})
+	}
+
+	filterAllEmployees = (event) => {
+		const allProfiles = this.props.profile.profiles
+		this.setState({
+			profiles: allProfiles
+		})
+	}
+
 	render(){
 		const { isAuthenticated } = this.props.auth
-		const { profiles, loading } = this.props.profile
+		const { loading } = this.props.profile
+		const profiles = this.state.profiles
 		let profileItems
 
 		if(profiles === null || loading){
@@ -28,7 +89,6 @@ class Profiles extends React.Component{
 				profileItems = <h4>No profiles found</h4>
 			}
 		}
-
 		return(
 			<div className="profiles">
 				<div className="container">
@@ -41,13 +101,31 @@ class Profiles extends React.Component{
 									SONY FAMILY
 								</h1>
 								<p className="lead text-center">Browse and connect with colleagues</p>
-								{ isAuthenticated && (
+								{ isAuthenticated && !loading ? (
 									<div className="text-center mb-3" style={{fontFamily: "roboto"}}>
-										<button className="btn btn-outline-success btn-sm">Connected</button>
-										<button className="btn btn-outline-secondary btn-sm ml-2 mr-2">Pending</button>
-										<button className="btn btn-outline-primary btn-sm">Everyone</button>
+										<button 
+											className="btn btn-outline-success btn-sm mr-2"
+											onClick={this.filterConnectedColleagues}
+											>Connected
+										</button>
+										<button 
+											className="btn btn-outline-secondary btn-sm mr-2"
+											onClick={this.filterPendingColleagues}
+											>Pending
+										</button>
+										<button
+											className="btn btn-outline-info btn-sm mr-2"
+											onClick={this.filterReceivedColleagues}
+										>
+											Received	
+										</button>
+										<button 
+											className="btn btn-outline-primary btn-sm"
+											onClick={this.filterAllEmployees}
+											>Everyone
+										</button>
 									</div>
-									)
+									) : null
 								}
 							</div>
 							{profileItems}
@@ -62,7 +140,8 @@ class Profiles extends React.Component{
 const mapStateToProps = (state) => {
 	return{
 		auth: state.auth,
-		profile: state.profile
+		profile: state.profile,
+		colleague: state.colleague
 	}
 }
 

@@ -68,7 +68,7 @@ class ProfileItem extends React.Component{
 					className="btn btn-outline-success ml-1"
 					onClick={this.handleReceivedColleague}
 				>
-					Accept <i class="fas fa-check-circle"></i>
+					Accept <i className="fas fa-check-circle"></i>
 				</button>
 			)
 		} else if(isAuthenticated && connected.includes(profile.user._id)){
@@ -76,13 +76,13 @@ class ProfileItem extends React.Component{
 			connectButton = (
 				<div style={{display: "inline-block"}}>
 					<button className="btn btn-primary ml-1">
-						<i class="fas fa-comments"></i>
+						<i className="fas fa-comments"></i>
 					</button>
 					<button 
 						className="btn btn-danger ml-2"
 						onClick={this.handleRemoveColleague}
 					>
-						<i class="fas fa-minus-circle"></i>
+						<i className="fas fa-minus-circle"></i>
 					</button>
 				</div>
 			)
