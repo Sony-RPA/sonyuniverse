@@ -54,15 +54,15 @@ class ProfileItem extends React.Component{
 					Connect
 				</button>
 			)
-		} else if(isAuthenticated && requested.includes(profile.user._id)){
 		//display pending invitation button 
+		} else if(isAuthenticated && requested.includes(profile.user._id)){
 			connectButton = (
 				<button className="btn btn-outline-dark ml-1" disabled>
 					Pending
 				</button>
 			)
-		} else if(isAuthenticated && received.includes(profile.user._id)){
 		//display accept invitation button
+		} else if(isAuthenticated && received.includes(profile.user._id)){
 			connectButton = (
 				<button 
 					className="btn btn-outline-success ml-1"
@@ -71,8 +71,8 @@ class ProfileItem extends React.Component{
 					Accept <i className="fas fa-check-circle"></i>
 				</button>
 			)
-		} else if(isAuthenticated && connected.includes(profile.user._id)){
 		//display messsage button
+		} else if(isAuthenticated && connected.includes(profile.user._id)){
 			connectButton = (
 				<div style={{display: "inline-block"}}>
 					<button className="btn btn-primary ml-1">
@@ -95,11 +95,13 @@ class ProfileItem extends React.Component{
 			>
 				<div className="row">
 					<div className="col-2">
-						<img 
-							src={profile.user.avatar} 
-							alt="" 
-							className="rounded-circle d-none d-md-block avatar"
-						/>
+						<Link to={`/profile/${profile.handle}`}>
+							<img 
+								src={profile.user.avatar} 
+								alt="" 
+								className="rounded-circle d-none d-md-block avatar"
+							/>
+						</Link>
 					</div>
 					<div className="col-lg-6 col-md-4 col-8">
 						<h3>{profile.user.name}</h3>

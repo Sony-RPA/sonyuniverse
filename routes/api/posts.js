@@ -4,7 +4,6 @@ const Post = require("../../models/Post")
 const Profile = require("../../models/Profile")
 const validatePostInput = require('../../validation/post')
 
-
 const postsRoutes = (app) => {
 //@desc Tests posts route
 //@access Public
@@ -49,16 +48,26 @@ const postsRoutes = (app) => {
 			return res.status(400).json(errors)
 		}
 
-		const newPost = new Post({
-			text: req.body.text,
-			name: req.body.name,
-			avatar: req.body.avatar,
-			user: req.user.id
-		})
+		Profile.findOne({ user: req.user.id })
+			.then((foundProfile) => {
+				const newPost = new Post({
+					text: req.body.text,
+					name: req.body.name,
+					avatar: req.body.avatar,
+					user: req.user.id,
+					handle: foundProfile.handle
+				})
 
-		newPost.save()
-			.then((createdPost) => {
-				res.json(createdPost)
+				newPost.save()
+					.then((createdPost) => {
+						res.json(createdPost)
+					})
+					.catch((errors) => {
+						res.status(404).json({ postnotcreated: "could not create a new post."})
+					})
+			})
+			.catch((errors) => {
+				res.status(404).json({profilenotfound: "You must set up your profile before creating a post."})
 			})
 	})
 
@@ -161,20 +170,27 @@ const postsRoutes = (app) => {
 
 		Post.findById({ _id: req.params.post_id })
 			.then((foundPost) => {
-				const newComment = {
-					text: req.body.text,
-					name: req.body.name,
-					avatar: req.body.avatar,
-					user: req.user.id
-				}
+				//a profile is required create a comment, check if the user has one
+				Profile.findOne({ user: req.user.id })
+					.then((foundProfile) => {
+						const newComment = {
+							text: req.body.text,
+							name: req.body.name,
+							avatar: req.body.avatar,
+							user: req.user.id,
+							handle: foundProfile.handle
+						}
+						//Add to comments array
+						foundPost.comments.unshift(newComment)
 
-				//Add to comments array
-				foundPost.comments.unshift(newComment)
-
-				//Save post with new comment
-				foundPost.save()
-					.then((savedPost) => {
-						res.json(savedPost)
+						//Save post with new comment
+						foundPost.save()
+							.then((savedPost) => {
+								res.json(savedPost)
+							})
+					})
+					.catch((errors) => {
+						res.status(404).json({ profilenotfound: "You must set up your profile before creating a post."})
 					})
 			})
 			.catch((error) => {

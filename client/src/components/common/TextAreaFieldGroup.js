@@ -6,13 +6,14 @@ const TextAreaFieldGroup = ({
 	placeholder,
 	value,
 	error,
+  errorProfile,
 	info,
 	onChange
 }) => {
 	return(
     <div className="form-group">
       <textarea 
-      	className={ error ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
+      	className={ error || errorProfile ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
       	placeholder={placeholder} 
       	name={name} 
       	value={value}
@@ -20,6 +21,7 @@ const TextAreaFieldGroup = ({
       />
       { info && <small className="form-text text-muted">{info}</small> }
       { error && <div className="invalid-feedback">{error}</div>}
+      { errorProfile && <div className="invalid-feedback">{errorProfile}</div>}
     </div>
 	)
 }

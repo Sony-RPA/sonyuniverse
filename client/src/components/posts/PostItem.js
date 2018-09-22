@@ -26,12 +26,11 @@ class PostItem extends React.Component{
 	findUserLike = (likes) => {
 		const auth = this.props.auth
 		if(likes.filter(like => like.user === auth.user.id).length > 0){
-			return true
-		} else {
-			return false
-		}
+      return true
+      } else{
+        return false
+      }
 	}
-
 
 	render(){
 		const post = this.props.post
@@ -41,11 +40,13 @@ class PostItem extends React.Component{
             <div className="card card-body mb-3">
               <div className="row">
                 <div className="col-md-2">
-                  <img 
-                  	className="rounded-circle d-none d-md-block avatar" 
-                  	src={post.avatar}
-                    alt="" 
+                  <Link to={`/profile/${post.handle}`}>
+                    <img 
+                    	className="rounded-circle d-none d-md-block avatar" 
+                    	src={post.avatar}
+                      alt="" 
                     />
+                  </Link>
                   <br />
                   <p className="text-center">{post.name}</p>
                 </div>

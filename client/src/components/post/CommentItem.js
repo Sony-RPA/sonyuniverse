@@ -1,11 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 import { deleteComment } from "../../actions/postActions"
+import { Link } from "react-router-dom"
 
 class CommentItem extends React.Component{
 	constructor(props){
 		super(props)
-
 
 		this.onDeleteClick = this.onDeleteClick.bind(this)
 	}
@@ -20,11 +20,13 @@ class CommentItem extends React.Component{
             <div className="card card-body mb-3">
               <div className="row">
                 <div className="col-md-2">
-                  <img 
-                  	className="rounded-circle d-none d-md-block avatar" 
-                  	src={comment.avatar} 
-                  	alt="" 
-                  />
+                  <Link to={`/profile/${comment.handle}`}>
+                    <img 
+                    	className="rounded-circle d-none d-md-block avatar" 
+                    	src={comment.avatar} 
+                    	alt="" 
+                    />
+                  </Link> 
                   <br />
                   <p className="text-center">
                   	{comment.name}

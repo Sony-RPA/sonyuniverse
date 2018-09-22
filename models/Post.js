@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema({
 	text: { type: String, required: true },
 	name: String,
 	avatar: String,
+	handle: String,
 	likes: [
 		{
 			user: {
@@ -25,6 +26,7 @@ const postSchema = new mongoose.Schema({
 			},
 			name: String,
 			avatar: String,
+			handle: String,
 			date: { type: Date, default: Date.now() }	
 		}	
 	],
