@@ -121,7 +121,7 @@ class ProfileItem extends React.Component{
 						<h4>Skills</h4>
 						<ul className="list-group">
 							{ profile.skills.slice(0, 4).map((skill, index) => (
-								<li key={index} className="bg-dark text-light border border-light list-group-item">
+								<li key={index} className="bg-navy text-light border border-light list-group-item">
 									<i className="fa fa-check pr-1 text-success"/>
 									{skill}	
 								</li>

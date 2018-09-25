@@ -60,7 +60,7 @@ class Navbar extends React.Component{
 
 		return(
 			<div style={{fontFamily: "Kanit"}}>
-			  <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+			  <nav className="navbar navbar-expand-sm navbar-dark bg-navy mb-4">
 			    <div className="container">
 			      <Link className="navbar-brand" to="/"><img src={sonyUniverseLogo} className="logo"/></Link>
 			      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
@@ -70,7 +70,7 @@ class Navbar extends React.Component{
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link" to="/profiles">Colleagues
+			            <Link className="nav-link" to="/profiles">NETWORK
 			            </Link>
 			          </li>
 			        </ul>
