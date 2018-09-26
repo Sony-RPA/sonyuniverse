@@ -76,6 +76,9 @@ class Profiles extends React.Component{
 		const { isAuthenticated } = this.props.auth
 		const { loading } = this.props.profile
 		const profiles = this.state.profiles
+		const connected = this.props.colleague.connected.length
+		const requested = this.props.colleague.requested.length
+		const received = this.props.colleague.received.length
 		let profileItems
 
 		if(profiles === null || loading){
@@ -106,23 +109,23 @@ class Profiles extends React.Component{
 										<button 
 											className="btn btn-outline-success btn-sm mr-2"
 											onClick={this.filterConnectedColleagues}
-											>Connected
+											>Connected ({connected})
 										</button>
 										<button 
 											className="btn btn-outline-secondary btn-sm mr-2"
 											onClick={this.filterPendingColleagues}
-											>Pending
+											>Pending ({requested})
 										</button>
 										<button
 											className="btn btn-outline-info btn-sm mr-2"
 											onClick={this.filterReceivedColleagues}
 										>
-											Received	
+											Received ({received})	
 										</button>
 										<button 
 											className="btn btn-outline-primary btn-sm"
 											onClick={this.filterAllEmployees}
-											>Everyone
+											>Everyone ({this.props.profile.profiles !== null ? this.props.profile.profiles.length: 0})
 										</button>
 									</div>
 									) : null
