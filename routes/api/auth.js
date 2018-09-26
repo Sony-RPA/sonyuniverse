@@ -149,13 +149,9 @@ const authRoutes = (app) => {
 						console.log(savedPosts)
 					})
 					.catch((errors) => {
-						console.log(errors)
+						return res.status(404).json({ couldnotupdate: "Could not update posts"})
 					})
 			})
-			.catch((errors) => {
-				return res.status(404).json({ couldnotupdate: "Could not update post avatars"})
-			})
-
 		//TODO: change the avatars and comments
 	})
 
