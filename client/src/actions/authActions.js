@@ -109,11 +109,11 @@ export const createHash = (email) => {
 }
 
 //change user password
-export const changePassword = (passwordData) => {
+export const changePassword = (passwordData, history) => {
 	return (dispatch) => {
 		axios.post("/api/users/changepassword", passwordData)
 			.then((res) => {
-				return
+				history.push("/login")
 			})
 			.catch((errors) => {
 				dispatch({

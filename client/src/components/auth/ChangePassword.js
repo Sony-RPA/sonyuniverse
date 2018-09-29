@@ -1,6 +1,7 @@
 import React from "react"
 import TextFieldGroup from "../common/TextFieldGroup"
 import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
 import { changePassword } from "../../actions/authActions"
 
 class ChangePassword extends React.Component{
@@ -40,23 +41,27 @@ class ChangePassword extends React.Component{
 
 	onSubmit = (event) => {
 		event.preventDefault()
+		let hash = this.props.match.params.hash
+		if(hash.includes("target=")){
+			hash = hash.substr(0, hash.indexOf('"'))
+		}
+
 		const passwordData = {
 			password: this.state.password,
-			confirmPassword: this.state.confirmPassword
+			confirmPassword: this.state.confirmPassword,
+			hash: hash
 		}
-		this.props.changePassword(passwordData)
+		this.props.changePassword(passwordData, this.props.history)
 	}
 
 	render(){
 		const errors = this.state.errors
-		const hash = this.props.match.params.hash
-		console.log(hash)
 		return(
 			<div className="mt-5 row justify-content-center">
 				<div className="col-10 col-sm-7 col-md-5 col-lg-4">
 					<p className="bg-dark p-3 text-light text-center rounded">
 						Please enter and confirm a new password to update
-						your credentials. {hash}
+						your credentials.
 					</p>
 					<form onSubmit={this.onSubmit}>
 						<TextFieldGroup
@@ -95,10 +100,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		changePassword: (passwordData) => {
-			dispatch(changePassword(passwordData))
+		changePassword: (passwordData, history) => {
+			dispatch(changePassword(passwordData, history))
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChangePassword))

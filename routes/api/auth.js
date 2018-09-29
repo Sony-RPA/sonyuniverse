@@ -119,7 +119,7 @@ const authRoutes = (app) => {
 		});
 
 //@desc change user password
-//access Private
+//access Public
 	app.post("/api/users/changepassword", (req, res) => {
 		const { errors, isValid } = validateChangePasswordInput(req.body)
 
@@ -127,6 +127,31 @@ const authRoutes = (app) => {
 		if(!isValid){
 			return res.status(400).json(errors)
 		}
+
+		//find user with the passwordReset hash
+		User.findOne({ passwordReset: req.body.hash })
+			.then((foundUser) => {
+				//update their password
+				foundUser.password = req.body.password
+
+				//encrypt their password
+				bcrypt.genSalt(10, (err, salt) => {
+					bcrypt.hash(foundUser.password, salt, (err, hash) => {
+						if(err){
+							throw err
+						}
+						foundUser.password = hash
+						foundUser.passwordReset = null
+						foundUser.save()
+							.then((updatedUser) => {
+								res.json(updatedUser)
+							})
+							.catch((errors) => {
+								res.status(404).json({ couldnotupdate: "could not change password"})
+							})
+					})
+				})
+			})
 	})
 
 //@desc login user /returning Token
