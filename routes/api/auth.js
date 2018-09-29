@@ -120,7 +120,7 @@ const authRoutes = (app) => {
 
 //@desc change user password
 //access Private
-	app.post("/api/users/changepassword", passport.authenticate("jwt", { session: false}), (req, res) => {
+	app.post("/api/users/changepassword", (req, res) => {
 		const { errors, isValid } = validateChangePasswordInput(req.body)
 
 		//check validation
