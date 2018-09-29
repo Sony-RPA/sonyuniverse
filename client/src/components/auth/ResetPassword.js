@@ -64,7 +64,6 @@ class ResetPassword extends React.Component{
 
 					<form onSubmit={this.handleValidSubmit}>
 							<InputGroup
-								id="userEmail"
 								name="email"
 								onChange={this.handleEmailChange}
 								onKeyPress={this.handleKeyPress}

@@ -19,6 +19,7 @@ import Profile from "../components/profile/Profile"
 import Posts from "../components/posts/Posts"
 import Post from "../components/post/Post"
 import ResetPassword from "../components/auth/ResetPassword"
+import ChangePassword from "../components/auth/ChangePassword"
 import NotFound from "../components/not-found/NotFound"
 import jwt_decode from "jwt-decode"
 import setAuthToken from "../utils/setAuthToken"
@@ -85,6 +86,9 @@ class App extends React.Component{
 							</Switch>
 							<Switch>
 								<PrivateRoute path="/posts/:id" component={Post}/>
+							</Switch>
+							<Switch>
+								<PrivateRoute path="/change-password/:hash" component={ChangePassword}/>
 							</Switch>															
 							<Route path="/not-found" component={NotFound}/>																													
 						</div>

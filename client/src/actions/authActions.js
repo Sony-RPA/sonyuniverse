@@ -107,3 +107,20 @@ export const createHash = (email) => {
 			})
 	}
 }
+
+//change user password
+export const changePassword = (passwordData) => {
+	return (dispatch) => {
+		axios.post("/api/users/changepassword", passwordData)
+			.then((res) => {
+				return
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
