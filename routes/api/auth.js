@@ -96,8 +96,8 @@ const authRoutes = (app) => {
 							from: 'CloseBrace <postmaster@sandboxcc80cfa391224d5d83e5aba2d09b7590.mailgun.org>',
 							to: savedUser.email,
 							subject: 'Reset Your Password',
-							text: `A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: https://sonyuniverse.org/change-password/${savedUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
-							html: `<p>A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: <a href="https://sonyuniverse.org/change-password/${savedUser.passwordReset}&quot; target="_blank">https://sonyuniverse.org/change-password/${savedUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`
+							text: `A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: https://www.sonyuniverse.org/change-password/${savedUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
+							html: `<p>A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: <a href="https://www.sonyuniverse.org/change-password/${savedUser.passwordReset}&quot; target="_blank">https://www.sonyuniverse.org/change-password/${savedUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`
 						}
 
 						//send the email

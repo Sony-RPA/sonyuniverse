@@ -63,6 +63,7 @@ class App extends React.Component{
 							<Route path="/profiles" component={Profiles} exact={true} />
 							<Route path="/profile/:handle" component={Profile}/>
 							<Route path="/reset-password" component={ResetPassword}/>
+							<Route path="/change-password/:hash" component={ChangePassword}/>
 							<Switch>
 								<PrivateRoute path="/dashboard" component={Dashboard}/>
 							</Switch>
@@ -86,9 +87,6 @@ class App extends React.Component{
 							</Switch>
 							<Switch>
 								<PrivateRoute path="/posts/:id" component={Post}/>
-							</Switch>
-							<Switch>
-								<PrivateRoute path="/change-password/:hash" component={ChangePassword}/>
 							</Switch>															
 							<Route path="/not-found" component={NotFound}/>																													
 						</div>
