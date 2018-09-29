@@ -84,3 +84,26 @@ export const logoutUser = () => {
 		dispatch(setCurrentUser({}))
 	}
 }
+
+//create response for successful password reset hash creation
+export const passwordResetHashCreated = () => {
+	return{
+		type: "AUTHENTICATION_PASSWORD_RESET_HASH_CREATED"
+	}
+}
+
+//send email to API for hashing
+export const createHash = (email) => {
+	return (dispatch) => {
+		axios.post("/api/users/saveresethash", email)
+			.then((res) => {
+				dispatch(passwordResetHashCreated())
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}

@@ -18,6 +18,7 @@ import Profiles from "../components/profiles/Profiles"
 import Profile from "../components/profile/Profile"
 import Posts from "../components/posts/Posts"
 import Post from "../components/post/Post"
+import ResetPassword from "../components/auth/ResetPassword"
 import NotFound from "../components/not-found/NotFound"
 import jwt_decode from "jwt-decode"
 import setAuthToken from "../utils/setAuthToken"
@@ -60,6 +61,7 @@ class App extends React.Component{
 							<Route path="/login" component={Login}/>
 							<Route path="/profiles" component={Profiles} exact={true} />
 							<Route path="/profile/:handle" component={Profile}/>
+							<Route path="/reset-password" component={ResetPassword}/>
 							<Switch>
 								<PrivateRoute path="/dashboard" component={Dashboard}/>
 							</Switch>

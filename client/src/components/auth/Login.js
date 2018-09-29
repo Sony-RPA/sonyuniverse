@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { loginUser } from "../../actions/authActions"
+import { Link } from "react-router-dom"
 import TextFieldGroup from "../common/TextFieldGroup"
 
 class Login extends React.Component{
@@ -80,6 +81,12 @@ class Login extends React.Component{
 			          		onChange={this.onChange}
 			          		error={errors.password}
 			          	/>
+			          	<Link 
+			          		className="float-right mb-3 text-info" 
+			          		to="/reset-password"
+			          		>
+			          		Forgot password?
+			          	</Link>
 			            <input 
 			            	type="submit" 
 			            	className="btn btn-info btn-block mt-4" />

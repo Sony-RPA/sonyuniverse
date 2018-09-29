@@ -1,3 +1,4 @@
+const crypto = require("crypto")
 const User = require("../../models/User")
 const Post = require("../../models/Post")
 const Colleague = require("../../models/Colleague")
@@ -5,6 +6,10 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const keys = require("../../config/keys")
 const passport = require("passport")
+const mailgun = require("mailgun-js")({
+	apiKey: keys.apiKey,
+	domain: keys.domain
+})
 
 //Load input validation
 const validateRegisterInput = require("../../validation/register")
@@ -67,6 +72,50 @@ const authRoutes = (app) => {
 				}
 			})
 	})
+
+//@desc saveresethash
+//@access public
+	app.post("/api/users/saveresethash", async (req, res) => {
+		//check and make sure the email exists
+		  User.findOne({ email: req.body.email})
+		  	.then((foundUser) => {
+		  		//if user exists, save their password hash
+		  		const timeInMs = Date.now()
+		  		const hashString = `${req.body.email}${timeInMs}`
+		  		const secret = keys.cryptoSecret
+		  		const hash = crypto.createHmac("sha256", secret)
+		  					       .update(hashString)
+		                       	   .digest("hex")
+		    	foundUser.passwordReset = hash
+
+		    	foundUser.save()
+		    		.then((savedUser) => {
+		    			//generate the email to reset password
+						const emailData = {
+							from: 'CloseBrace <postmaster@sandboxcc80cfa391224d5d83e5aba2d09b7590.mailgun.org>',
+							to: savedUser.email,
+							subject: 'Reset Your Password',
+							text: `A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: https://sonyuniverse.org/api/users/change-password/${savedUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
+							html: `<p>A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: <a href="https://sonyuniverse.org/api/users/change-password/${savedUser.passwordReset}&quot; target="_blank">https://sonyuniverse.org/api/users/change-password/${savedUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`
+						}
+
+						//send the email
+						mailgun.messages().send(emailData, (error, body) => {
+							if(error || !body){
+								res.status(404).json({ error: "Something went wrong while attempting to reset your password. Please Try again"})
+							} else {
+								res.json({ success: true })
+							}
+						})
+		    		})
+		    		.catch((errors) => {
+		    			res.status(404).json({ error: "Something went wrong while attempting to reset your password. Please Try again" })
+		    		})
+		  	})
+		  	.catch((errors) => {
+		  		res.status(404).json({ error: "Something went wrong while attempting to reset your password. Please Try again" })
+		  	})
+		});
 
 //@desc login user /returning Token
 //@access Public

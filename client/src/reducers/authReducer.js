@@ -22,6 +22,12 @@ const authReducer = (state = initialState, action) => {
 					avatar: action.payload
 				}
 			}
+		case "AUTHENTICATION_PASSWORD_RESET_HASH_CREATED": {
+			//use object.assign to SET a new property in the state which has not yet been defined
+			const newState = Object.assign({}, state)
+			newState.isPasswordReset = true
+			return newState
+		}
 		default:
 			return state
 	}
