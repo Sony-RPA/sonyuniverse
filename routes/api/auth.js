@@ -147,10 +147,13 @@ const authRoutes = (app) => {
 								res.json(updatedUser)
 							})
 							.catch((errors) => {
-								res.status(404).json({ couldnotupdate: "could not change password"})
+								res.status(404).json({ couldnotupdate: "could not change the password"})
 							})
 					})
 				})
+			})
+			.catch((errors) => {
+				res.status(404).json({ couldnotupdate: "The request to change this password has already expired. Please submit a new request." })
 			})
 	})
 

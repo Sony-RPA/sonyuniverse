@@ -56,13 +56,21 @@ class ChangePassword extends React.Component{
 
 	render(){
 		const errors = this.state.errors
+		const headerMessage = errors.couldnotupdate ? (
+			<p className="bg-warning p-3 text-center rounded">
+				{errors.couldnotupdate}
+			</p>
+			) : (
+				<p className="bg-dark p-3 text-light text-center rounded">
+					Please enter and confirm a new password to update
+					your credentials.
+				</p>			
+			)
+
 		return(
 			<div className="mt-5 row justify-content-center">
 				<div className="col-10 col-sm-7 col-md-5 col-lg-4">
-					<p className="bg-dark p-3 text-light text-center rounded">
-						Please enter and confirm a new password to update
-						your credentials.
-					</p>
+					{ headerMessage }
 					<form onSubmit={this.onSubmit}>
 						<TextFieldGroup
 							name="password"
