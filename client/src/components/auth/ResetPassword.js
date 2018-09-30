@@ -23,10 +23,14 @@ class ResetPassword extends React.Component{
 				resetRequested: nextProps.auth.isPasswordReset
 			})
 		}
+		if(nextProps.errors){
+			this.setState({
+				errors: nextProps.errors
+			})
+		}
 		if(nextProps.errors.error){
 			this.setState({
-				resetRequested: false,
-				errors: nextProps.errors
+				resetRequested: false
 			})
 		}
 	}
