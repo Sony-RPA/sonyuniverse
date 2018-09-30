@@ -1,6 +1,7 @@
 import axios from "axios"
 import setAuthToken from "../utils/setAuthToken"
 import jwt_decode from "jwt-decode"
+import { clearErrors } from "./postActions"
 
 //register user
 export const registerUser = (userData, history) => {
@@ -97,6 +98,7 @@ export const createHash = (email) => {
 	return (dispatch) => {
 		axios.post("/api/users/saveresethash", email)
 			.then((res) => {
+				dispatch(clearErrors())
 				dispatch(passwordResetHashCreated())
 			})
 			.catch((errors) => {

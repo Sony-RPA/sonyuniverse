@@ -8,12 +8,27 @@ class ResetPassword extends React.Component{
 		super(props)
 		this.state = {
 			email: "",
-			resetRequested: false
+			resetRequested: false,
+			errors: {}
 		}
 
 		this.handleEmailChange = this.handleEmailChange.bind(this)
 		this.handleKeyPress = this.handleKeyPress.bind(this)
 		this.handleValidSubmit = this.handleValidSubmit.bind(this)
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.auth.isPasswordReset){
+			this.setState({
+				resetRequested: nextProps.auth.isPasswordReset
+			})
+		}
+		if(nextProps.errors.error){
+			this.setState({
+				resetRequested: false,
+				errors: nextProps.errors
+			})
+		}
 	}
 
 	//update state as email value changes
@@ -37,16 +52,11 @@ class ResetPassword extends React.Component{
 			email: this.state.email
 		}
 		this.props.createHash(userEmail)
-
-		if(this.state.email){
-			this.setState({
-				resetRequested: true
-			})
-		}
 	}
 
 	render(){
 		const resetRequested = this.state.resetRequested
+		const errors = this.state.errors
 		return(
 			<div className="mt-5 row justify-content-center">
 				<div className="col-10 col-sm-7 col-md-5 col-lg-4">
@@ -71,12 +81,20 @@ class ResetPassword extends React.Component{
 								required
 								type="email"
 								value={this.state.email}
+								error={errors.error}
 							/>
 						<button className="btn btn-info btn-md btn-block mt-4">Reset Password</button>
 					</form>
 				</div>
 			</div>
 		)
+	}
+}
+
+const mapStateToProps = (state) => {
+	return{
+		auth: state.auth,
+		errors: state.errors
 	}
 }
 
@@ -88,4 +106,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(null, mapDispatchToProps)(ResetPassword)
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword)

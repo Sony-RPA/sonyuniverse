@@ -16,9 +16,9 @@ const store = createStore(combineReducers({
 	colleague: colleagueReducer
 }), initialStoreState,
 	compose(
-		applyMiddleware(thunk)
-		//need this for redux dev tools to work
-		// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()		
+		applyMiddleware(thunk),
+		//need this for redux dev tools to work, should not be used in production
+		process.env.NODE_ENV === "production" ? null : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 	)
 )
 
