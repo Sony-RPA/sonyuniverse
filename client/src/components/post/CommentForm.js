@@ -72,7 +72,7 @@ class CommentForm extends React.Component{
                     	errorProfile={errors.profilenotfound}
                     />
                   </div>
-                  <button type="submit" className="btn btn-dark">Submit</button>
+                  <button type="submit" className="btn btn-success">Submit</button>
                 </form>
               </div>
             </div>

@@ -10,10 +10,16 @@ class Profiles extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			profiles: null
+			profiles: null,
+			connectedActive: false,
+			pendingActive: false,
+			receivedActive: false,
+			everyoneActive: false
 		}
-
 		this.filterConnectedColleagues = this.filterConnectedColleagues.bind(this)
+		this.filterPendingColleagues = this.filterPendingColleagues.bind(this)
+		this.filterReceivedColleagues = this.filterReceivedColleagues.bind(this)
+		this.filterAllEmployees = this.filterAllEmployees.bind(this)
 	}
 
 	componentDidMount(){
@@ -37,7 +43,11 @@ class Profiles extends React.Component{
 			return connectedColleagues.includes(profile.user._id)
 		})
 		this.setState({
-			profiles: connectedColleaguesProfiles
+			profiles: connectedColleaguesProfiles,
+			connectedActive: true,
+			pendingActive: false,
+			receivedActive: false,
+			everyoneActive: false
 		})
 	}
 
@@ -49,7 +59,11 @@ class Profiles extends React.Component{
 			return pendingColleagues.includes(profile.user._id)
 		})
 		this.setState({
-			profiles: pendingColleaguesProfiles
+			profiles: pendingColleaguesProfiles,
+			connectedActive: false,
+			pendingActive: true,
+			receivedActive: false,
+			everyoneActive: false			
 		})
 	}
 
@@ -61,14 +75,22 @@ class Profiles extends React.Component{
 			return receivedColleagues.includes(profile.user._id)
 		})
 		this.setState({
-			profiles: requestedColleaguesProfiles
+			profiles: requestedColleaguesProfiles,
+			connectedActive: false,
+			pendingActive: false,
+			receivedActive: true,
+			everyoneActive: false			
 		})
 	}
 
 	filterAllEmployees = (event) => {
 		const allProfiles = this.props.profile.profiles
 		this.setState({
-			profiles: allProfiles
+			profiles: allProfiles,
+			connectedActive: false,
+			pendingActive: false,
+			receivedActive: false,
+			everyoneActive: true			
 		})
 	}
 
@@ -76,9 +98,13 @@ class Profiles extends React.Component{
 		const { isAuthenticated } = this.props.auth
 		const { loading } = this.props.profile
 		const profiles = this.state.profiles
-		const connected = this.props.colleague.connected.length
-		const requested = this.props.colleague.requested.length
-		const received = this.props.colleague.received.length
+		const connectedActive = this.state.connectedActive
+		const pendingActive = this.state.pendingActive
+		const receivedActive = this.state.receivedActive
+		const everyoneActive = this.state.everyoneActive
+		const connectedTotal = this.props.colleague.connected.length
+		const requestedTotal = this.props.colleague.requested.length
+		const receivedTotal = this.props.colleague.received.length
 		let profileItems
 
 		if(profiles === null || loading){
@@ -92,44 +118,41 @@ class Profiles extends React.Component{
 				profileItems = <h4>No profiles found</h4>
 			}
 		}
+
+		const filterColleagueButtons = (
+			<div className="text-center mb-3" style={{fontFamily: "roboto"}}>
+				<button 
+					className={connectedActive ? "btn btn-success btn-sm mr-2" : "btn btn-outline-success btn-sm mr-2"}
+					onClick={this.filterConnectedColleagues}
+					>Connected ({connectedTotal})
+				</button>
+				<button 
+					className={pendingActive ? "btn btn-secondary btn-sm mr-2" : "btn btn-outline-secondary btn-sm mr-2"}
+					onClick={this.filterPendingColleagues}
+					>Pending ({requestedTotal})
+				</button>
+				<button
+					className={receivedActive ? "btn btn-info btn-sm mr-2" : "btn btn-outline-info btn-sm mr-2"}
+					onClick={this.filterReceivedColleagues}
+					>Received ({receivedTotal})	
+				</button>
+				<button 
+					className={everyoneActive ? "btn btn-primary btn-sm mr-2" : "btn btn-outline-primary btn-sm"}
+					onClick={this.filterAllEmployees}
+					>Everyone ({this.props.profile.profiles !== null ? this.props.profile.profiles.length: 0})
+				</button>
+			</div>
+		)
+
 		return(
 			<div className="profiles">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
 							<div style={{fontFamily: "Montserrat"}}>
-								<h1 
-									className="display-4 text-center"
-								>
-									SONY FAMILY
-								</h1>
+								<h1 className="display-4 text-center">SONY FAMILY</h1>
 								<p className="lead text-center">Browse and connect with colleagues</p>
-								{ isAuthenticated && !loading ? (
-									<div className="text-center mb-3" style={{fontFamily: "roboto"}}>
-										<button 
-											className="btn btn-outline-success btn-sm mr-2"
-											onClick={this.filterConnectedColleagues}
-											>Connected ({connected})
-										</button>
-										<button 
-											className="btn btn-outline-secondary btn-sm mr-2"
-											onClick={this.filterPendingColleagues}
-											>Pending ({requested})
-										</button>
-										<button
-											className="btn btn-outline-info btn-sm mr-2"
-											onClick={this.filterReceivedColleagues}
-										>
-											Received ({received})	
-										</button>
-										<button 
-											className="btn btn-outline-primary btn-sm"
-											onClick={this.filterAllEmployees}
-											>Everyone ({this.props.profile.profiles !== null ? this.props.profile.profiles.length: 0})
-										</button>
-									</div>
-									) : null
-								}
+								{ isAuthenticated && !loading ? filterColleagueButtons : null}
 							</div>
 							{profileItems}
 						</div>

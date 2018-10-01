@@ -165,19 +165,21 @@ class EditProfile extends React.Component{
 		//select options for status
 		const options = [
 			{ label: "* Select Professional Status", value: 0 },
-			{ label: "Developer", value: "Developer" },
+			{ label: "Engineering", value: "Engineering" },
 			{ label: "Finance", value: "Finance" },
 			{ label: "Accounting", value: "Accounting" },
-			{ label: "Manager", value: "Manager" },
-			{ label: "Director", value: "Director" },
+			{ label: "Management", value: "Management" },
+			{ label: "Coordination", value: "Coordination" },
 			{ label: "Marketing", value: "Marketing" },
 			{ label: "Sales", value: "Sales" },
-			{ label: "HR", value: "HR" },
+			{ label: "Human Resources", value: "Human Resources" },
+			{ label: "Recruiting", value: "Recruiting" },
 			{ label: "Operations", value: "Operations" },
 			{ label: "Support", value: "Support" },
-			{ label: "Designer", value: "Designer" },
-			{ label: "Other", value: "Other" }
+			{ label: "Design", value: "Design" },
+			{ label: "Product", value: "Product" }
 		]
+		
 		return(
 			<div className="create-profile">
 				<div className="container">
