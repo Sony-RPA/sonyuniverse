@@ -110,7 +110,6 @@ const colleagueRoutes = (app) => {
 				//remove active user from the removedColleague's connected array
 				Colleague.findOne({user: removedColleague})
 					.then((removedColleague) => {
-						console.log(removedColleague)
 						const activeUser = req.user.id
 						removedColleague.connected = removedColleague.connected.filter((colleague) => {
 							return colleague !== activeUser

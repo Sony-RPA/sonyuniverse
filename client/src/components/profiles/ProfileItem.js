@@ -48,7 +48,7 @@ class ProfileItem extends React.Component{
 		//display connect button
 			connectButton = (
 				<button  
-					className="btn btn-success ml-1"
+					className="btn btn-success ml-2"
 					onClick={this.handleRequestColleague}
 				>
 					Connect
@@ -57,7 +57,7 @@ class ProfileItem extends React.Component{
 		//display pending invitation button 
 		} else if(isAuthenticated && requested.includes(profile.user._id)){
 			connectButton = (
-				<button className="btn btn-outline-dark ml-1" disabled>
+				<button className="btn btn-outline-dark ml-2" disabled>
 					Pending
 				</button>
 			)
@@ -65,19 +65,22 @@ class ProfileItem extends React.Component{
 		} else if(isAuthenticated && received.includes(profile.user._id)){
 			connectButton = (
 				<button 
-					className="btn btn-outline-success ml-1"
+					className="btn btn-outline-success ml-2"
 					onClick={this.handleReceivedColleague}
 				>
 					Accept <i className="fas fa-check-circle"></i>
 				</button>
 			)
-		//display messsage button
+		//display messsage, endorse and delete button
 		} else if(isAuthenticated && connected.includes(profile.user._id)){
 			connectButton = (
 				<div style={{display: "inline-block"}}>
-					<button className="btn btn-primary ml-1">
+					<button className="btn btn-primary ml-2">
 						<i className="fas fa-comments"></i>
 					</button>
+					<button className="btn btn-success ml-2">
+						<i className="fas fa-chevron-circle-up"></i>
+					</button>					
 					<button 
 						className="btn btn-danger ml-2"
 						onClick={this.handleRemoveColleague}
@@ -121,7 +124,7 @@ class ProfileItem extends React.Component{
 						<h4>Top Skills</h4>
 						<ul className="list-group">
 							{ profile.skills.slice(0, 4).map((skill, index) => (
-								<li key={index} className="bg-black text-light border border-light list-group-item">
+								<li key={index} className="skill bg-black text-light border border-light list-group-item">
 									<i className="fa fa-chevron-circle-up pr-1 mr-1 text-success"/>
 									{skill}	
 								</li>
