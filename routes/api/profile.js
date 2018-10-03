@@ -117,7 +117,10 @@ const profileRoutes = (app) => {
 		if(req.body.githubusername) profileFields.githubusername = req.body.githubusername
 		// Skills - Split into array
 		if(typeof req.body.skills !== "undefined"){
-			profileFields.skills = req.body.skills.split(",")
+			skillsArray = req.body.skills.split(",")
+			profileFields.skills = skillsArray.map((skill) => {
+				return { name: skill, endorsements: [] }
+			})
 		}
 
 		//Social
@@ -148,9 +151,9 @@ const profileRoutes = (app) => {
 							}
 							//Save Profile
 							new Profile(profileFields).save()
-								.then((newProfile) => {
-									res.json(newProfile)
-								})
+									.then((newProfile) => {
+										res.json(newProfile)
+									})
 						})
 				}
 			})																

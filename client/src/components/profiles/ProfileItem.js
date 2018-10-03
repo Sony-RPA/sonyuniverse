@@ -1,16 +1,22 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
+import EndorseModal from "../endorse/EndorseModal"
 import { connect } from "react-redux"
 import { addColleague, acceptColleague, removeColleague } from "../../actions/colleagueActions"
 
 class ProfileItem extends React.Component{
 	constructor(props){
 		super(props)
+		this.state = {
+			modalOpen: false
+		}
 
 		this.handleRequestColleague = this.handleRequestColleague.bind(this)
 		this.handleReceivedColleague = this.handleReceivedColleague.bind(this)
 		this.handleRemoveColleague = this.handleRemoveColleague.bind(this)
+		this.handleModalOpen = this.handleModalOpen.bind(this)
+		this.handleEndorseColleague = this.handleEndorseColleague.bind(this)
 	}
 
 	handleRequestColleague = (event) => {
@@ -26,6 +32,20 @@ class ProfileItem extends React.Component{
 	handleRemoveColleague = (event) => {
 		const removedColleague = this.props.profile.user._id
 		this.props.removeColleague(removedColleague)
+	}
+
+	handleModalOpen = (event) => {
+		this.setState({
+			modalOpen: true
+		})
+	}
+
+	handleEndorseColleague = (event) => {
+
+
+		this.setState({
+			modalOpen: false
+		})
 	}
 
 	render(){
@@ -78,7 +98,10 @@ class ProfileItem extends React.Component{
 					<button className="btn btn-primary ml-2">
 						<i className="fas fa-comments"></i>
 					</button>
-					<button className="btn btn-success ml-2">
+					<button 
+						className="btn btn-success ml-2"
+						onClick={this.handleModalOpen}
+					>
 						<i className="fas fa-chevron-circle-up"></i>
 					</button>					
 					<button 
@@ -124,14 +147,19 @@ class ProfileItem extends React.Component{
 						<h4>Top Skills</h4>
 						<ul className="list-group">
 							{ profile.skills.slice(0, 4).map((skill, index) => (
-								<li key={index} className="skill bg-black text-light border border-light list-group-item">
+								<li key={index} className="bg-black text-light border border-light list-group-item">
 									<i className="fa fa-chevron-circle-up pr-1 mr-1 text-success"/>
-									{skill}	
+									{skill.name}	
 								</li>
 							))}
 						</ul>
 					</div>
 				</div>
+				<EndorseModal 
+					modalOpen={this.state.modalOpen} 
+					handleEndorseColleague={this.handleEndorseColleague}
+					profile={profile}
+				/>
 			</div>
 		)
 	}

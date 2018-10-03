@@ -10,7 +10,7 @@ class ProfileAbout extends React.Component{
 		const skills = profile.skills.map((skill, index) => {
 			return(
 				<div key={index} className="p-3">
-					<i className="fa fa-check-circle mr-1 text-success"/>{skill}
+					<i className="fa fa-check-circle mr-1 text-success"/>{skill.name}
 				</div>
 			)
 		})
