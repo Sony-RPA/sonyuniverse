@@ -46,9 +46,12 @@ class EditProfile extends React.Component{
 
 		if(nextProps.profile.profile){
 			const profile = nextProps.profile.profile
-
+			//get an array of all the skill names
+			const skillsArray = profile.skills.map((skill) => {
+				return skill.name
+			})
 			//Bring skills array back to comma separated values
-			const skillsCSV = profile.skills.join(",")
+			const skillsCSV = skillsArray.join(",")
 
 			//if profile field doesnt exist, make empty strng
 			profile.company = !isEmpty(profile.company) ? profile.company : ""

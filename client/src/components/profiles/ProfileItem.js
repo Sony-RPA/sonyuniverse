@@ -4,12 +4,13 @@ import isEmpty from "../../validation/is-empty"
 import EndorseModal from "../endorse/EndorseModal"
 import { connect } from "react-redux"
 import { addColleague, acceptColleague, removeColleague } from "../../actions/colleagueActions"
+import { endorseColleague } from "../../actions/profileActions"
 
 class ProfileItem extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			modalOpen: false
+			endorseModalOpen: false
 		}
 
 		this.handleRequestColleague = this.handleRequestColleague.bind(this)
@@ -35,16 +36,17 @@ class ProfileItem extends React.Component{
 	}
 
 	handleModalOpen = (event) => {
-		this.setState({
-			modalOpen: true
+		this.setState((prevState) => {
+			return{
+				endorseModalOpen: !prevState.endorseModalOpen
+			}
 		})
 	}
 
-	handleEndorseColleague = (event) => {
-
-
+	handleEndorseColleague = (colleagueId, skills) => {
+		this.props.endorseColleague(colleagueId, skills)
 		this.setState({
-			modalOpen: false
+			endorseModalOpen: false
 		})
 	}
 
@@ -156,8 +158,9 @@ class ProfileItem extends React.Component{
 					</div>
 				</div>
 				<EndorseModal 
-					modalOpen={this.state.modalOpen} 
+					modalOpen={this.state.endorseModalOpen} 
 					handleEndorseColleague={this.handleEndorseColleague}
+					handleModalOpen={this.handleModalOpen}
 					profile={profile}
 				/>
 			</div>
@@ -182,6 +185,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		removeColleague: (removedColleagueId) => {
 			dispatch(removeColleague(removedColleagueId))
+		},
+		endorseColleague: (colleagueId, skills) => {
+			dispatch(endorseColleague(colleagueId, skills))
 		}
 	}
 }

@@ -161,6 +161,23 @@ export const getProfiles = () => {
 	}
 }
 
+//endorse colleague
+export const endorseColleague = (colleagueId, skills) => {
+	return (dispatch) => {
+		axios.post(`/api/profile/endorse/${colleagueId}`, skills)
+			.then((res) => {
+				dispatch(getProfiles())
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+
 //delete account
 export const deleteAccount = () => {
 	return (dispatch) => {

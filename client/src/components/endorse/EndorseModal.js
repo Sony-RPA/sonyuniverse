@@ -14,10 +14,12 @@ class EndorseModal extends React.Component{
 
 	handleEndorseSkill = (skill) => {
 		this.setState((prevState) => {
-			//remove endorsement if already exists in array
+			//remove endorsedSkill if the user deselects a skill they initally selected.
 			if(prevState.endorsedSkills.includes(skill)){
 				return{
-					endorsedSkills: prevState.endorsedSkills.filter(endorsedSkill => endorsedSkill !== skill)
+					endorsedSkills: prevState.endorsedSkills.filter((endorsedSkill) => {
+						return endorsedSkill !== skill
+					})
 				}	
 			}
 			else {
@@ -37,6 +39,7 @@ class EndorseModal extends React.Component{
 		return(
 			<Modal
 				isOpen={this.props.modalOpen}
+				ariaHideApp={false}
 				style={{
 					overlay: {
 						background: "rgba(0, 0, 0, 0.3)",
@@ -59,11 +62,22 @@ class EndorseModal extends React.Component{
 					<div className="row">
 						{skills}
 					</div>
+					<p className="text-muted mt-5 mb-2" style={{fontSize: "10px"}}>
+						Please press submit to finalize your updates.
+					</p>
 					<button 
-						className="btn btn-dark btn-md mt-3"
-						onClick={this.props.handleEndorseColleague}
+						className="btn btn-primary btn-md mr-1"
+						onClick={() => {
+							this.props.handleEndorseColleague(this.props.profile.user._id, this.state.endorsedSkills)
+						}}
 					>
-						Done
+						Submit
+					</button>
+					<button
+						className="btn btn-dark btn-md"
+						onClick={this.props.handleModalOpen}
+					>
+						Close
 					</button>
 				</div>
 			</Modal>			
