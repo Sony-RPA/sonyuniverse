@@ -193,7 +193,7 @@ const profileRoutes = (app) => {
 	})
 
 //@desc add education to profile
-//@accesss Private
+//@access Private
 	app.post("/api/profile/education", passport.authenticate("jwt", { session: false }), (req, res) => {
 		const { errors, isValid } = validateEducationInput(req.body)
 
@@ -228,7 +228,6 @@ const profileRoutes = (app) => {
 //@desc delete experience from profile
 //@accesss Private
 	app.delete("/api/profile/experience/:exp_id", passport.authenticate("jwt", { session: false }), (req, res) => {
-
 		Profile.findOne({ user: req.user.id })
 			.then((foundProfile) => {
 				//Get remove index
@@ -255,7 +254,6 @@ const profileRoutes = (app) => {
 //@desc delete education from profile
 //@accesss Private
 	app.delete("/api/profile/education/:edu_id", passport.authenticate("jwt", { session: false }), (req, res) => {
-
 		Profile.findOne({ user: req.user.id })
 			.then((foundProfile) => {
 				//Get remove index
@@ -276,6 +274,47 @@ const profileRoutes = (app) => {
 			})
 			.catch((error) => {
 				res.status(404).json(error)
+			})
+	})
+
+//@desc endorse a colleague for their skills
+//@access Private
+	app.post("/api/profile/endorse/:colleagueId", passport.authenticate("jwt", { session: false }), (req, res) => {
+		//current user
+		const currentUser = req.user.id
+		//use endorsed skills from req.body
+		const endorsedSkills = req.body
+		//parse name of each endorsed skill
+		const endorsedSkillsNames = endorsedSkills.map((skill) => {
+			return skill.name
+		})
+		//find profile that belongs to the colleague
+		Profile.findOne({ user: req.params.colleagueId})
+			.then((foundProfile) => {
+				//get colleagues matching skills to endorse or unendorse
+				const matchingSkills = foundProfile.skills.filter((skill) => {
+					return endorsedSkillsNames.includes(skill.name)
+				})
+				//add or remove current user to each matching skills endorsements array
+				matchingSkills.forEach((skill) => {
+					if(skill.endorsements.includes(currentUser)){
+						removeIndex = skill.endorsements.indexOf(currentUser)
+						return skill.endorsements.splice(removeIndex, 1)
+					} else {
+						return skill.endorsements.push(currentUser)
+					}
+				})
+				//save user profile
+				foundProfile.save()
+					.then((updatedProfile) => {
+						res.json(updatedProfile)
+					})
+					.catch((errors) => {
+						res.status(404).json({ couldnotupdate: "could not endorse colleague"})
+					})
+			})
+			.catch((errors) => {
+				res.status(404).json({ couldnotfind: "could not find colleague with this profile"})
 			})
 	})
 
