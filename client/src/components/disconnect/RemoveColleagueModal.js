@@ -13,6 +13,7 @@ class RemoveColleagueModal extends React.Component{
 						background: "rgba(0, 0, 0, 0.3)",
 					},
 					content: {
+						background: "rgba(31, 31, 31, .85)",
 						fontFamily: "montserrat",
 						minHeight: "10rem",
 						top: "35%",
@@ -21,11 +22,12 @@ class RemoveColleagueModal extends React.Component{
 						bottom: "auto",
 						transform: 'translate(-50%,-50%)',
 						width: "40%",
+						border: "none",
 						textAlign: "center"
-						}
+					}
 				}}
 			>
-				<h4 className="mb-3">Are you sure you want to remove 
+				<h4 className="mb-4 text-light">Are you sure you want to remove 
 					<span className="text-warning"> {colleagueName} </span>
 					 from your network?
 				</h4>

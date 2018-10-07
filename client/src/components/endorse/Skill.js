@@ -31,16 +31,19 @@ class Skill extends React.Component{
 	}
 
 	render(){
+		const endorseIcon = this.state.endorsed ? "fa fa-check-circle mr-1" : "fa fa-plus-circle mr-1"
 		return(
 			<div 
 				className={this.state.endorsed ? (
-					"col-lg-4 col-sm-6 bg-success text-light border border-light rounded"
-					) : "col-lg-4 col-sm-6 bg-black text-light border border-light rounded" 
+					"col-lg-4 col-sm-6 bg-success text-light border border-dark rounded transition-med"
+					) : "col-lg-4 col-sm-6 bg-black text-light border border-dark rounded transition-med" 
 				}
 				style={{fontSize: "14px"}}
 				onClick={this.handleOnClick}
 			>
-				{this.state.endorsed ? <span><i className="fa fa-check-circle mr-1"></i></span> : null}
+				<span key={Math.random()}>
+					<i className={endorseIcon}></i>
+				</span>
 				{this.props.skill.name}
 			</div>
 		)

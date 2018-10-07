@@ -37,7 +37,7 @@ class PostItem extends React.Component{
 		const auth = this.props.auth
     const showActions = this.props.showActions
 		return(
-            <div className="card card-body mb-3">
+            <div className="card card-body mb-3 shadow">
               <div className="row">
                 <div className="col-md-2">
                   <Link to={`/profile/${post.handle}`}>
@@ -54,7 +54,7 @@ class PostItem extends React.Component{
                   <p className="lead">{post.text}</p>
 
                   { showActions ? (
-                    <span>
+                    <span key={Math.random()}>
                       <button 
                         type="button" 
                         className="btn btn-light mr-1"

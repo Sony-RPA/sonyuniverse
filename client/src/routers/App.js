@@ -58,37 +58,23 @@ class App extends React.Component{
 						<Navbar/>
 						<Route path="/" component={Landing} exact={true}/>
 						<div className="container">
-							<Route path="/register" component={Register}/>
-							<Route path="/login" component={Login}/>
-							<Route path="/profiles" component={Profiles} exact={true} />
-							<Route path="/profile/:handle" component={Profile}/>
-							<Route path="/reset-password" component={ResetPassword}/>
-							<Route path="/change-password/:hash" component={ChangePassword}/>
 							<Switch>
+								<Route path="/register" component={Register}/>
+								<Route path="/login" component={Login}/>
+								<Route path="/profiles" component={Profiles} exact={true} />
+								<Route path="/profile/:handle" component={Profile}/>
+								<Route path="/reset-password" component={ResetPassword}/>
+								<Route path="/change-password/:hash" component={ChangePassword}/>
 								<PrivateRoute path="/dashboard" component={Dashboard}/>
-							</Switch>
-							<Switch>
 								<PrivateRoute path="/create-profile" component={CreateProfile}/>
-							</Switch>
-							<Switch>
 								<PrivateRoute path="/edit-profile" component={EditProfile}/>
-							</Switch>
-							<Switch>
 								<PrivateRoute path="/edit-avatar" component={EditAvatar}/>
-							</Switch>
-							<Switch>
 								<PrivateRoute path="/add-experience" component={AddExperience}/>
-							</Switch>
-							<Switch>
 								<PrivateRoute path="/add-education" component={AddEducation}/>
-							</Switch>
-							<Switch>
 								<PrivateRoute path="/feed" component={Posts}/>
-							</Switch>
-							<Switch>
-								<PrivateRoute path="/posts/:id" component={Post}/>
-							</Switch>															
-							<Route path="/not-found" component={NotFound}/>																													
+								<PrivateRoute path="/posts/:id" component={Post}/>						
+								<Route component={NotFound}/>
+							</Switch>																											
 						</div>
 						<Footer/>
 					</div>

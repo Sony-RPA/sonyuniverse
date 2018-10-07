@@ -17,7 +17,7 @@ class CommentItem extends React.Component{
 	render(){
 		const { comment, postId, auth } = this.props
 		return(
-            <div className="card card-body mb-3">
+            <div className="card card-body mb-3 shadow">
               <div className="row">
                 <div className="col-md-2">
                   <Link to={`/profile/${comment.handle}`}>

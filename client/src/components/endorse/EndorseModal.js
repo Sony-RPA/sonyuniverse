@@ -45,6 +45,7 @@ class EndorseModal extends React.Component{
 						background: "rgba(0, 0, 0, 0.3)",
 					},
 					content: {
+						background: "rgba(31, 31, 31, .85)",
 						fontFamily: "montserrat",
 						minHeight: "10rem",
 						top: "35%",
@@ -53,16 +54,17 @@ class EndorseModal extends React.Component{
 						bottom: "auto",
 						transform: 'translate(-50%,-50%)',
 						width: "40%",
+						border: "none",
 						textAlign: "center"
 	      			}
 				}}
 			>
-				<h4 className="mb-3">Endorse {colleagueName} for their skills: </h4>
+				<h4 className="mb-3 text-light">Endorse {colleagueName} for their skills: </h4>
 				<div className="container">
 					<div className="row">
 						{skills}
 					</div>
-					<p className="text-muted mt-5 mb-2" style={{fontSize: "10px"}}>
+					<p className="text-muted mt-5 mb-2" style={{fontSize: "11px"}}>
 						Please press submit to finalize your updates.
 					</p>
 					<button 

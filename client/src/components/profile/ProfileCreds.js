@@ -8,7 +8,7 @@ class ProfileCreds extends React.Component{
 		//get experience items
 		const expItems = experience.map((exp) => {
 			return(
-				<li key={exp._id} className="list-group-item">
+				<li key={exp._id} className="list-group-item shadow">
 					<h4>{exp.company}</h4>
 					<p>
 						<Moment format="YYYY/MM/DD">{exp.from}</Moment> -
@@ -28,7 +28,7 @@ class ProfileCreds extends React.Component{
 		//get edu items
 		const eduItems = education.map((edu) => {
 			return(
-				<li key={edu._id} className="list-group-item">
+				<li key={edu._id} className="list-group-item shadow">
 					<h4>{edu.school}</h4>
 					<p>
 						<Moment format="YYYY/MM/DD">{edu.from}</Moment> -
