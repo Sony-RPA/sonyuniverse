@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
 import EndorseModal from "../endorse/EndorseModal"
+import RemoveColleagueModal from "../disconnect/RemoveColleagueModal"
 import { connect } from "react-redux"
 import { addColleague, acceptColleague, removeColleague } from "../../actions/colleagueActions"
 import { endorseColleague } from "../../actions/profileActions"
@@ -10,13 +11,15 @@ class ProfileItem extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			endorseModalOpen: false
+			endorseModalOpen: false,
+			removeColleagueModalOpen: false
 		}
 
 		this.handleRequestColleague = this.handleRequestColleague.bind(this)
 		this.handleReceivedColleague = this.handleReceivedColleague.bind(this)
 		this.handleRemoveColleague = this.handleRemoveColleague.bind(this)
-		this.handleModalOpen = this.handleModalOpen.bind(this)
+		this.handleEndorseModalOpen = this.handleEndorseModalOpen.bind(this)
+		this.handleRemoveColleagueModalOpen = this.handleRemoveColleagueModalOpen.bind(this)
 		this.handleEndorseColleague = this.handleEndorseColleague.bind(this)
 	}
 
@@ -33,12 +36,25 @@ class ProfileItem extends React.Component{
 	handleRemoveColleague = (event) => {
 		const removedColleague = this.props.profile.user._id
 		this.props.removeColleague(removedColleague)
+		this.setState((prevState) => {
+			return{
+				removeColleagueModalOpen: !prevState.removeColleagueModalOpen
+			}
+		})
 	}
 
-	handleModalOpen = (event) => {
+	handleEndorseModalOpen = (event) => {
 		this.setState((prevState) => {
 			return{
 				endorseModalOpen: !prevState.endorseModalOpen
+			}
+		})
+	}
+
+	handleRemoveColleagueModalOpen = (event) => {
+		this.setState((prevState) => {
+			return{
+				removeColleagueModalOpen: !prevState.removeColleagueModalOpen
 			}
 		})
 	}
@@ -102,13 +118,13 @@ class ProfileItem extends React.Component{
 					</button>
 					<button 
 						className="btn btn-success ml-2"
-						onClick={this.handleModalOpen}
+						onClick={this.handleEndorseModalOpen}
 					>
 						<i className="fas fa-chevron-circle-up"></i>
 					</button>					
 					<button 
 						className="btn btn-danger ml-2"
-						onClick={this.handleRemoveColleague}
+						onClick={this.handleRemoveColleagueModalOpen}
 					>
 						<i className="fas fa-minus-circle"></i>
 					</button>
@@ -160,7 +176,13 @@ class ProfileItem extends React.Component{
 				<EndorseModal 
 					modalOpen={this.state.endorseModalOpen} 
 					handleEndorseColleague={this.handleEndorseColleague}
-					handleModalOpen={this.handleModalOpen}
+					handleEndorseModalOpen={this.handleEndorseModalOpen}
+					profile={profile}
+				/>
+				<RemoveColleagueModal
+					modalOpen={this.state.removeColleagueModalOpen}
+					handleRemoveColleagueModalOpen={this.handleRemoveColleagueModalOpen}
+					handleRemoveColleague={this.handleRemoveColleague}
 					profile={profile}
 				/>
 			</div>

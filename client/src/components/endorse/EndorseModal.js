@@ -75,7 +75,7 @@ class EndorseModal extends React.Component{
 					</button>
 					<button
 						className="btn btn-dark btn-md"
-						onClick={this.props.handleModalOpen}
+						onClick={this.props.handleEndorseModalOpen}
 					>
 						Close
 					</button>
