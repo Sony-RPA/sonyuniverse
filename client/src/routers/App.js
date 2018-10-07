@@ -56,26 +56,24 @@ class App extends React.Component{
 					<div className="App">
 						<Banner/>
 						<Navbar/>
-						<Route path="/" component={Landing} exact={true}/>
-						<div className="container">
-							<Switch>
-								<Route path="/register" component={Register}/>
-								<Route path="/login" component={Login}/>
-								<Route path="/profiles" component={Profiles} exact={true} />
-								<Route path="/profile/:handle" component={Profile}/>
-								<Route path="/reset-password" component={ResetPassword}/>
-								<Route path="/change-password/:hash" component={ChangePassword}/>
-								<PrivateRoute path="/dashboard" component={Dashboard}/>
-								<PrivateRoute path="/create-profile" component={CreateProfile}/>
-								<PrivateRoute path="/edit-profile" component={EditProfile}/>
-								<PrivateRoute path="/edit-avatar" component={EditAvatar}/>
-								<PrivateRoute path="/add-experience" component={AddExperience}/>
-								<PrivateRoute path="/add-education" component={AddEducation}/>
-								<PrivateRoute path="/feed" component={Posts}/>
-								<PrivateRoute path="/posts/:id" component={Post}/>						
-								<Route component={NotFound}/>
-							</Switch>																											
-						</div>
+						<Switch>
+							<Route path="/" component={Landing} exact={true}/>
+							<Route path="/register" component={Register}/>
+							<Route path="/login" component={Login}/>
+							<Route path="/profiles" component={Profiles}/>
+							<Route path="/profile/:handle" component={Profile}/>
+							<Route path="/reset-password" component={ResetPassword}/>
+							<Route path="/change-password/:hash" component={ChangePassword}/>
+							<PrivateRoute path="/dashboard" component={Dashboard}/>
+							<PrivateRoute path="/create-profile" component={CreateProfile}/>
+							<PrivateRoute path="/edit-profile" component={EditProfile}/>
+							<PrivateRoute path="/edit-avatar" component={EditAvatar}/>
+							<PrivateRoute path="/add-experience" component={AddExperience}/>
+							<PrivateRoute path="/add-education" component={AddEducation}/>
+							<PrivateRoute path="/feed" component={Posts}/>
+							<PrivateRoute path="/posts/:id" component={Post}/>						
+							<Route component={NotFound}/>
+						</Switch>																											
 						<Footer/>
 					</div>
 				</BrowserRouter>
