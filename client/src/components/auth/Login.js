@@ -56,12 +56,12 @@ class Login extends React.Component{
 		const errors = this.state.errors
 		return(
 			<div>
-			  <div className="login">
+			  <div className="login mt-5" style={{height: "80vh"}}>
 			    <div className="container">
 			      <div className="row">
-			        <div className="col-md-8 m-auto">
+			        <div className="col-md-8 m-auto p-0">
 			        	<div style={{fontFamily: "Montserrat"}}>
-				          <h1 className="display-4 text-center">LOGIN</h1>
+				          <h2 className="text-center bg-black text-light p-2 shadow">LOGIN</h2>
 				          <p className="lead text-center">Sign in to your Sony Universe account</p>
 			          	</div>
 			          <form onSubmit={this.onSubmit}>
@@ -89,7 +89,7 @@ class Login extends React.Component{
 			          	</Link>
 			            <input 
 			            	type="submit" 
-			            	className="btn btn-info btn-block mt-4" />
+			            	className="btn btn-info btn-block rounded-0 mt-4" />
 			          </form>
 			        </div>
 			      </div>

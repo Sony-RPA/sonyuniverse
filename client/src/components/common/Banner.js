@@ -8,7 +8,7 @@ const Banner = () => {
 				<a href="https://www.sony.net/">
 					<img 
 						src={sonyLogo}
-						style={{height: "36px", width: "73px"}}
+						style={{height: "43px", width: "73px"}}
 					/>
 				</a>
 			</div>

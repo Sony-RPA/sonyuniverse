@@ -61,12 +61,12 @@ class Register extends React.Component{
 
 		return(
 			<div>
-			  <div className="register">
+			  <div className="register mt-5" style={{height: "80vh"}}>
 			    <div className="container">
 			      <div className="row">
-			        <div className="col-md-8 m-auto">
+			        <div className="col-md-8 m-auto p-0">
 			        	<div style={{fontFamily: "Montserrat"}}>
-				          <h1 className="display-4 text-center">SIGN UP</h1>
+				          <h2 className="text-center bg-black text-light p-2 shadow">SIGN UP</h2>
 				          <p className="lead text-center">Create your Sony Universe account</p>
 			          	</div>
 			          <form noValidate onSubmit={this.onSubmit}>
@@ -104,7 +104,7 @@ class Register extends React.Component{
 			          	/>
 			            <input 
 			            	type="submit" 
-			            	className="btn btn-info btn-block mt-4" />
+			            	className="btn btn-info btn-block rounded-0 mt-4" />
 			          </form>
 			        </div>
 			      </div>

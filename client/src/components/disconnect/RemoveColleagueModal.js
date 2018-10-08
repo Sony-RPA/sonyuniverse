@@ -27,7 +27,7 @@ class RemoveColleagueModal extends React.Component{
 					}
 				}}
 			>
-				<h4 className="mb-4 text-light">Are you sure you want to remove 
+				<h4 className="mb-5 text-light">Are you sure you want to remove 
 					<span className="text-warning"> {colleagueName} </span>
 					 from your network?
 				</h4>

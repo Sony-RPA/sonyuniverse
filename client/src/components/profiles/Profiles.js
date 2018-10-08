@@ -4,6 +4,7 @@ import Spinner from "../common/Spinner"
 import ProfileItem from "./ProfileItem"
 import { getProfiles } from "../../actions/profileActions"
 import { getColleagues } from "../../actions/colleagueActions"
+import sonyLogo from "../common/sonylogo.gif"
 
 
 class Profiles extends React.Component{
@@ -145,13 +146,15 @@ class Profiles extends React.Component{
 		)
 
 		return(
-			<div className="profiles">
+			<div className="profiles mt-5" style={{minHeight: "100vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
 							<div style={{fontFamily: "Montserrat"}}>
-								<h1 className="display-4 text-center">SONY FAMILY</h1>
-								<p className="lead text-center">Browse and connect with colleagues</p>
+								<h1 className="text-center bg-black text-light shadow">
+									<img src={sonyLogo} style={{height: "51px", width: "85px"}}/>
+								</h1>
+								<p className="lead text-center">Learn and connect with our team</p>
 								{ isAuthenticated && !loading ? filterColleagueButtons : null}
 							</div>
 							{profileItems}

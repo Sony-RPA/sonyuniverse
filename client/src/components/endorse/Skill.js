@@ -31,7 +31,12 @@ class Skill extends React.Component{
 	}
 
 	render(){
-		const endorseIcon = this.state.endorsed ? "fa fa-check-circle mr-1" : "fa fa-plus-circle mr-1"
+		const endorseIcon = (
+		//Wrap icon in a span with key of Math.random() to force fa SVG to re-generate when the component re-renders
+			<span key={Math.random()}>
+				<i className={this.state.endorsed ? "fa fa-check-circle mr-1" : "fa fa-plus-circle mr-1"}></i>
+			</span> 
+		)
 		return(
 			<div 
 				className={this.state.endorsed ? (
@@ -41,9 +46,7 @@ class Skill extends React.Component{
 				style={{fontSize: "14px"}}
 				onClick={this.handleOnClick}
 			>
-				<span key={Math.random()}>
-					<i className={endorseIcon}></i>
-				</span>
+				{endorseIcon}
 				{this.props.skill.name}
 			</div>
 		)
