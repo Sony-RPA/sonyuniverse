@@ -68,6 +68,7 @@ class ProfileItem extends React.Component{
 
 	render(){
 		const profile = this.props.profile
+		const userHasProfile = this.props.userHasProfile
 		const isAuthenticated = this.props.auth.isAuthenticated
 		const userId = this.props.auth.user.id
 		
@@ -158,7 +159,7 @@ class ProfileItem extends React.Component{
 						<Link to={`/profile/${profile.handle}`} className="btn btn-info">
 							View Profile
 						</Link>
-						{ connectButton }
+						{ userHasProfile && connectButton }
 
 					</div>
 					<div className="col-md-4 d-none d-md-block">

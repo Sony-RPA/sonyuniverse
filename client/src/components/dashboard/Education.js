@@ -38,7 +38,7 @@ class Education extends React.Component{
 			) 
 		})
 		return(
-			<div>
+			<div className="mb-5">
 				<h4 className="mb-4">
 					Education Credentials
 				</h4>

@@ -139,12 +139,12 @@ class CreateProfile extends React.Component{
 		]
 
 		return(
-			<div className="create-profile">
+			<div className="create-profile mt-5" style={{fontFamily: "Montserrat"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
-							<div style={{fontFamily: "Montserrat"}}>
-								<h1 className="display-4 text-center">Create Your Profile</h1>
+							<div>
+								<h2 className="bg-black text-white p-2 text-center shadow">Create Your Profile</h2>
 								<p className="lead text-center">Let's get some information to make your profile stand out</p>
 							</div>
 							<small className="d-block pb-3">* = required fields</small>
@@ -217,7 +217,7 @@ class CreateProfile extends React.Component{
 								<div className="mb-3">
 									<button
 										type="button"
-										className="btn btn-info"
+										className="btn btn-success"
 										onClick={() => {
 											this.setState(prevState => ({
 												displaySocialInputs: !prevState.displaySocialInputs

@@ -5,6 +5,7 @@ import ProfileItem from "./ProfileItem"
 import { getProfiles } from "../../actions/profileActions"
 import { getColleagues } from "../../actions/colleagueActions"
 import sonyLogo from "../common/sonylogo.gif"
+import { Link } from "react-router-dom"
 
 
 class Profiles extends React.Component{
@@ -98,6 +99,7 @@ class Profiles extends React.Component{
 	render(){
 		const { isAuthenticated } = this.props.auth
 		const { loading } = this.props.profile
+		const currentUserId = this.props.auth.user.id
 		const profiles = this.state.profiles
 		const connectedActive = this.state.connectedActive
 		const pendingActive = this.state.pendingActive
@@ -106,14 +108,31 @@ class Profiles extends React.Component{
 		const connectedTotal = this.props.colleague.connected.length
 		const requestedTotal = this.props.colleague.requested.length
 		const receivedTotal = this.props.colleague.received.length
+		let userHasProfile = false
+		let usersWithProfiles
 		let profileItems
 
+		//get list of users who has profiles
+		if(profiles === null || loading){
+			usersWithProfiles = []
+		} else {
+			usersWithProfiles = this.props.profile.profiles.map((profile) => {
+				return profile.user._id
+			})
+		}
+
+		//check if user has a profile
+		if(usersWithProfiles.includes(currentUserId)){
+			userHasProfile = true
+		}
+
+		//create profileItems to be displayed
 		if(profiles === null || loading){
 			profileItems = <Spinner/>
 		} else {
 			if(profiles.length > 0){
 				profileItems = profiles.map((profile) => {
-					return <ProfileItem key={profile._id} profile={profile}/>
+					return <ProfileItem key={profile._id} profile={profile} userHasProfile={userHasProfile}/>
 				})
 			} else {
 				profileItems = <h4>No profiles found</h4>
@@ -155,7 +174,15 @@ class Profiles extends React.Component{
 									<img src={sonyLogo} style={{height: "51px", width: "85px"}}/>
 								</h1>
 								<p className="lead text-center">Learn and connect with our team</p>
-								{ isAuthenticated && !loading ? filterColleagueButtons : null}
+								{ isAuthenticated && !loading && userHasProfile ? filterColleagueButtons : null}
+								{ isAuthenticated && ! loading && !userHasProfile ? (
+									<div className="text-center mb-4">
+										<Link to="/create-profile"
+											className="btn btn-small btn-warning rounded-0 shadow">
+											Create your profile to start building your network
+										</Link>
+									</div>
+								) : null }
 							</div>
 							{profileItems}
 						</div>

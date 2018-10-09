@@ -37,7 +37,7 @@ class Dashboard extends React.Component{
 				dashboardContent = (
 					<div>
 						<p className="lead text-muted">
-							Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+							Welcome back <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
 						</p>
 						<ProfileActions/>
 
@@ -49,9 +49,8 @@ class Dashboard extends React.Component{
 							education={profile.education}
 						/>
 
-						<div style={{ marginBottom: "60px" }}></div>
-						<button 
-							className="btn btn-danger"
+						<button
+ 							className="btn btn-danger"
 							onClick={this.onDeleteAccount}
 						>
 							Delete My Account
@@ -61,7 +60,7 @@ class Dashboard extends React.Component{
 			} else{
 				//User is logged in but has no profile
 				dashboardContent = (
-					<div>
+					<div className="text-center">
 						<p className="lead text-muted">Welcome { user.name }</p>
 						<p>You have not setup a profile, please add some info.</p>
 						<Link to="/create-profile" className="btn btn-lg btn-info">Create Profile</Link>
@@ -71,16 +70,17 @@ class Dashboard extends React.Component{
 		}
 
 		return(
-			<div className="dashboard" style={{fontFamily: "roboto", minHeight: "90vh"}}>
+			<div className="dashboard mt-5" style={{fontFamily: "roboto", minHeight: "90vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h1 
-								className="display-4 mb-3"
-								style={{fontFamily: "Montserrat"}}
-							>
-								Dashboard
-							</h1>
+							<div className="text-center mb-4">
+								<img 
+									src={user.avatar}
+									className="rounded-circle shadow"
+									style={{height: "200px", width: "200px"}}
+								/>
+							</div>
 							{dashboardContent}
 						</div>
 					</div>
