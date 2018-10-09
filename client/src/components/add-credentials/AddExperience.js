@@ -65,15 +65,15 @@ class AddExperience extends React.Component{
 	render(){
 		const errors = this.state.errors
 		return(
-			<div className="add-experience">
+			<div className="add-experience" style={{fontFamily: "Montserrat"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
 							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<div style={{fontFamily: "Montserrat"}}>
-								<h1 className="display-4 text-center">Add Experience</h1>
+							<div>
+								<h2 className="bg-black text-light p-2 text-center shadow">Add Experience</h2>
 								<p className="lead text-center">Tell us about your favorite job experiences</p>
 							</div>
 							<small className="d-block pb-3">* = required fields</small>
@@ -139,7 +139,11 @@ class AddExperience extends React.Component{
 									error={errors.description}
 									info="Tell us about the position"
 								/>
-								<input type="submit" value="Submit" className="btn btn-info btn-block mt-4"/>																																	
+								<input 
+									type="submit" 
+									value="Submit" 
+									className="btn btn-info btn-block rounded-0 mt-4"
+								/>																																	
 							</form>
 						</div>
 					</div>

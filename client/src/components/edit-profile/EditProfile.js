@@ -184,19 +184,18 @@ class EditProfile extends React.Component{
 		]
 		
 		return(
-			<div className="create-profile">
+			<div className="create-profile" style={{fontFamily: "Montserrat"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
 							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>						
-							<h1 
-								className="display-4 text-center mb-4"
-								style={{fontFamily: "Montserrat"}}
+							<h2 
+								className="bg-black text-light text-center mb-4 p-2 shadow"
 							>
 								Edit Your Profile
-							</h1>
+							</h2>
 							<small className="d-block pb-3">* = required fields</small>
 							<form onSubmit={this.onSubmit}>
 								<TextFieldGroup
@@ -267,7 +266,7 @@ class EditProfile extends React.Component{
 								<div className="mb-3">
 									<button
 										type="button"
-										className="btn btn-info"
+										className="btn btn-success"
 										onClick={() => {
 											this.setState(prevState => ({
 												displaySocialInputs: !prevState.displaySocialInputs
@@ -286,7 +285,7 @@ class EditProfile extends React.Component{
 								{socialInputs}
 								<input 
 									type="submit" value="Submit" 
-									className="btn btn-info btn-block mt-4"
+									className="btn btn-info btn-block rounded-0 mt-4"
 								/>																																														
 							</form>
 						</div>

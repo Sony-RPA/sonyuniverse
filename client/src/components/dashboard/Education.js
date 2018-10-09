@@ -42,13 +42,13 @@ class Education extends React.Component{
 				<h4 className="mb-4">
 					Education Credentials
 				</h4>
-				<table className="table">
+				<table className="table border shadow">
 					<thead>
 						<tr>
-							<th className="bg-dark text-white">School</th>
-							<th className="bg-dark text-white">Degree</th>
-							<th className="bg-dark text-white">Years</th>
-							<th className="bg-dark text-white"></th>
+							<th className="bg-black text-white">School</th>
+							<th className="bg-black text-white">Degree</th>
+							<th className="bg-black text-white">Years</th>
+							<th className="bg-black text-white"></th>
 						</tr>
 						{education}
 					</thead>

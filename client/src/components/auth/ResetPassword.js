@@ -62,33 +62,35 @@ class ResetPassword extends React.Component{
 		const resetRequested = this.state.resetRequested
 		const errors = this.state.errors
 		return(
-			<div className="mt-5 row justify-content-center">
-				<div className="col-10 col-sm-7 col-md-5 col-lg-4">
-					{ resetRequested ? (
-						<p className="bg-success p-3 text-light text-center rounded">
-							Great! An email to reset your password has been sent to this address.
-						</p>
-						) : (
-							<p className="bg-dark p-3 text-light text-center rounded"> 
-								To reset your password, please enter your email below 
-								and a link will be sent to you.
+			<div className="container" style={{fontFamily: "Montserrat", height: "80vh"}}>
+				<div className="mt-5 row justify-content-center">
+					<div className="col-md-6 col-sm-8">
+						{ resetRequested ? (
+							<p className="bg-success p-3 text-light text-center rounded">
+								Great! An email to reset your password has been sent to this address.
 							</p>
-						)
-					}
+							) : (
+								<p className="bg-dark p-3 text-light text-center rounded"> 
+									To reset your password, please enter your email below 
+									and a link will be sent to you.
+								</p>
+							)
+						}
 
-					<form onSubmit={this.handleValidSubmit}>
-							<InputGroup
-								name="email"
-								onChange={this.handleEmailChange}
-								onKeyPress={this.handleKeyPress}
-								placeholder="tonystark@sony.com"
-								required
-								type="email"
-								value={this.state.email}
-								error={errors.error}
-							/>
-						<button className="btn btn-info btn-md btn-block mt-4">Reset Password</button>
-					</form>
+						<form onSubmit={this.handleValidSubmit}>
+								<InputGroup
+									name="email"
+									onChange={this.handleEmailChange}
+									onKeyPress={this.handleKeyPress}
+									placeholder="godofwar@sony.com"
+									required
+									type="email"
+									value={this.state.email}
+									error={errors.error}
+								/>
+							<button className="btn btn-info btn-md btn-block rounded-0 mt-4">Reset Password</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		)

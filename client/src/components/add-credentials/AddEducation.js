@@ -65,15 +65,15 @@ class AddEducation extends React.Component{
 	render(){
 		const errors = this.state.errors
 		return(
-			<div className="add-education">
+			<div className="add-education" style={{fontFamily: "Montserrat"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
 							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<div style={{fontFamily: "Montserrat"}}>
-								<h1 className="display-4 text-center">Add Education</h1>
+							<div>
+								<h2 className="bg-black text-light p-2 text-center shadow">Add Education</h2>
 								<p className="lead text-center">Add any school or program that you have attended</p>
 							</div>
 							<small className="d-block pb-3">* = required fields</small>
@@ -139,7 +139,11 @@ class AddEducation extends React.Component{
 									error={errors.description}
 									info="Tell us about the program field you were in"
 								/>
-								<input type="submit" value="Submit" className="btn btn-info btn-block mt-4"/>																																	
+								<input 
+									type="submit" 
+									value="Submit" 
+									className="btn btn-info btn-block mt-4 rounded-0"
+								/>																																	
 							</form>
 						</div>
 					</div>

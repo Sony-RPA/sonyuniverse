@@ -38,17 +38,17 @@ class Experience extends React.Component{
 		})
 		
 		return(
-			<div>
+			<div className="mb-5">
 				<h4 className="mb-4">
 					Experience Credentials
 				</h4>
-				<table className="table">
+				<table className="table border shadow">
 					<thead>
 						<tr>
-							<th className="bg-dark text-white">Company</th>
-							<th className="bg-dark text-white">Title</th>
-							<th className="bg-dark text-white">Years</th>
-							<th className="bg-dark text-white"></th>
+							<th className="bg-black text-white">Company</th>
+							<th className="bg-black text-white">Title</th>
+							<th className="bg-black text-white">Years</th>
+							<th className="bg-black text-white"></th>
 						</tr>
 						{experience}
 					</thead>

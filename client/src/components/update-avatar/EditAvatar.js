@@ -44,19 +44,16 @@ class EditAvatar extends React.Component{
 		const errors = this.state.errors
 		const currentAvatar = this.props.auth.user.avatar
 		return(
-			<div className="update-avatar">
+			<div className="update-avatar" style={{fontFamily: "Montserrat", height: "80vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
 							<Link to="/dashboard" className="btn btn-secondary mb-3">
 								Go Back
 							</Link>
-							<h1 
-								className="display-4 text-center"
-								style={{fontFamily: "Montserrat"}}
-							>
+							<h2 className="bg-black text-light p-2 text-center shadow">
 								Update your Avatar
-							</h1>
+							</h2>
 							<div className="text-center mt-4 mb-4">
 								<img 
 									src={currentAvatar}
@@ -76,7 +73,7 @@ class EditAvatar extends React.Component{
 								/>
 								<input
 									type="submit" value="Submit"
-									className="btn btn-info btn-block mt-4"
+									className="btn btn-info btn-block rounded-0 mt-4"
 								/>
 							</form>
 						</div>

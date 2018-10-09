@@ -60,14 +60,14 @@ class Register extends React.Component{
 		const errors = this.state.errors
 
 		return(
-			<div>
-			  <div className="register mt-5" style={{height: "80vh"}}>
+			<div style={{fontFamily: "Montserrat", height: "80vh"}}>
+			  <div className="register mt-5">
 			    <div className="container">
 			      <div className="row">
-			        <div className="col-md-8 m-auto p-0">
-			        	<div style={{fontFamily: "Montserrat"}}>
-				          <h2 className="text-center bg-black text-light p-2 shadow">SIGN UP</h2>
-				          <p className="lead text-center">Create your Sony Universe account</p>
+			        <div className="col-md-6 m-auto p-0">
+			        	<div className="text-center">
+				          <h2 className="bg-black text-light p-2 shadow">SIGN UP</h2>
+				          <p className="lead">Create your Sony Universe account</p>
 			          	</div>
 			          <form noValidate onSubmit={this.onSubmit}>
 			          	<TextFieldGroup

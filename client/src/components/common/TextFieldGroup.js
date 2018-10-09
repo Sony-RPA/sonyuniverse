@@ -13,7 +13,7 @@ const TextFieldGroup = ({
 	disabled
 }) => {
 	return(
-    <div className="form-group">
+    <div className="form-group" style={{fontFamily: "Roboto"}}>
       <input 
       	type={type} 
       	className={ error ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
