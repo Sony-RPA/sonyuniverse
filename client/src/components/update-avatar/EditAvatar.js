@@ -73,7 +73,7 @@ class EditAvatar extends React.Component{
 								/>
 								<input
 									type="submit" value="Submit"
-									className="btn btn-info btn-block rounded-0 mt-4"
+									className="su-button" style={{background: "#17a2b8"}}
 								/>
 							</form>
 						</div>

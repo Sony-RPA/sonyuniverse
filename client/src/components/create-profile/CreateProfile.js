@@ -236,7 +236,7 @@ class CreateProfile extends React.Component{
 								{socialInputs}
 								<input 
 									type="submit" value="Submit" 
-									className="btn btn-info btn-block mt-4"
+									className="su-button" style={{background: "#17a2b8"}}
 								/>																																														
 							</form>
 						</div>

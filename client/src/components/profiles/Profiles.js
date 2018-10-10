@@ -178,7 +178,8 @@ class Profiles extends React.Component{
 								{ isAuthenticated && ! loading && !userHasProfile ? (
 									<div className="text-center mb-4">
 										<Link to="/create-profile"
-											className="btn btn-small btn-warning rounded-0 shadow">
+											className="su-button" 
+											style={{background: "#ffc107", color: "#333", textDecoration: "none"}}>
 											Create your profile to start building your network
 										</Link>
 									</div>

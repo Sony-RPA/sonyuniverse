@@ -88,7 +88,7 @@ class ResetPassword extends React.Component{
 									value={this.state.email}
 									error={errors.error}
 								/>
-							<button className="btn btn-info btn-md btn-block rounded-0 mt-4">Reset Password</button>
+							<button className="su-button" style={{background: "#17a2b8"}}>Reset Password</button>
 						</form>
 					</div>
 				</div>
