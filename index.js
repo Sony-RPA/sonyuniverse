@@ -8,6 +8,7 @@ const passport = require("passport")
 const passportAuthenticate = require("./config/passport")
 const path = require("path")
 
+
 //DB config
 const db = require("./config/keys").mongoURI
 
@@ -35,12 +36,14 @@ const authRoutes = require("./routes/api/auth")
 const postsRoutes = require("./routes/api/posts")
 const profileRoutes = require("./routes/api/profile")
 const colleagueRoutes = require("./routes/api/colleagues")
+const chatKitRoutes = require("./routes/api/chatkit")
 
 //Use Routes
 authRoutes(app)
 postsRoutes(app)
 profileRoutes(app)
 colleagueRoutes(app)
+chatKitRoutes(app)
 
 //serve static assets if in production
 if(process.env.NODE_ENV === "production"){

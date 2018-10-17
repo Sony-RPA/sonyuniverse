@@ -23,9 +23,14 @@ class Navbar extends React.Component{
 
 		const authLinks = (
 	        <ul className="navbar-nav">
+	          <li className="navbar-nav">
+	          	<Link to="/channels" className="nav-link">
+	          		Channels
+	          	</Link>
+	          </li>
  			  <li className="navbar-nav">
  			  	<Link to="/feed" className="nav-link">
-					Post Feed 			  		
+					Posts			  		
  			  	</Link>
  			  </li>	        
  			  <li className="navbar-nav">

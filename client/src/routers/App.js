@@ -20,6 +20,7 @@ import Posts from "../components/posts/Posts"
 import Post from "../components/post/Post"
 import ResetPassword from "../components/auth/ResetPassword"
 import ChangePassword from "../components/auth/ChangePassword"
+import ChannelsContainer from "../components/channels/ChannelsContainer"
 import NotFound from "../components/not-found/NotFound"
 import jwt_decode from "jwt-decode"
 import setAuthToken from "../utils/setAuthToken"
@@ -71,7 +72,8 @@ class App extends React.Component{
 							<PrivateRoute path="/add-experience" component={AddExperience}/>
 							<PrivateRoute path="/add-education" component={AddEducation}/>
 							<PrivateRoute path="/feed" component={Posts}/>
-							<PrivateRoute path="/posts/:id" component={Post}/>						
+							<PrivateRoute path="/posts/:id" component={Post}/>
+							<PrivateRoute path="/channels" component={ChannelsContainer}/>					
 							<Route component={NotFound}/>
 						</Switch>																											
 						<Footer/>

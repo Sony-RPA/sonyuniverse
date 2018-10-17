@@ -92,7 +92,7 @@ class ChangePassword extends React.Component{
 							value={this.state.confirmPassword}
 							error={errors.confirmPassword}
 						/>
-						<input type="submit" className="btn btn-success btn-block mt-4"/>
+						<button className="su-button" style={{background: "#17a2b8"}}>Update</button>
 					</form>
 				</div>
 			</div>
