@@ -1,6 +1,5 @@
 import React from "react"
 import Chatkit from "@pusher/chatkit"
-import keys from "../../config/keys"
 import MessageList from "./MessageList"
 import SendMessageForm from "./SendMessageForm"
 import WhosOnlineList from "./WhosOnlineList"
