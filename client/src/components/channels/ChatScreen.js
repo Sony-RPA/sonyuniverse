@@ -32,14 +32,17 @@ class ChatScreen extends React.Component{
 	componentDidMount(){
 		//setup Chatkit
 		let tokenUrl
+		let instanceLocator
 		if(process.env.NODE_ENV === "production"){
 			tokenUrl = "https://www.sonyuniverse.org/api/channels/authenticate"
+			instanceLocator = process.env.INSTANCE_LOCATOR
 		} else {
 			tokenUrl = "http://localhost:3000/api/channels/authenticate"
+			instanceLocator = keys.instanceLocator
 		}
 
 		const chatManager = new Chatkit.ChatManager({
-			instanceLocator: keys.instanceLocator,
+			instanceLocator: instanceLocator,
 			userId: this.props.chatUser.name,
 			connectionTimeout: 120000,
 			tokenProvider: new Chatkit.TokenProvider({
