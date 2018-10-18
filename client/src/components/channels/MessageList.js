@@ -3,11 +3,11 @@ import ReactDOM from "react-dom"
 import TypingIndicator from "./TypingIndicator"
 
 class MessageList extends React.Component{
-	
+
 	componentWillUpdate(){
 		const node = ReactDOM.findDOMNode(this)
 		//scrollTop is the distance from the top. clientHeight is the visible height. scrollHeight is the height on the component
-		this.shouldScrollToBottom = node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
+		this.shouldScrollToBottom = node.scrollTop + node.clientHeight >= node.scrollHeight
 	}
 
 	componentDidUpdate(){

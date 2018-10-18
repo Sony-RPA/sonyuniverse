@@ -65,7 +65,7 @@ class ChatScreen extends React.Component{
 
 	sendMessage = (text) => {
 		this.state.currentUser.sendMessage({
-			roomId: this.state.currentRoom.id,
+			roomId: this.props.chatkit.currentRoom.id,
 			text: text
 		})
 	}
@@ -105,9 +105,15 @@ class ChatScreen extends React.Component{
 			roomId: roomId,
 			hooks: {
 				onNewMessage: (message) => {
-					this.setState({
-						messages: [...this.state.messages, message]
-					})
+					//give component some time to update its state before we get the messages from the API
+					setTimeout(() => {
+						if(message.room.id === this.state.currentRoom.id){
+								this.setState({
+									messages: [...this.state.messages, message]
+								})						
+							}
+					}, 200)
+
 				},
 				onUserStartedTyping: (currentUser) => {
 					this.setState({
