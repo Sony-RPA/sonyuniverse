@@ -20,9 +20,13 @@ class SendMessageForm extends React.Component{
 				errors: nextProps.errors
 			})
 		}
-		if(nextProps.currentRoom.id){
+		if(nextProps.currentRoom.id > 0){
 			this.setState({
 				roomLoaded: true
+			})
+		} else {
+			this.setState({
+				roomLoaded: false
 			})
 		}
 	}

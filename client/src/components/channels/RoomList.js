@@ -2,7 +2,11 @@ import React from "react"
 
 class RoomList extends React.Component{
 	render(){
-		const orderedRooms = [...this.props.rooms].sort((a, b) => {
+		const rooms = this.props.rooms.filter((room) => {
+			return room !== undefined
+		})
+
+		const orderedRooms = [...rooms].sort((a, b) => {
 			return a.id - b.id
 		})
 		return(

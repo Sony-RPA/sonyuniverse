@@ -5,7 +5,7 @@ import SendMessageForm from "./SendMessageForm"
 import WhosOnlineList from "./WhosOnlineList"
 import RoomList from "./RoomList"
 import NewRoomForm from "./NewRoomForm"
-import { getCurrentRoom } from "../../actions/chatkitActions"
+import { getLastRoom, clearRoom, getRefinedUser } from "../../actions/chatkitActions"
 import { connect } from "react-redux"
 
 class ChatScreen extends React.Component{
@@ -21,14 +21,28 @@ class ChatScreen extends React.Component{
 			errors: {}
 		}
 
+		this.initiateChatkit = this.initiateChatkit.bind(this)
 		this.sendMessage = this.sendMessage.bind(this)
 		this.sendTypingEvent = this.sendTypingEvent.bind(this)
 		this.subscribeToRoom = this.subscribeToRoom.bind(this)
 		this.getRooms = this.getRooms.bind(this)
 		this.createRoom = this.createRoom.bind(this)
+		this.redirectToLastRoom = this.redirectToLastRoom.bind(this)
+	}
+
+	componentWillMount(){
+		if(this.props.chatkit.refinedUser){
+			this.setState({
+				currentUser: this.props.chatkit.refinedUser
+			})
+		}
 	}
 
 	componentDidMount(){
+		this.initiateChatkit()
+	}
+
+	initiateChatkit = () => {
 		//setup Chatkit
 		let tokenUrl
 		let instanceLocator = "v1:us1:6ca69dc3-5327-46d0-a4d3-7f2dd6539e1c"
@@ -53,13 +67,17 @@ class ChatScreen extends React.Component{
 				this.setState({
 					currentUser: currentUser
 				})
+
+				//get refined user
+				this.props.getRefinedUser(currentUser)
+
 				//get all rooms
 				this.getRooms()
 
 				// if the user is returning to the chat, direct them to the room they last visited
 				if(this.props.chatkit.currentRoom.id > 0){
-					this.subscribeToRoom(this.props.chatkit.currentRoom.id)
-				}
+					this.redirectToLastRoom()
+				}	
 			})
 	}
 
@@ -67,6 +85,16 @@ class ChatScreen extends React.Component{
 		this.state.currentUser.sendMessage({
 			roomId: this.props.chatkit.currentRoom.id,
 			text: text
+		})
+		.catch((errors) => {
+			//get rooms again if trying to send a message in a room that no longer exists
+			if(errors.statusCode !== 422){
+				this.getRooms()
+				this.setState({
+					messages: [],
+					currentRoom: {}
+				})
+			}
 		})
 	}
 
@@ -95,6 +123,22 @@ class ChatScreen extends React.Component{
 					errors: { error: "could not retrieve rooms"}
 				})
 			})
+	}
+
+	redirectToLastRoom = () => {
+		setTimeout(() => {
+			let joinedRooms = this.state.joinedRooms
+			let lastRoom = this.props.chatkit.currentRoom
+			let joinedRoomsIds = joinedRooms.map((room) => {
+				return room.id
+			})
+			//check if room still exists
+			if(joinedRoomsIds.includes(lastRoom.id)){
+				this.subscribeToRoom(lastRoom.id)
+			} else {
+				this.props.clearRoom()
+			}
+		}, 200)		
 	}
 
 	subscribeToRoom = (roomId) => {
@@ -138,16 +182,23 @@ class ChatScreen extends React.Component{
 			})
 			this.getRooms()
 			//store currentRoom in redux state
-			this.props.getCurrentRoom(currentRoom)
+			this.props.getLastRoom(currentRoom)
 		})
 		.catch((errors) => {
 			this.setState({
 				errors: errors
 			})
+			this.getRooms()
+			this.setState({
+				messages: [],
+				currentRoom: {}
+			})
 		})
 	}
 
 	createRoom = (roomName) => {
+		//update list of all rooms before you create a new one
+		this.getRooms()
 		this.state.currentUser.createRoom({
 			name: roomName
 		})
@@ -162,7 +213,6 @@ class ChatScreen extends React.Component{
 	}
 
 	render(){
-		const username = this.props.chatUser.name
 		return(
 			<div className="container" style={{ display: "flex", fontFamily: "Montserrat", height: "100vh"}}>
 				<div 
@@ -221,8 +271,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		getCurrentRoom: (currentRoom) => {
-			dispatch(getCurrentRoom(currentRoom))
+		getLastRoom: (lastRoom) => {
+			dispatch(getLastRoom(lastRoom))
+		},
+		clearRoom: () => {
+			dispatch(clearRoom())
+		},
+		getRefinedUser: (user) => {
+			dispatch(getRefinedUser(user))
 		}
 	}
 }

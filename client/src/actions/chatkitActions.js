@@ -20,9 +20,22 @@ export const createChatkitUser = (userData, history) => {
 	}
 }
 
-export const getCurrentRoom = (currentRoom) => {
+export const getLastRoom = (lastRoom) => {
 	return{
-		type: "GET_CURRENT_ROOM",
-		payload: currentRoom
+		type: "GET_LAST_ROOM",
+		payload: lastRoom
+	}
+}
+
+export const getRefinedUser = (user) => {
+	return{
+		type: "GET_REFINED_USER",
+		payload: user
+	}
+}
+
+export const clearRoom = () => {
+	return{
+		type: "CLEAR_ROOM"
 	}
 }
