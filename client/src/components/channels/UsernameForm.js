@@ -1,6 +1,5 @@
 import React from "react"
 import InputGroup from "../common/InputGroup"
-import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { createChatkitUser } from "../../actions/chatkitActions"
 
@@ -35,14 +34,14 @@ class UsernameForm extends React.Component{
 		const userData = {
 			username: this.state.username
 		}
-		this.props.createChatkitUser(userData, this.props.history)
+		this.props.createChatkitUser(userData)
 	}
 
 	render(){
 		return(
-			<div className="container">
+			<div className="container mt-5">
 				<div className="row">
-					<div className="col-md-4">
+					<div className="col-md-4" style={{margin: "0 auto"}}>
 						<form onSubmit={this.handleOnSubmit}>
 							<InputGroup
 								placeholder="Create a username for the chat"
@@ -69,10 +68,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		createChatkitUser: (username, history) => {
-			dispatch(createChatkitUser(username, history))
+		createChatkitUser: (username) => {
+			dispatch(createChatkitUser(username))
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UsernameForm))
+export default connect(mapStateToProps, mapDispatchToProps)(UsernameForm)
