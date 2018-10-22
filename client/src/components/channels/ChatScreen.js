@@ -5,7 +5,7 @@ import SendMessageForm from "./SendMessageForm"
 import WhosOnlineList from "./WhosOnlineList"
 import RoomList from "./RoomList"
 import NewRoomForm from "./NewRoomForm"
-import { getLastRoom, clearRoom, getRefinedUser } from "../../actions/chatkitActions"
+import { getLastRoom, clearRoom, getRefinedUser, getChatkitUsers } from "../../actions/chatkitActions"
 import { connect } from "react-redux"
 
 class ChatScreen extends React.Component{
@@ -18,6 +18,7 @@ class ChatScreen extends React.Component{
 			usersWhoAreTyping: [],
 			joinableRooms: [],
 			joinedRooms: [],
+			roomUsers: [],
 			errors: {}
 		}
 
@@ -28,6 +29,30 @@ class ChatScreen extends React.Component{
 		this.getRooms = this.getRooms.bind(this)
 		this.createRoom = this.createRoom.bind(this)
 		this.redirectToLastRoom = this.redirectToLastRoom.bind(this)
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.chatkit.roomUsers.length > 0){
+			let currentRoomUsers = this.state.currentRoom.users || []
+			let users = nextProps.chatkit.roomUsers || this.props.chatkit.roomUsers
+			let userNames = users.map((user) => {
+				return user.name
+			})
+			let userIds = users.map((user) => {
+				return user.id
+			})
+			if(users.length >= currentRoomUsers.length){
+				for(var i = 0; i < currentRoomUsers.length; i++){
+					let currentRoomUserIndex = userIds.indexOf(currentRoomUsers[i].id)
+					if(currentRoomUserIndex >= 0){
+						currentRoomUsers[i].name = users[currentRoomUserIndex].name	
+					}
+				}
+				this.setState({
+					roomUsers: currentRoomUsers
+				})
+			}
+		}
 	}
 
 	componentWillMount(){
@@ -183,6 +208,21 @@ class ChatScreen extends React.Component{
 			this.getRooms()
 			//store currentRoom in redux state
 			this.props.getLastRoom(currentRoom)
+			//wait for room messages to load then create an array of the senderIds
+			let messageIds = this.state.messages.map((message) => {
+				return message.senderId
+			})
+			let roomUserIds = this.state.currentRoom.users.map((user) => {
+				return user.id
+			})
+			let ids = [...messageIds, ...roomUserIds]
+			let userIds = ids.filter((id, pos) => {
+				return ids.indexOf(id) == pos
+			})
+			let userData = {
+				userIds: userIds
+			}
+			this.props.getChatkitUsers(userData)
 		})
 		.catch((errors) => {
 			this.setState({
@@ -220,7 +260,7 @@ class ChatScreen extends React.Component{
 					style={{display: "flex", flexDirection: "column", maxHeight: "80vh", padding: "24px 24px 0px"}}
 				>
 					<div style={{flex: "1"}} className="p-4">
-						<WhosOnlineList users={this.state.currentRoom.users}/>
+						{ this.state.roomUsers.length > 0 && <WhosOnlineList users={this.state.roomUsers}/>}
 						<RoomList
 							roomId={this.state.currentRoom.id} 
 							rooms={[...this.state.joinedRooms, ...this.state.joinableRooms]}
@@ -279,6 +319,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		getRefinedUser: (user) => {
 			dispatch(getRefinedUser(user))
+		},
+		getChatkitUsers: (userData) => {
+			dispatch(getChatkitUsers(userData))
 		}
 	}
 }

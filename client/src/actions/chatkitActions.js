@@ -34,6 +34,24 @@ export const getRefinedUser = (user) => {
 	}
 }
 
+export const getChatkitUsers = (userData) => {
+	return (dispatch) => {
+		axios.post("/api/channels/users", userData)
+			.then((res) => {
+				dispatch({
+					type: "GET_CHAT_USERS",
+					payload: res.data
+				})
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
 export const clearRoom = () => {
 	return{
 		type: "CLEAR_ROOM"

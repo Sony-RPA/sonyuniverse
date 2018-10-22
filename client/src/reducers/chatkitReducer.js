@@ -2,7 +2,8 @@ const initialState = {
 	chatInitialized: false,
 	chatUser: {},
 	currentRoom: {},
-	refinedUser: {}
+	refinedUser: {},
+	roomUsers: []
 }
 
 const chatkitReducer = (state = initialState, action) => {
@@ -27,6 +28,11 @@ const chatkitReducer = (state = initialState, action) => {
 			return{
 				...state,
 				refinedUser: action.payload
+			}
+		case "GET_CHAT_USERS":
+			return{
+				...state,
+				roomUsers: action.payload
 			}
 		default:
 			return state

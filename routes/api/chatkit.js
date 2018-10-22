@@ -1,6 +1,7 @@
 const passport = require("passport")
 const Chatkit = require("@pusher/chatkit-server")
 const isEmpty = require("../../validation/is-empty")
+const User = require("../../models/User")
 
 //setup Chatkit
 const instanceLocator = require("../../config/keys").instanceLocator
@@ -21,8 +22,8 @@ const chatkitRoutes = (app) => {
 		}
 		//create user in chatkit
 		chatkitInstance.createUser({
-			name: username,
-			id: username
+			name: req.user.id,
+			id: req.user.id
 		})
 		.then((createdUser) => {
 			res.json(createdUser)
@@ -30,7 +31,7 @@ const chatkitRoutes = (app) => {
 		.catch((errors) => {
 			if(errors.error === "services/chatkit/user_already_exists"){
 				//user is re-entering the chat, do not register error. Send a successful response
-				res.json({ name: username, id: username })
+				res.json({ name: req.user.id, id: req.user.id })
 			} else {
 				//send an error response
 				res.status(404).json({ error: "Could not enter channel at this time. Please try again."})
@@ -43,6 +44,22 @@ const chatkitRoutes = (app) => {
 	app.post("/api/channels/authenticate", (req, res) => {
 		const authenticatedUser = chatkitInstance.authenticate({ grant_type: "client_credentials", userId: req.query.user_id})
 		res.json(authenticatedUser.body)
+	})
+
+	//@desc get names of all chatkid users
+	//@access private
+	app.post("/api/channels/users", passport.authenticate("jwt", {session: false}), (req, res) => {
+		const userIds = req.body.userIds
+		User.find({ _id: { $in: userIds }})
+			.then((foundUsers) => {
+				let users = foundUsers.map((user) => {
+					return { id: user._id, name: user.name}
+				})
+				res.json(users)
+			})
+			.catch((errors) => {
+				res.status(404).json({error: "could not find users"})
+			})
 	})
 }
 

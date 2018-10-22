@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import TypingIndicator from "./TypingIndicator"
+import { connect } from "react-redux"
 
 class MessageList extends React.Component{
 
@@ -19,19 +20,37 @@ class MessageList extends React.Component{
 	}
 
 	render(){
-		const messages = this.props.messages
-		let updatedMessages = []
-		for(var i = 0; i < messages.length; i++){
+		let users = this.props.chatkit.roomUsers
+		let userIds = users.map((user) => {
+			return user.id
+		})
+		let roomMessages = this.props.messages
+		let messages = []
+		for(var i = 0; i < roomMessages.length; i++){
+			//create a new field to give each message a unique id
+			roomMessages[i].unique = roomMessages[i].senderId
 			let previous = {}
 			if(i > 0){
-				previous = messages[i - 1]
+				previous = roomMessages[i - 1]
 			}
-			if(messages[i].senderId === previous.senderId){
-				updatedMessages.push({...messages[i], senderId: ""})
+			let roomMessage = roomMessages[i]
+			if(roomMessages[i].senderId === previous.senderId && roomMessages[i].unique === previous.unique){
+				messages.push({...roomMessage, unique: ""})
 			} else{
+				messages.push({...roomMessage})
+			}
+		}
+		let updatedMessages = []
+		for(var i = 0; i < messages.length; i++){
+			let matchingIdIndex = userIds.indexOf(messages[i].unique)
+			if(matchingIdIndex >= 0 && messages[i].unique != ""){
+				messages[i].unique = users[matchingIdIndex].name
+				updatedMessages.push(messages[i])
+			} else {
 				updatedMessages.push(messages[i])
 			}
 		}
+
 		return(
 			<div>
 				{this.props.room && (
@@ -41,11 +60,11 @@ class MessageList extends React.Component{
 								return (
 									<li className="mb-1" key={index}>
 										<div>
-											{message.senderId && (
+											{message.unique && (
 												<span 
 													className="text-dark d-block font-weight-bold mt-3"
 												>
-													{message.senderId}
+													{message.unique}
 												</span>
 											)}
 											<span 
@@ -67,4 +86,10 @@ class MessageList extends React.Component{
 	}
 }
 
-export default MessageList
+const mapStateToProps = (state) => {
+	return{
+		chatkit: state.chatkit
+	}
+}
+
+export default connect(mapStateToProps)(MessageList)
