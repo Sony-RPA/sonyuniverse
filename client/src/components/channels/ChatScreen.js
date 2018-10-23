@@ -29,6 +29,7 @@ class ChatScreen extends React.Component{
 		this.getRooms = this.getRooms.bind(this)
 		this.createRoom = this.createRoom.bind(this)
 		this.redirectToLastRoom = this.redirectToLastRoom.bind(this)
+		this.findChatkitUsers = this.findChatkitUsers.bind(this)
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -150,6 +151,29 @@ class ChatScreen extends React.Component{
 			})
 	}
 
+	findChatkitUsers = () => {
+		this.getRooms()
+		//store currentRoom in redux state
+		this.props.getLastRoom(this.state.currentRoom)
+		//wait for room messages to load then create an array of the senderIds
+		let messageIds = this.state.messages.map((message) => {
+			return message.senderId
+		})
+		if(Object.keys(this.state.currentRoom).length > 0){
+			let roomUserIds = this.state.currentRoom.users.map((user) => {
+				return user.id
+			})
+			let ids = [...messageIds, ...roomUserIds]
+			let userIds = ids.filter((id, pos) => {
+				return ids.indexOf(id) == pos
+			})
+			let userData = {
+				userIds: userIds
+			}
+			this.props.getChatkitUsers(userData)	
+		}		
+	}
+
 	redirectToLastRoom = () => {
 		setTimeout(() => {
 			let joinedRooms = this.state.joinedRooms
@@ -196,9 +220,18 @@ class ChatScreen extends React.Component{
 						})
 					})
 				},
-				onUserCameOnline: () => this.forceUpdate(),
-				onUserWentOffline: () => this.forceUpdate(),
-				onUserJoined: () => this.forceUpdate()
+				onUserCameOnline: () => {
+					this.forceUpdate()
+					this.findChatkitUsers()
+				},
+				onUserWentOffline: () => {
+					this.forceUpdate()
+					this.findChatkitUsers()
+				},
+				onUserJoined: () => {
+					this.forceUpdate()
+					this.findChatkitUsers()
+				}
 			}			
 		})
 		.then((currentRoom) => {
