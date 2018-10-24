@@ -1,9 +1,9 @@
 import axios from "axios"
 import { clearErrors } from "./postActions"
 
-export const createChatkitUser = (userData) => {
+export const createChatkitUser = () => {
 	return (dispatch) => {
-		axios.post("/api/channels/create-user", userData)
+		axios.post("/api/channels/create-user")
 			.then((res) => {
 				dispatch({
 					type: "START_CHAT",

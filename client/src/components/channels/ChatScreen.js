@@ -46,7 +46,7 @@ class ChatScreen extends React.Component{
 				for(var i = 0; i < currentRoomUsers.length; i++){
 					let currentRoomUserIndex = userIds.indexOf(currentRoomUsers[i].id)
 					if(currentRoomUserIndex >= 0){
-						currentRoomUsers[i].name = users[currentRoomUserIndex].name	
+						currentRoomUsers[i].name = userNames[currentRoomUserIndex]	
 					}
 				}
 				this.setState({

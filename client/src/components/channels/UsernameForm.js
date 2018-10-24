@@ -6,12 +6,7 @@ import { createChatkitUser } from "../../actions/chatkitActions"
 class UsernameForm extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {
-			username: "",
-			errors: {}
-		}
 
-		this.handleOnChange = this.handleOnChange.bind(this)
 		this.handleOnSubmit = this.handleOnSubmit.bind(this)
 	}
 
@@ -23,35 +18,24 @@ class UsernameForm extends React.Component{
 		}
 	}
 
-	handleOnChange = (event) => {
-		this.setState({
-			[event.target.name]: event.target.value
-		})
-	}
-
 	handleOnSubmit = (event) => {
 		event.preventDefault()
-		const userData = {
-			username: this.state.username
-		}
-		this.props.createChatkitUser(userData)
+		this.props.createChatkitUser()
 	}
 
 	render(){
 		return(
-			<div className="container mt-5">
-				<div className="row">
-					<div className="col-md-4" style={{margin: "0 auto"}}>
-						<form onSubmit={this.handleOnSubmit}>
-							<InputGroup
-								placeholder="Create a username for the chat"
-								value={this.state.username}
-								onChange={this.handleOnChange}
-								name="username"
-								error={this.state.errors.error}
-							/>
-							<button className="su-button" style={{background: "#17a2b8"}}>Submit</button>
-						</form>
+			<div className="channels">
+				<div className="dark-overlay landing-inner" style={{fontFamily: "montserrat"}}>
+					<div className="container text-center">
+						<div className="row">
+							<div className="col-md-6" style={{margin: "0 auto"}}>
+								<h3 className="text-light mb-3">Welcome back to the party</h3>
+								<form onSubmit={this.handleOnSubmit}>
+									<button className="su-button" style={{background: "#25a86e", width: "75%"}}>Enter</button>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -62,14 +46,13 @@ class UsernameForm extends React.Component{
 const mapStateToProps = (state) => {
 	return{
 		chatkit: state.chatkit,
-		errors: state.errors
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		createChatkitUser: (username) => {
-			dispatch(createChatkitUser(username))
+		createChatkitUser: () => {
+			dispatch(createChatkitUser())
 		}
 	}
 }

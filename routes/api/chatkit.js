@@ -1,6 +1,5 @@
 const passport = require("passport")
 const Chatkit = require("@pusher/chatkit-server")
-const isEmpty = require("../../validation/is-empty")
 const User = require("../../models/User")
 
 //setup Chatkit
@@ -15,11 +14,6 @@ const chatkitRoutes = (app) => {
 	//@desc create new chatkit user
 	//@access Private
 	app.post("/api/channels/create-user", passport.authenticate("jwt", {session: false}), (req, res) => {
-		const { username } = req.body
-		//check data provided by user
-		if(isEmpty(username)){
-			res.status(404).json({ error: "A username is required to continue"})
-		}
 		//create user in chatkit
 		chatkitInstance.createUser({
 			name: req.user.id,
