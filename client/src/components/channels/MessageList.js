@@ -1,22 +1,43 @@
 import React from "react"
-import ReactDOM from "react-dom"
 import TypingIndicator from "./TypingIndicator"
 import { connect } from "react-redux"
 
 class MessageList extends React.Component{
-
-	componentWillUpdate(){
-		const node = ReactDOM.findDOMNode(this)
-		//scrollTop is the distance from the top. clientHeight is the visible height. scrollHeight is the height on the component
-		this.shouldScrollToBottom = node.scrollTop + node.clientHeight >= node.scrollHeight
+	constructor(props){
+		super(props)
+		this.scrollToBottom = this.scrollToBottom.bind(this)
 	}
 
-	componentDidUpdate(){
-		//scroll to the bottom if we are close to the bottom of the component
-		if(this.shouldScrollToBottom){
-			const node = ReactDOM.findDOMNode(this)
-			node.scrollTop = node.scrollHeight
+	//create references for divs
+	messagesEnd = React.createRef()
+	messageList = React.createRef()
+
+	componentWillUpdate(){
+		if(this.messageList.current){
+			//set a threshold for the bottom of the div
+			this.distanceScrolled = this.messageList.current.scrollTop
+			this.viewableHeight = this.messageList.current.clientHeight
+			this.bottomThreshold = this.messageList.current.scrollHeight
+			this.bottomThresholdMet = (
+				this.distanceScrolled + this.viewableHeight + 200 > this.bottomThreshold
+			)
 		}
+	}
+
+	componentDidUpdate(prevProps){
+		//scroll to bottom when component gets a new message and we are near the bottom
+		if(this.messagesEnd.current){
+			if(this.props.messages.length !== prevProps.messages.length && this.bottomThresholdMet){
+				//give div time to scroll to the for the first update of the component
+				setTimeout(() => {
+					this.scrollToBottom()
+				}, 100)
+			}
+		}
+	}
+
+	scrollToBottom = () => {
+		this.messagesEnd.current.scrollIntoView({ behavior: "smooth", block: "nearest"})
 	}
 
 	render(){
@@ -54,7 +75,10 @@ class MessageList extends React.Component{
 		return(
 			<div>
 				{this.props.room && (
-					<div style={{overflow: "scroll", overflowX: "hidden", maxHeight: "65vh"}}>
+					<div 
+						style={{overflow: "scroll", overflowX: "hidden", maxHeight: "65vh"}}
+						ref={this.messageList}
+					>
 						<ul style={{listStyle: "none"}} className="p-3">
 							{updatedMessages.map((message, index) => {
 								return (
@@ -79,6 +103,10 @@ class MessageList extends React.Component{
 							})}
 						</ul>
 						<TypingIndicator usersWhoAreTyping={this.props.usersWhoAreTyping}/>
+						<div 
+							style={{float: "left", clear: "both"}}
+							ref={this.messagesEnd}>		
+						</div>
 					</div>
 				)}
 			</div>

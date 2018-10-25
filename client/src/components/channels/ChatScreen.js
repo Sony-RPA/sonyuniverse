@@ -196,6 +196,7 @@ class ChatScreen extends React.Component{
 		})
 		this.state.currentUser.subscribeToRoom({
 			roomId: roomId,
+			messageLimit: 100,
 			hooks: {
 				onNewMessage: (message) => {
 					//give component some time to update its state before we get the messages from the API
