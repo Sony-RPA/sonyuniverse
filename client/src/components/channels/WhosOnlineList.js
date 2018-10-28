@@ -3,7 +3,9 @@ import React from "react"
 class WhosOnlineList extends React.Component{
 	render(){
 		return(
-			<div className={this.props.users && "mb-4"}>
+			<div 
+				className={this.props.users && "mb-4"}
+			>
 				{this.props.users && (
 					<div>
 						<div className="d-flex justify-content-between text-light mb-2">
