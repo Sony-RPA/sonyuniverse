@@ -20,9 +20,10 @@ export const createChatkitUser = () => {
 	}
 }
 
-export const getLastRoom = (lastRoom) => {
+export const recordLastRoom = (lastRoom) => {
+	axios.post("/api/channels/record-last-room", lastRoom)
 	return{
-		type: "GET_LAST_ROOM",
+		type: "RECORD_LAST_ROOM",
 		payload: lastRoom
 	}
 }

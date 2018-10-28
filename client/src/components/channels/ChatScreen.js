@@ -5,7 +5,7 @@ import SendMessageForm from "./SendMessageForm"
 import WhosOnlineList from "./WhosOnlineList"
 import RoomList from "./RoomList"
 import NewRoomForm from "./NewRoomForm"
-import { getLastRoom, clearRoom, getRefinedUser, getChatkitUsers } from "../../actions/chatkitActions"
+import { recordLastRoom, clearRoom, getRefinedUser, getChatkitUsers } from "../../actions/chatkitActions"
 import { connect } from "react-redux"
 
 class ChatScreen extends React.Component{
@@ -154,7 +154,7 @@ class ChatScreen extends React.Component{
 	findChatkitUsers = () => {
 		this.getRooms()
 		//store currentRoom in redux state
-		this.props.getLastRoom(this.state.currentRoom)
+		this.props.recordLastRoom(this.state.currentRoom)
 		//wait for room messages to load then create an array of the senderIds
 		let messageIds = this.state.messages.map((message) => {
 			return message.senderId
@@ -210,9 +210,20 @@ class ChatScreen extends React.Component{
 
 				},
 				onUserStartedTyping: (currentUser) => {
-					this.setState({
-						usersWhoAreTyping: [...this.state.usersWhoAreTyping, currentUser.name]
+					this.findChatkitUsers()
+					let currentRoomId = this.state.currentRoom.id
+					let typingUser = currentUser.id
+					let currentRoomUsers = this.props.chatkit.roomUsers
+					let currentRoomUsersIds = currentRoomUsers.map((user) => {
+						return user.id
 					})
+					let typingUserIndex = currentRoomUsersIds.indexOf(typingUser)
+					//check if the typing user is currently in our room
+					if(typingUserIndex >= 0 && currentRoomId == currentRoomUsers[typingUserIndex].lastChatRoom){
+						this.setState({
+							usersWhoAreTyping: [...this.state.usersWhoAreTyping, currentUser.name]
+						})
+					}
 				},
 				onUserStoppedTyping: (currentUser) => {
 					this.setState({
@@ -241,7 +252,7 @@ class ChatScreen extends React.Component{
 			})
 			this.getRooms()
 			//store currentRoom in redux state
-			this.props.getLastRoom(currentRoom)
+			this.props.recordLastRoom(currentRoom)
 			//wait for room messages to load then create an array of the senderIds
 			let messageIds = this.state.messages.map((message) => {
 				return message.senderId
@@ -345,8 +356,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		getLastRoom: (lastRoom) => {
-			dispatch(getLastRoom(lastRoom))
+		recordLastRoom: (lastRoom) => {
+			dispatch(recordLastRoom(lastRoom))
 		},
 		clearRoom: () => {
 			dispatch(clearRoom())

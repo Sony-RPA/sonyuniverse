@@ -6,8 +6,9 @@ const userSchema = new mongoose.Schema({
 	password: { type: String, required: true },
 	avatar: { type: String, default: "https://i.imgur.com/Nh6nPcQ.png", required: true },
 	passwordReset: { type: String, default: null, select: false },
-	date: { type: Date, default: Date.now }
-})
+	date: { type: Date, default: Date.now },
+	lastChatRoom: { type: String, default: "0" }
+}, { minimize: false })
 
 const User = mongoose.model("User", userSchema)
 

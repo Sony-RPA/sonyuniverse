@@ -14,7 +14,7 @@ const chatkitReducer = (state = initialState, action) => {
 				chatInitialized: true,
 				chatUser: action.payload
 			}
-		case "GET_LAST_ROOM":
+		case "RECORD_LAST_ROOM":
 			return{
 				...state,
 				currentRoom: action.payload
