@@ -7,7 +7,6 @@ const bodyParser = require("body-parser")
 const passport = require("passport")
 const passportAuthenticate = require("./config/passport")
 const path = require("path")
-const User = require("./models/User")
 
 //DB config
 const db = require("./config/keys").mongoURI
@@ -44,15 +43,6 @@ postsRoutes(app)
 profileRoutes(app)
 colleagueRoutes(app)
 chatKitRoutes(app)
-
-User.find({})
-	.then((foundUsers) => {
-		for(var i = 0; i < foundUsers.length; i++){
-			foundUsers[i].lastChatRoom = "0"
-			foundUsers[i].save()
-		}
-		console.log("done")
-	})
 
 //serve static assets if in production
 if(process.env.NODE_ENV === "production"){
