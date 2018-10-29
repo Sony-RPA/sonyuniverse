@@ -55,7 +55,7 @@ class CommentForm extends React.Component{
 	render(){
 		const errors = this.state.errors
 		return(
-          <div className="post-form mb-3">
+          <div className="post-form mb-3 shadow">
             <div className="card card-info">
               <div className="card-header bg-info text-white">
                 Make a comment...
@@ -72,7 +72,7 @@ class CommentForm extends React.Component{
                     	errorProfile={errors.profilenotfound}
                     />
                   </div>
-                  <button type="submit" className="btn btn-success">Submit</button>
+                  <button type="submit" className="btn btn-dark">Submit</button>
                 </form>
               </div>
             </div>

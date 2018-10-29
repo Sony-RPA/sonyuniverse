@@ -9,9 +9,11 @@ import { getPost } from "../../actions/postActions"
 
 
 class Post extends React.Component{
+
 	componentDidMount(){
 		this.props.getPost(this.props.match.params.id)
 	}
+	
 	render(){
 		const { post, loading } = this.props.post
 		let postContent;
@@ -29,7 +31,7 @@ class Post extends React.Component{
 		}
 
 		return(
-			<div className="post">
+			<div className="post" style={{minHeight: "100vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

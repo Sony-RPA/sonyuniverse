@@ -21,7 +21,7 @@ class Posts extends React.Component{
 		}
 
 		return(
-			<div className="feed">
+			<div className="feed" style={{minHeight: "100vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

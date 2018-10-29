@@ -47,7 +47,7 @@ const postsRoutes = (app) => {
 			//If any errors, send a 400 error 
 			return res.status(400).json(errors)
 		}
-
+		//check if user has a profile. they need a profile to create a post.
 		Profile.findOne({ user: req.user.id })
 			.then((foundProfile) => {
 				const newPost = new Post({

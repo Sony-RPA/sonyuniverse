@@ -38,7 +38,7 @@ class Experience extends React.Component{
 		})
 		
 		return(
-			<div className="mb-5">
+			<div className="mt-5 mb-5">
 				<h4 className="mb-4">
 					Experience Credentials
 				</h4>

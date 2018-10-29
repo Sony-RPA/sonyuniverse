@@ -188,7 +188,7 @@ class EditProfile extends React.Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
-							<Link to="/dashboard" className="btn btn-secondary mb-3">
+							<Link to="/dashboard" className="btn btn-dark mb-3">
 								Go Back
 							</Link>						
 							<h2 
