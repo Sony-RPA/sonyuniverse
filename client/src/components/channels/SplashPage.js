@@ -3,7 +3,7 @@ import InputGroup from "../common/InputGroup"
 import { connect } from "react-redux"
 import { createChatkitUser } from "../../actions/chatkitActions"
 
-class UsernameForm extends React.Component{
+class SplashPage extends React.Component{
 	constructor(props){
 		super(props)
 
@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsernameForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SplashPage)

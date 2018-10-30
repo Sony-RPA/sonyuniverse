@@ -1,5 +1,5 @@
 import React from "react"
-import UsernameForm from "./UsernameForm"
+import SplashPage from "./SplashPage"
 import ChatScreen from "./ChatScreen"
 import { connect } from "react-redux"
 
@@ -32,7 +32,7 @@ class ChannelsContainer extends React.Component{
 		if(this.state.chatScreen){
 			chatStage = <ChatScreen chatUser={this.props.chatkit.chatUser}/>
 		} else{
-			chatStage = <UsernameForm/>
+			chatStage = <SplashPage/>
 		}
 		return(
 			<div style={{minHeight: "90vh"}}>

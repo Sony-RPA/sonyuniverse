@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions"
-import Spinner from "../common/Spinner"
+import Loader from "../common/Loader"
 import ProfileActions from "./ProfileActions"
 import Experience from "./Experience"
 import Education from "./Education"
@@ -30,14 +30,19 @@ class Dashboard extends React.Component{
 		let dashboardContent;
 
 		if(loading){
-			dashboardContent = <Spinner/>
+			dashboardContent = <Loader/>
 		} else{
 			//check if logged in user has profile data
 			if(profile){
 				dashboardContent = (
 					<div>
-						<p className="lead text-muted">
-							Welcome back <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+						<p className="lead text-dark">
+							Welcome back&nbsp; 
+							<Link 
+								to={`/profile/${profile.handle}`} 
+								className="text-info font-weight-bold">
+								{user.name}
+							</Link>
 						</p>
 						<ProfileActions/>
 
@@ -50,7 +55,7 @@ class Dashboard extends React.Component{
 						/>
 
 						<button
- 							className="btn btn-danger"
+ 							className="btn btn-danger shadow"
 							onClick={this.onDeleteAccount}
 						>
 							Delete My Account
@@ -70,7 +75,7 @@ class Dashboard extends React.Component{
 		}
 
 		return(
-			<div className="dashboard mt-5" style={{fontFamily: "roboto", minHeight: "90vh"}}>
+			<div className="dashboard pt-5 pb-5" style={{fontFamily: "roboto", minHeight: "100vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

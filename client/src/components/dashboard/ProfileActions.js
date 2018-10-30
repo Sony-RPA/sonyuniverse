@@ -30,7 +30,7 @@ class ProfileActions extends React.Component{
 	render(){
 		let actionsList
 		let screenWidth = this.state.width
-		if(screenWidth > 768){
+		if(screenWidth >= 768){
 			actionsList = (
 				<div className="btn-group" role="group">
 					<Link to="/edit-profile" className="btn btn-dark bg-black shadow">

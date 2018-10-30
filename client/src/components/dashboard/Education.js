@@ -19,13 +19,13 @@ class Education extends React.Component{
 		const education = this.props.education.map((edu) => {
 			return(
 				<tr key={edu._id}>
-					<td>{edu.school}</td>
-					<td>{edu.degree}</td>
-					<td>
+					<td className="bg-light">{edu.school}</td>
+					<td className="bg-light">{edu.degree}</td>
+					<td className="d-none d-md-table-cell bg-light">
 						<Moment format="YYYY/MM/DD">{edu.from}</Moment> - 
 						{edu.to === null ? " Now" : <Moment format="YYYY/MM/DD">{edu.to}</Moment>}
 					</td>
-					<td>
+					<td className="bg-light">
 						<button
 					 		className="btn btn-danger"
 					 		onClick={() => {
@@ -42,13 +42,13 @@ class Education extends React.Component{
 				<h4 className="mb-4">
 					Education Credentials
 				</h4>
-				<table className="table border shadow">
+				<table className="table shadow">
 					<thead>
 						<tr>
-							<th className="bg-black text-white">School</th>
-							<th className="bg-black text-white">Degree</th>
-							<th className="bg-black text-white">Years</th>
-							<th className="bg-black text-white"></th>
+							<th className="bg-black border-0 text-white">School</th>
+							<th className="bg-black border-0 text-white">Degree</th>
+							<th className="bg-black border-0 text-white d-none d-md-table-cell">Years</th>
+							<th className="bg-black border-0 text-white"></th>
 						</tr>
 						{education}
 					</thead>
