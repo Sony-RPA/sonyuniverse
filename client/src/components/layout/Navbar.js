@@ -24,22 +24,22 @@ class Navbar extends React.Component{
 		const authLinks = (
 	        <ul className="navbar-nav">
 	          <li className="navbar-nav">
-	          	<Link to="/channels" className="nav-link">
+	          	<Link to="/channels" className="nav-link text-light">
 	          		Channels
 	          	</Link>
 	          </li>
  			  <li className="navbar-nav">
- 			  	<Link to="/feed" className="nav-link">
+ 			  	<Link to="/feed" className="nav-link text-light">
 					Posts			  		
  			  	</Link>
  			  </li>	        
  			  <li className="navbar-nav">
- 			  	<Link to="/dashboard" className="nav-link">
+ 			  	<Link to="/dashboard" className="nav-link text-light">
 					Dashboard 			  		
  			  	</Link>
  			  </li>
 	          <li className="nav-item">
-	            <a href="/login" onClick={this.onLogoutClick} className="nav-link">
+	            <a href="/login" onClick={this.onLogoutClick} className="nav-link text-light">
 	            	<img 
 	            		className="rounded-circle"
 	            		src={user.avatar}
@@ -55,10 +55,10 @@ class Navbar extends React.Component{
 		const guestLinks = (
 	        <ul className="navbar-nav ml-auto">
 	          <li className="nav-item">
-	            <Link className="nav-link" to="/register">SIGN UP</Link>
+	            <Link className="nav-link text-light" to="/register">SIGN UP</Link>
 	          </li>
 	          <li className="nav-item">
-	            <Link className="nav-link" to="/login">LOGIN</Link>
+	            <Link className="nav-link text-light" to="/login">LOGIN</Link>
 	          </li>
 	        </ul>
 		)		
@@ -75,7 +75,7 @@ class Navbar extends React.Component{
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link" to="/profiles">NETWORK
+			            <Link className="nav-link text-light" to="/profiles">NETWORK
 			            </Link>
 			          </li>
 			        </ul>
