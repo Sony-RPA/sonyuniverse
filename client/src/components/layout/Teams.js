@@ -25,7 +25,7 @@ class Teams extends React.Component{
 					<div className="row">
 						{this.state.teams.map((team, i) => {
 							return(
-								<Zoom>
+								<Zoom key={i}>
 									<div className="col-sm-12 col-sm-12 col-md-4">
 										<div className="team_item">
 											<div className="team_outer">

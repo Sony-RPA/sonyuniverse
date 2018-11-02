@@ -8,7 +8,25 @@ import sonyUniverseLogo from"../common/sonyuniverselogo.png"
 class Navbar extends React.Component{
 	constructor(props){
 		super(props)
+		this.state = {
+			windowWidth: window.innerWidth
+		}
 		this.onLogoutClick = this.onLogoutClick.bind(this)
+		this.setWidth = this.setWidth.bind(this)
+	}
+
+	componentDidMount(){
+		window.addEventListener("resize", this.setWidth)
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener("resize", this.setWidth)
+	}
+
+	setWidth = () => {
+		this.setState({
+			windowWidth: window.innerWidth
+		})
 	}
 
 	onLogoutClick = (event) => {
@@ -55,10 +73,16 @@ class Navbar extends React.Component{
 		const guestLinks = (
 	        <ul className="navbar-nav ml-auto">
 	          <li className="nav-item">
-	            <Link className="nav-link text-light" to="/register">SIGN UP</Link>
+	            <Link 
+	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-success mr-2" : "nav-link text-light mr-2"} 
+	            	to="/register">SIGN UP
+	            </Link>
 	          </li>
 	          <li className="nav-item">
-	            <Link className="nav-link text-light" to="/login">LOGIN</Link>
+	            <Link 
+	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-info mr-2" : "nav-link text-light mr-2"} 
+	            	to="/login">LOGIN
+	            </Link>
 	          </li>
 	        </ul>
 		)		
