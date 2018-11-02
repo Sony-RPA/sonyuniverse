@@ -189,7 +189,7 @@ const authRoutes = (app) => {
 							}
 
 							//Sign Token with user info. Then Token will be used for this logged in session.
-							jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+							jwt.sign(payload, keys.secretOrKey, { expiresIn: 2592000 }, (err, token) => {
 								res.json({
 									success: true,
 									token: "Bearer " + token 
