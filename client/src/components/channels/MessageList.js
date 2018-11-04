@@ -78,14 +78,14 @@ class MessageList extends React.Component{
 			<div>
 				{this.props.room && (
 					<div 
-						style={{overflow: "scroll", overflowX: "hidden", maxHeight: "65vh"}}
+						style={{overflow: "scroll", overflowX: "hidden", maxHeight: "70vh"}}
 						ref={this.messageList}
 					>
-						<ul style={{listStyle: "none"}} className="p-3">
+						<ul style={{listStyle: "none"}} className="p-4 mb-0">
 							{updatedMessages.map((message, index) => {
 								return (
 									<li 
-										className={message.senderId === currentChatkitUser ? "mb-1 text-right" : "mb-1"} 
+										className="mb-1"
 										key={index}>
 										<div>
 											{message.unique && (
@@ -96,7 +96,7 @@ class MessageList extends React.Component{
 												</span>
 											)}
 											<span 
-												className={message.senderId === currentChatkitUser ? "bg-info text-light rounded d-inline-block": "dark-teal text-light rounded d-inline-block"}
+												className={message.senderId === currentChatkitUser ? "bg-secondary text-light rounded d-inline-block": "muted-blue text-light rounded d-inline-block"}
 												style={{padding:".25rem .5rem"}}
 											>
 												{message.text}

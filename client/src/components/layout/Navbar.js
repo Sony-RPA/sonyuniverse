@@ -9,24 +9,45 @@ class Navbar extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			windowWidth: window.innerWidth
+			windowWidth: window.innerWidth,
+			scrollThresholdMet: 0
 		}
+
 		this.onLogoutClick = this.onLogoutClick.bind(this)
 		this.setWidth = this.setWidth.bind(this)
 	}
 
 	componentDidMount(){
 		window.addEventListener("resize", this.setWidth)
+		window.addEventListener("scroll", this.stickyNav)
 	}
 
 	componentWillUnmount(){
 		window.removeEventListener("resize", this.setWidth)
+		window.removeEventListener("scroll", this.stickyNav)
 	}
 
 	setWidth = () => {
 		this.setState({
 			windowWidth: window.innerWidth
 		})
+	}
+
+	stickyNav = () => {
+		let scrolledDistance = window.scrollY
+		if(scrolledDistance >= 230){
+			this.setState({
+				scrollThresholdMet: true
+			})
+		} else if(scrolledDistance > 0){
+			this.setState({
+				scrollThresholdMet: false
+			})
+		} else{
+			this.setState({
+				scrollThresholdMet: false
+			})
+		}
 	}
 
 	onLogoutClick = (event) => {
@@ -74,22 +95,34 @@ class Navbar extends React.Component{
 	        <ul className="navbar-nav ml-auto">
 	          <li className="nav-item">
 	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-success mr-2" : "nav-link text-light mr-2"} 
-	            	to="/register">SIGN UP
+	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-success mr-2 nav-btn" : "nav-link text-light mr-2"} 
+	            	to="/register"
+	            	>SIGN UP
+
 	            </Link>
 	          </li>
 	          <li className="nav-item">
 	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-info mr-2" : "nav-link text-light mr-2"} 
-	            	to="/login">LOGIN
+	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-info mr-2 nav-btn" : "nav-link text-light mr-2"} 
+	            	to="/login"
+	            	>LOGIN
 	            </Link>
 	          </li>
 	        </ul>
 		)		
 
 		return(
-			<div style={{fontFamily: "Kanit"}}>
-			  <nav className="navbar navbar-expand-sm navbar-dark bg-black mb-4">
+			<div  
+				style={{fontFamily: "Kanit"}}
+				className="sticky-top">
+			  <nav 
+			  	className={ this.state.scrollThresholdMet ? (
+			  			"navbar navbar-expand-sm navbar-dark mb-4 transparent"
+			  		) : (
+			  			"navbar navbar-expand-sm navbar-dark mb-4 bg-black"
+			  		)
+			  	}
+			  >
 			    <div className="container">
 			      <Link className="navbar-brand" to="/"><img src={sonyUniverseLogo} className="logo"/></Link>
 			      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">

@@ -299,10 +299,10 @@ class ChatScreen extends React.Component{
 
 	render(){
 		return(
-			<div className="container" style={{ display: "flex", fontFamily: "Montserrat", height: "100vh"}}>
+			<div style={{ display: "flex", fontFamily: "Montserrat", height: "90vh", marginTop: "-25px", marginBottom: "-48px"}}>
 				<div 
-					className="col-md-3 bg-dark mr-2 p-0" 
-					style={{display: "flex", flexDirection: "column", maxHeight: "80vh", padding: "24px 24px 0px"}}
+					className="col-md-2 bg-dark p-0" 
+					style={{display: "flex", flexDirection: "column", height: "90vh", padding: "24px 24px 0px"}}
 				>
 					<div style={{flex: "1"}} className="p-4">
 						{ this.state.roomUsers.length > 0 && <WhosOnlineList users={this.state.roomUsers}/>}
@@ -316,13 +316,13 @@ class ChatScreen extends React.Component{
 				</div>
 
 				<div 
-					className="col-md-9 border p-0" 
-					style={{display: "flex", flexDirection: "column", maxHeight: "80vh"}}
+					className="col-md-10 p-0" 
+					style={{display: "flex", flexDirection: "column", height: "90vh"}}
 				>
 					<div className="mb-3">
 						{ this.state.currentRoom.name ? (
 							<h4 
-								className="bg-black text-light m-0" 
+								className="room-title text-light m-0" 
 								style={{padding: "1.0rem 1.2rem"}}
 							>
 								{this.state.currentRoom.name}

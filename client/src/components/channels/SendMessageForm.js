@@ -70,12 +70,8 @@ class SendMessageForm extends React.Component{
 		)
 
 		return(
-			<div className="container">
-				<div className="row">
-					<div style={{width: "100%"}}>
-						{ this.state.roomLoaded && chatRoom }
-					</div>
-				</div>
+			<div style={{width: "100%"}}>
+				{ this.state.roomLoaded && chatRoom }
 			</div>
 		)
 	}
