@@ -219,7 +219,7 @@ class ChatScreen extends React.Component{
 					})
 					let typingUserIndex = currentRoomUsersIds.indexOf(typingUser)
 					//check if the typing user is currently in our room
-					if(typingUserIndex >= 0 && currentRoomId === currentRoomUsers[typingUserIndex].lastChatRoom){
+					if(typingUserIndex >= 0 && currentRoomId == currentRoomUsers[typingUserIndex].lastChatRoom){
 						this.setState({
 							usersWhoAreTyping: [...this.state.usersWhoAreTyping, currentUser.name]
 						})

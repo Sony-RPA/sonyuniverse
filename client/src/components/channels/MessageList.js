@@ -84,7 +84,6 @@ class MessageList extends React.Component{
 
 		let currentChatkitUser = this.props.chatkit.chatUser.id
 
-		console.log(updatedMessages)
 		return(
 			<div>
 				{this.props.room && (

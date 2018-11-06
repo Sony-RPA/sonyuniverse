@@ -51,7 +51,8 @@ const chatkitRoutes = (app) => {
 						id: user._id,
 						name: user.name,
 						avatar: user.avatar,
-						lastChatRoom: user.lastChatRoom}
+						lastChatRoom: user.lastChatRoom
+					}
 				})
 				res.json(users)
 			})
