@@ -165,7 +165,7 @@ class ChatScreen extends React.Component{
 			})
 			let ids = [...messageIds, ...roomUserIds]
 			let userIds = ids.filter((id, pos) => {
-				return ids.indexOf(id) == pos
+				return ids.indexOf(id) === pos
 			})
 			let userData = {
 				userIds: userIds
@@ -219,7 +219,7 @@ class ChatScreen extends React.Component{
 					})
 					let typingUserIndex = currentRoomUsersIds.indexOf(typingUser)
 					//check if the typing user is currently in our room
-					if(typingUserIndex >= 0 && currentRoomId == currentRoomUsers[typingUserIndex].lastChatRoom){
+					if(typingUserIndex >= 0 && currentRoomId === currentRoomUsers[typingUserIndex].lastChatRoom){
 						this.setState({
 							usersWhoAreTyping: [...this.state.usersWhoAreTyping, currentUser.name]
 						})
@@ -262,7 +262,7 @@ class ChatScreen extends React.Component{
 			})
 			let ids = [...messageIds, ...roomUserIds]
 			let userIds = ids.filter((id, pos) => {
-				return ids.indexOf(id) == pos
+				return ids.indexOf(id) === pos
 			})
 			let userData = {
 				userIds: userIds
@@ -301,7 +301,7 @@ class ChatScreen extends React.Component{
 		return(
 			<div style={{ display: "flex", fontFamily: "Montserrat", height: "90vh", marginTop: "-25px", marginBottom: "-48px"}}>
 				<div 
-					className="col-md-2 bg-dark p-0" 
+					className="d-none d-md-flex col-md-2 bg-dark p-0" 
 					style={{display: "flex", flexDirection: "column", height: "90vh", padding: "24px 24px 0px"}}
 				>
 					<div style={{flex: "1"}} className="p-4">

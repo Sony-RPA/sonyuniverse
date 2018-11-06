@@ -47,7 +47,11 @@ const chatkitRoutes = (app) => {
 		User.find({ _id: { $in: userIds }})
 			.then((foundUsers) => {
 				let users = foundUsers.map((user) => {
-					return { id: user._id, name: user.name, lastChatRoom: user.lastChatRoom}
+					return { 
+						id: user._id,
+						name: user.name,
+						avatar: user.avatar,
+						lastChatRoom: user.lastChatRoom}
 				})
 				res.json(users)
 			})

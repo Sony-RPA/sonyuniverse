@@ -1,5 +1,4 @@
 import React from "react"
-import InputGroup from "../common/InputGroup"
 import { connect } from "react-redux"
 import { createChatkitUser } from "../../actions/chatkitActions"
 

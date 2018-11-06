@@ -51,6 +51,32 @@ if(localStorage.jwtToken){
 
 class App extends React.Component{
 	render(){
+		const DefaultRoutes = () => {
+			return(
+				<div>
+					<Switch>
+						<Route path="/" component={Landing} exact={true}/>
+						<Route path="/register" component={Register}/>
+						<Route path="/login" component={Login}/>
+						<Route path="/profiles" component={Profiles}/>
+						<Route path="/profile/:handle" component={Profile}/>
+						<Route path="/reset-password" component={ResetPassword}/>
+						<Route path="/change-password/:hash" component={ChangePassword}/>
+						<PrivateRoute path="/dashboard" component={Dashboard}/>
+						<PrivateRoute path="/create-profile" component={CreateProfile}/>
+						<PrivateRoute path="/edit-profile" component={EditProfile}/>
+						<PrivateRoute path="/edit-avatar" component={EditAvatar}/>
+						<PrivateRoute path="/add-experience" component={AddExperience}/>
+						<PrivateRoute path="/add-education" component={AddEducation}/>
+						<PrivateRoute path="/feed" component={Posts}/>
+						<PrivateRoute path="/posts/:id" component={Post}/>
+						<Route component={NotFound}/>				
+					</Switch>																											
+					<Footer/>
+				</div>
+			)
+		}
+
 		return(
 			<Provider store={store}>
 				<BrowserRouter>
@@ -58,25 +84,9 @@ class App extends React.Component{
 						<Banner/>
 						<Navbar/>
 						<Switch>
-							<Route path="/" component={Landing} exact={true}/>
-							<Route path="/register" component={Register}/>
-							<Route path="/login" component={Login}/>
-							<Route path="/profiles" component={Profiles}/>
-							<Route path="/profile/:handle" component={Profile}/>
-							<Route path="/reset-password" component={ResetPassword}/>
-							<Route path="/change-password/:hash" component={ChangePassword}/>
-							<PrivateRoute path="/dashboard" component={Dashboard}/>
-							<PrivateRoute path="/create-profile" component={CreateProfile}/>
-							<PrivateRoute path="/edit-profile" component={EditProfile}/>
-							<PrivateRoute path="/edit-avatar" component={EditAvatar}/>
-							<PrivateRoute path="/add-experience" component={AddExperience}/>
-							<PrivateRoute path="/add-education" component={AddEducation}/>
-							<PrivateRoute path="/feed" component={Posts}/>
-							<PrivateRoute path="/posts/:id" component={Post}/>
-							<PrivateRoute path="/channels" component={ChannelsContainer}/>					
-							<Route component={NotFound}/>
-						</Switch>																											
-						<Footer/>
+							<PrivateRoute path="/channels" component={ChannelsContainer} exact/>
+							<Route component={DefaultRoutes}/>
+						</Switch>
 					</div>
 				</BrowserRouter>
 			</Provider>

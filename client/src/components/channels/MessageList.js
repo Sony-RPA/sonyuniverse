@@ -50,30 +50,41 @@ class MessageList extends React.Component{
 		for(var i = 0; i < roomMessages.length; i++){
 			//create a new field to give each message a unique id
 			roomMessages[i].unique = roomMessages[i].senderId
+			//create a new field to give each message the avatar from that user
+			let matchingUserIndex = userIds.indexOf(roomMessages[i].senderId)
+			if(matchingUserIndex >= 0){
+				roomMessages[i].avatar = users[matchingUserIndex].avatar
+			}
+
+			//review messages
 			let previous = {}
 			if(i > 0){
 				previous = roomMessages[i - 1]
 			}
 			let roomMessage = roomMessages[i]
+			//check if consecutive messages are made by the same user
 			if(roomMessages[i].senderId === previous.senderId && roomMessages[i].unique === previous.unique){
-				messages.push({...roomMessage, unique: ""})
+				//display user name and avatar as an empty string
+				messages.push({...roomMessage, unique: "", avatar: ""})
 			} else{
+				//display the user name
 				messages.push({...roomMessage})
 			}
 		}
 		let updatedMessages = []
-		for(var i = 0; i < messages.length; i++){
-			let matchingIdIndex = userIds.indexOf(messages[i].unique)
-			if(matchingIdIndex >= 0 && messages[i].unique != ""){
-				messages[i].unique = users[matchingIdIndex].name
-				updatedMessages.push(messages[i])
+		for(var j = 0; j < messages.length; j++){
+			let matchingIdIndex = userIds.indexOf(messages[j].unique)
+			if(matchingIdIndex >= 0 && messages[j].unique !== ""){
+				messages[j].unique = users[matchingIdIndex].name
+				updatedMessages.push(messages[j])
 			} else {
-				updatedMessages.push(messages[i])
+				updatedMessages.push(messages[j])
 			}
 		}
 
 		let currentChatkitUser = this.props.chatkit.chatUser.id
 
+		console.log(updatedMessages)
 		return(
 			<div>
 				{this.props.room && (
@@ -90,13 +101,21 @@ class MessageList extends React.Component{
 										<div>
 											{message.unique && (
 												<span 
-													className="text-dark d-block font-weight-bold mt-3"
+													className="d-block font-weight-bold mt-3"
+													style={{color: "#000323"}}
 												>
+													<img 
+														src={message.avatar} 
+														style={{width: "2.5rem"}}
+														className="rounded-circle mr-2"
+													/>
 													{message.unique}
 												</span>
 											)}
 											<span 
-												className={message.senderId === currentChatkitUser ? "bg-secondary text-light rounded d-inline-block": "muted-blue text-light rounded d-inline-block"}
+												className={message.senderId === currentChatkitUser ? 
+													"muted-blue text-light rounded d-inline-block ml-5" : "bg-secondary text-light rounded d-inline-block ml-5"	
+												}
 												style={{padding:".25rem .5rem"}}
 											>
 												{message.text}
