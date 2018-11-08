@@ -9,7 +9,7 @@ class WhosOnlineList extends React.Component{
 				{this.props.users && (
 					<div>
 						<div className="d-flex justify-content-between text-light mb-2">
-							<h6 className="font-weight-bold">Members</h6><i className="fa fa-users"></i>
+							<h6 className="font-weight-bold">Members</h6><i className="fa fa-users ml-2"></i>
 						</div>
 						<ul style={{listStyle: "none", overflow: "scroll", overflowX: "hidden", maxHeight: "27vh"}} className="p-2">
 							{this.props.users.map((user, index) => {

@@ -101,7 +101,7 @@ class ChatScreen extends React.Component{
 				this.getRooms()
 
 				// if the user is returning to the chat, direct them to the room they last visited
-				if(this.props.chatkit.currentRoom.id > 0){
+				if(this.props.chatkit.lastRoom.id > 0){
 					this.redirectToLastRoom()
 				}	
 			})
@@ -109,7 +109,7 @@ class ChatScreen extends React.Component{
 
 	sendMessage = (text) => {
 		this.state.currentUser.sendMessage({
-			roomId: this.props.chatkit.currentRoom.id,
+			roomId: this.props.chatkit.lastRoom.id,
 			text: text
 		})
 		.catch((errors) => {
@@ -177,7 +177,7 @@ class ChatScreen extends React.Component{
 	redirectToLastRoom = () => {
 		setTimeout(() => {
 			let joinedRooms = this.state.joinedRooms
-			let lastRoom = this.props.chatkit.currentRoom
+			let lastRoom = this.props.chatkit.lastRoom
 			let joinedRoomsIds = joinedRooms.map((room) => {
 				return room.id
 			})
@@ -328,7 +328,7 @@ class ChatScreen extends React.Component{
 								{this.state.currentRoom.name}
 							</h4>
 							) : ( 
-							this.props.chatkit.currentRoom.id > 0 ) ? ( 
+							this.props.chatkit.lastRoom.id > 0 ) ? ( 
 								<h3 className="text-dark p-4">Returning to room...</h3>
 							) : (
 								<h3 className="text-dark p-4">&larr; Join a Room!</h3>

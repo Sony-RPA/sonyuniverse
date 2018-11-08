@@ -1,7 +1,7 @@
 const initialState = {
 	chatInitialized: false,
 	chatUser: {},
-	currentRoom: {},
+	lastRoom: {},
 	refinedUser: {},
 	roomUsers: []
 }
@@ -17,12 +17,12 @@ const chatkitReducer = (state = initialState, action) => {
 		case "RECORD_LAST_ROOM":
 			return{
 				...state,
-				currentRoom: action.payload
+				lastRoom: action.payload
 			}
 		case "CLEAR_ROOM":
 			return{
 				...state,
-				currentRoom: {}
+				lastRoom: {}
 			}
 		case "GET_REFINED_USER":
 			return{
