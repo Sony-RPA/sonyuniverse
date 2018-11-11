@@ -84,13 +84,19 @@ class Featured extends React.Component{
 						</div>
 
 						<div className="col-md-4 bg-black p-0">
-							<video 
-								src={this.state.asset} 
+							<video
 								style={{ height: "100%", width: "100%" }} 
 								onEnded={this.showScore}
-								autoPlay 
+								autoPlay
+								autobuffer
+								playsinline 
 								muted
-							/>
+							>
+								<source 
+									src={this.state.asset} 
+									type="video/mp4"
+								/>
+							</video>
 						</div>
 
 						{ this.state.showScore ? (
@@ -119,20 +125,20 @@ class Featured extends React.Component{
 													<div className="d-none d-sm-block d-md-none d-lg-block">
 														<Fade left delay={1000}>
 															<div className="mt-5">
-																<i className="fas fa-star mr-2"></i>
+																<i className="fas fa-star mr-1"></i>
 																<span>Victory Royale &nbsp; +100</span>
 															</div>
 														</Fade>
 														<Fade left delay={1500}>
 															<div>
-																<i className="fas fa-star mr-2"></i>
-																<span>Bonus - Squad-Up! &nbsp; +20</span>
+																<i className="fas fa-star mr-1"></i>
+																<span>Squad-Up! &nbsp; +20</span>
 															</div>
 														</Fade>
 														<Fade left delay={2000}>
 															<div>
-																<i className="fas fa-star mr-2"></i>
-																<span>Bonus - Final Blitz &nbsp; +10</span>
+																<i className="fas fa-star mr-1"></i>
+																<span>Final Blitz &nbsp; +10</span>
 															</div>
 														</Fade>															
 													</div>														
@@ -142,7 +148,9 @@ class Featured extends React.Component{
 														className="d-block d-sm-none d-md-block mt-4"
 														style={{margin: "auto"}}
 													>
-														<i className="fas fa-star mr-2"></i><span>Earned Rewards &nbsp; +130</span>
+														<i className="fas fa-star mr-1"></i>
+														<span className="mr-2">Earned Rewards</span>
+														<span>+130</span>
 													</div>
 												</Fade>
 											</div>
