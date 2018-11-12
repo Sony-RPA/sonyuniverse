@@ -31,7 +31,7 @@ class Featured extends React.Component{
 		return(
 			<div className="featured" style={windowWidth === 1024 ? {height: "45vh"} : {height: "65vh"}}>
 				<div className="container">			
-					<div className="imageContainer">
+					<div>
 						<Fade delay={500}>					
 							<img 
 								src={redDeadHero} 
@@ -52,16 +52,24 @@ class Featured extends React.Component{
 							{position: "relative", right: "60px", top: "200px", fontSize: "24px", fontFamily: "Source Sans Pro", marginLeft: "auto", zIndex: "-1"}
 						}
 					>
-						<p className="text-left">
+						<p 
+							className="text-left"
+							style={windowWidth > 768 && windowWidth <= 900 ? { display: "none"}:{display: "block"} }
+						>
 							"Stands shoulder-to-shoulder with Grand Theft Auto V as one of the greatest games of the modern age"
 						</p>
-						<p className="text-right pr-4">- IGN</p>
+						<p 
+							className="text-right pr-4"
+							style={windowWidth > 768 && windowWidth <= 900 ? { display: "none"}:{display: "block"} }
+						>
+							- IGN
+						</p>
 					</div>
 					<div className="text-center">
 						<a 
 							href="https://www.playstation.com/en-us/games/red-dead-redemption-2-ps4/"
 							className="btn btn-lg btn-primary rounded-0"
-							style={windowWidth === 768 ? {position: "relative", top: "60px", left: "250px"} : {position: "relative", top: "200px", left: "90px"}}
+							style={windowWidth === 768 ? {position: "relative", top: "60px", left: "250px"} : windowWidth > 768 && windowWidth <= 900 ? { display: "none"} : {position: "relative", top: "200px", left: "90px"}}
 						>
 							Buy Now
 						</a>
