@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { Fade } from "react-reveal"
 import Teams from "./Teams"
 import Featured from "./Featured"
+import Highlight from "./Highlight"
 
 class Landing extends React.Component{
 	componentDidMount(){
@@ -46,8 +47,9 @@ class Landing extends React.Component{
 					    </div>
 				    </Fade>
 		  		</div>
-		  		<Teams/>
 		  		<Featured/>
+		  		<Teams/>
+		  		<Highlight/>
 	  		</div>
 		)
 	}
