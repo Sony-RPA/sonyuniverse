@@ -3,6 +3,7 @@ import { Fade } from "react-reveal"
 import message1 from "../../img/message-1.png"
 import message2 from "../../img/message-2.png"
 import message3 from "../../img/message-3.png"
+import fortnite from "../../img/fortnite.png"
 import sp_logo from "../../img/sp-logo.png"
 import { Slide } from "react-reveal"
 import ReactPlayer from "react-player"
@@ -183,7 +184,7 @@ class Highlight extends React.Component{
 
 											/>
 											<img
-												src="http://www.stickpng.com/assets/images/5b43b818e99939b4572e32ab.png"
+												src={fortnite}
 												style={{width: "50%", maxWidth: "150px", alignSelf: "center"}}												
 											/>											
 										</div>
