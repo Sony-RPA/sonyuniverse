@@ -5,6 +5,7 @@ import message2 from "../../img/message-2.png"
 import message3 from "../../img/message-3.png"
 import sp_logo from "../../img/sp-logo.png"
 import { Slide } from "react-reveal"
+import ReactPlayer from "react-player"
 
 class Highlight extends React.Component{
 	constructor(){
@@ -84,19 +85,7 @@ class Highlight extends React.Component{
 						</div>
 
 						<div className="col-md-4 bg-black p-0">
-							<video
-								style={{ height: "100%", width: "100%" }} 
-								onEnded={this.showScore}
-								autoPlay
-								autobuffer
-								playsinline 
-								muted
-							>
-								<source 
-									src={this.state.asset} 
-									type="video/mp4"
-								/>
-							</video>
+							<ReactPlayer url={this.state.asset} playing onEnded={this.showScore} height="100%" width="100%" muted={true}/>
 						</div>
 
 						{ this.state.showScore ? (
