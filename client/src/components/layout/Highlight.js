@@ -85,7 +85,19 @@ class Highlight extends React.Component{
 						</div>
 
 						<div className="col-md-4 bg-black p-0">
-							<ReactPlayer url={this.state.asset} playing onEnded={this.showScore} height="100%" width="100%" muted={true}/>
+							<video
+								style={{ height: "100%", width: "100%" }} 
+								onEnded={this.showScore}
+								autoPlay
+								autobuffer
+								playsinline 
+								muted
+							>
+								<source 
+									src={this.state.asset} 
+									type="video/mp4"
+								/>
+							</video>
 						</div>
 
 						{ this.state.showScore ? (
