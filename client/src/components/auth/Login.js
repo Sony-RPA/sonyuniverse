@@ -56,7 +56,7 @@ class Login extends React.Component{
 		const errors = this.state.errors
 		return(
 			<div style={{fontFamily: "Montserrat", height: "80vh"}}>
-			  <div className="login mt-5">
+			  <div className="login mt-5 px-3">
 			    <div className="container">
 			      <div className="row">
 			        <div className="col-md-6 m-auto p-0">

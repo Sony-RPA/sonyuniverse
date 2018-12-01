@@ -61,7 +61,7 @@ class Register extends React.Component{
 
 		return(
 			<div style={{fontFamily: "Montserrat", height: "80vh"}}>
-			  <div className="register mt-5">
+			  <div className="register mt-5 px-3">
 			    <div className="container">
 			      <div className="row">
 			        <div className="col-md-6 m-auto p-0">

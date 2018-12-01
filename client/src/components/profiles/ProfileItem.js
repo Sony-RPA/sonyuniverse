@@ -3,16 +3,19 @@ import { Link } from "react-router-dom"
 import isEmpty from "../../validation/is-empty"
 import EndorseModal from "../endorse/EndorseModal"
 import RemoveColleagueModal from "../disconnect/RemoveColleagueModal"
+import SideDrawer from "../layout/SideDrawer"
 import { connect } from "react-redux"
 import { addColleague, acceptColleague, removeColleague } from "../../actions/colleagueActions"
 import { endorseColleague } from "../../actions/profileActions"
+import { startConversation } from "../../actions/conversationActions"
 
 class ProfileItem extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
 			endorseModalOpen: false,
-			removeColleagueModalOpen: false
+			removeColleagueModalOpen: false,
+			openDrawer: false
 		}
 
 		this.handleRequestColleague = this.handleRequestColleague.bind(this)
@@ -21,6 +24,8 @@ class ProfileItem extends React.Component{
 		this.handleEndorseModalOpen = this.handleEndorseModalOpen.bind(this)
 		this.handleRemoveColleagueModalOpen = this.handleRemoveColleagueModalOpen.bind(this)
 		this.handleEndorseColleague = this.handleEndorseColleague.bind(this)
+		this.handleStartConversation = this.handleStartConversation.bind(this)
+		this.toggleDrawer = this.toggleDrawer.bind(this)
 	}
 
 	handleRequestColleague = (event) => {
@@ -63,6 +68,23 @@ class ProfileItem extends React.Component{
 		this.props.endorseColleague(colleagueId, skills)
 		this.setState({
 			endorseModalOpen: false
+		})
+	}
+
+	handleStartConversation = (event) => {
+		const userId = this.props.auth.user.id
+		const colleagueId = this.props.profile.user._id
+		const users = {
+			users: [userId, colleagueId]
+		}
+		this.props.startConversation(users)
+	}
+
+	toggleDrawer = (event) => {
+		this.setState((prevState) => {
+			return{
+				openDrawer: !prevState.openDrawer
+			}
 		})
 	}
 
@@ -114,7 +136,13 @@ class ProfileItem extends React.Component{
 		} else if(isAuthenticated && connected.includes(profile.user._id)){
 			connectButton = (
 				<div style={{display: "inline-block"}}>
-					<button className="btn btn-primary ml-2">
+					<button 
+						className="btn btn-primary ml-2"
+						onClick={() => {
+							this.handleStartConversation()
+							this.toggleDrawer()
+						}}
+					>
 						<i className="fas fa-comments"></i>
 					</button>
 					<button 
@@ -186,6 +214,10 @@ class ProfileItem extends React.Component{
 					handleRemoveColleague={this.handleRemoveColleague}
 					profile={profile}
 				/>
+				<SideDrawer
+					open={this.state.openDrawer}
+					toggleDrawer={this.toggleDrawer}
+				/>
 			</div>
 		)
 	}
@@ -211,6 +243,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		endorseColleague: (colleagueId, skills) => {
 			dispatch(endorseColleague(colleagueId, skills))
+		},
+		startConversation: (users) => {
+			dispatch(startConversation(users))
 		}
 	}
 }

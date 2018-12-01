@@ -142,22 +142,22 @@ class Profiles extends React.Component{
 		const filterColleagueButtons = (
 			<div className="text-center mb-3" style={{fontFamily: "roboto"}}>
 				<button 
-					className={connectedActive ? "btn btn-success btn-sm mr-2" : "btn btn-outline-success btn-sm mr-2"}
+					className={connectedActive ? "btn btn-info btn-sm mr-2" : "btn btn-dark btn-sm mr-2"}
 					onClick={this.filterConnectedColleagues}
 					>Connected ({connectedTotal})
 				</button>
 				<button 
-					className={pendingActive ? "btn btn-secondary btn-sm mr-2" : "btn btn-outline-secondary btn-sm mr-2"}
+					className={pendingActive ? "btn btn-info btn-sm mr-2" : "btn btn-dark btn-sm mr-2"}
 					onClick={this.filterPendingColleagues}
 					>Pending ({requestedTotal})
 				</button>
 				<button
-					className={receivedActive ? "btn btn-info btn-sm mr-2" : "btn btn-outline-info btn-sm mr-2"}
+					className={receivedActive ? "btn btn-info btn-sm mr-2" : "btn btn-dark btn-sm mr-2"}
 					onClick={this.filterReceivedColleagues}
 					>Received ({receivedTotal})	
 				</button>
 				<button 
-					className={everyoneActive ? "btn btn-primary btn-sm mr-2" : "btn btn-outline-primary btn-sm"}
+					className={everyoneActive ? "btn btn-info btn-sm mr-2" : "btn btn-dark btn-sm"}
 					onClick={this.filterAllEmployees}
 					>Everyone ({this.props.profile.profiles !== null ? this.props.profile.profiles.length: 0})
 				</button>

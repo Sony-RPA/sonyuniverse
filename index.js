@@ -36,6 +36,7 @@ const postsRoutes = require("./routes/api/posts")
 const profileRoutes = require("./routes/api/profile")
 const colleagueRoutes = require("./routes/api/colleagues")
 const chatKitRoutes = require("./routes/api/chatkit")
+const conversationRoutes = require("./routes/api/conversation")
 
 //Use Routes
 authRoutes(app)
@@ -43,6 +44,7 @@ postsRoutes(app)
 profileRoutes(app)
 colleagueRoutes(app)
 chatKitRoutes(app)
+conversationRoutes(app)
 
 //serve static assets if in production
 if(process.env.NODE_ENV === "production"){
