@@ -68,7 +68,10 @@ class ChangePassword extends React.Component{
 			)
 
 		return(
-			<div className="mt-5 row justify-content-center">
+			<div 
+				className="mt-5 row justify-content-center"
+				style={{ minHeight: "90vh" }}
+			>
 				<div className="col-10 col-sm-7 col-md-5 col-lg-4">
 					{ headerMessage }
 					<form onSubmit={this.onSubmit}>

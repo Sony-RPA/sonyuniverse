@@ -28,7 +28,7 @@ const chatkitRoutes = (app) => {
 				res.json({ name: req.user.id, id: req.user.id })
 			} else {
 				//send an error response
-				res.status(404).json({ error: "Could not enter channel at this time. Please try again."})
+				return res.status(400).json({ error: "Could not enter channel at this time. Please try again."})
 			}
 		})
 	})
@@ -57,7 +57,7 @@ const chatkitRoutes = (app) => {
 				res.json(users)
 			})
 			.catch((errors) => {
-				res.status(404).json({error: "could not find users"})
+				return res.status(400).json({error: "could not find users"})
 			})
 	})
 
@@ -73,11 +73,11 @@ const chatkitRoutes = (app) => {
 						res.json(savedUser)
 					})
 					.catch((errors) => {
-						res.status(404).json({errors: "could not update last room of user"})
+						return res.status(400).json({errors: "could not update last room of user"})
 					})
 			})
 			.catch((errors) => {
-				res.status(404).json({error: "could not find user"})
+				return res.status(400).json({error: "could not find user"})
 			})
 	})
 }

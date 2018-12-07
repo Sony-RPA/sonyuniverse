@@ -10,9 +10,8 @@ const conversationRoutes = (app) => {
 		const users = req.body.users
 		Conversation.findOne({ users: { $all: [...users] }})
 			.then((foundConversation) => {
-				//$all will return an empty array if no results are found
 				//if no conversation is found, create a new conversation
-				if(foundConversation.length == 0){
+				if(!foundConversation){
 					const newConversation = new Conversation({
 						users: users
 					})
@@ -21,15 +20,15 @@ const conversationRoutes = (app) => {
 							res.json(createdConversation)
 						})
 						.catch((error) => {
-							res.status(404).json({error: "could not start a conversation" })
+							return res.status(400).json({ error: "could not retrieve conversation" })
 						})
 				} else {
 					//if conversation is found, then respond with the found results
 					res.json(foundConversation)
 				}
 			})
-			.catch((error) => {
-				res.status(404).json({ error: "could not find a conversation with this user "})
+			.catch((errors) => {
+				return res.status(400).json({ error: "could not start a new conversation" })
 			})
 	})
 
@@ -39,11 +38,11 @@ const conversationRoutes = (app) => {
 		//validate data for message creation
 		const { errors, isValid } = validateMessageInput(req.body)
 
-		//if data is not valid, send a response with the errors. This will end the route.
+		//if data is not valid, return a errors response. This will end the route.
 		if(!isValid){
-			res.status(400).json(errors)
+			return res.status(400).json(errors)
 		}
-		//if data is valid, find a matching conversation
+		//if data is valid, go find a matching conversation
 		const conversationId = req.params.id
 		Conversation.findOne({ _id: conversationId })
 			.then((foundConversation) => {
@@ -53,7 +52,7 @@ const conversationRoutes = (app) => {
 					name: req.body.name,
 					avatar: req.body.avatar
 				}
-				//Add to end of messages array
+				//Add messsage to end of messages array
 				foundConversation.messages.push(newMessage)
 				//Save conversation
 				foundConversation.save()
@@ -61,11 +60,11 @@ const conversationRoutes = (app) => {
 						res.json(savedConversation)
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotsave: "could not save conversation"})
+						return res.status(400).json({ couldnotsave: "could not save conversation"})
 					})
 			})
 			.catch((errors) => {
-				res.status(404).json({ couldnotmessage: "could not create a new message at this time"})
+				return res.status(400).json({ couldnotmessage: "could not create a new message at this time"})
 			})
 	})
 }

@@ -10,6 +10,10 @@ export const registerUser = (userData, history) => {
 		axios.post("/api/users/register", userData)
 			.then((res) => {
 				history.push("/login")
+				dispatch({
+					type: "CREATE_USER",
+					payload: res.data
+				})
 			})
 			.catch((errors) => {
 				dispatch({

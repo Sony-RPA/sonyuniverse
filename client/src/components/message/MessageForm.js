@@ -7,18 +7,9 @@ class MessageForm extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			text: "",
-			errors: {}
+			text: ""
 		}
 		this.onChange = this.onChange.bind(this)
-	}
-
-	componentWillReceiveProps(nextProps){
-		if(nextProps.errors){
-			this.setState({
-				errors: nextProps.errors
-			})
-		}
 	}
 
 	onChange = (event) => {
@@ -45,7 +36,6 @@ class MessageForm extends React.Component{
 	}
 
 	render(){
-		const errors = this.state.errors
 		return(
 			<div>
 				<form onSubmit={this.onSubmit}>
@@ -54,7 +44,6 @@ class MessageForm extends React.Component{
 						name="text"
 						value={this.state.text}
 						onChange={this.onChange}
-						error={errors.text}
 					/>
 				</form>
 			</div>
@@ -65,8 +54,7 @@ class MessageForm extends React.Component{
 const mapStateToProps = (state) => {
 	return{
 		auth: state.auth,
-		conversation: state.conversation,
-		errors: state.errors
+		conversation: state.conversation
 	}
 }
 

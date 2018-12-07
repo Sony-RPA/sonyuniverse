@@ -11,7 +11,7 @@ const colleagueRoutes = (app) => {
 				res.json(userColleagues)
 			})
 			.catch((errors) => {
-				res.status(400).json({ couldnotfind: "could not find this users colleagues" })
+				return res.status(400).json({ couldnotfind: "could not find this users colleagues" })
 			})
 	})
 
@@ -29,7 +29,7 @@ const colleagueRoutes = (app) => {
 						res.json(updatedColleagues)
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not update this users colleagues"})
+						return res.status(400).json({ couldnotupdate: "could not update this users colleagues"})
 					})
 
 				//add the active user to the requested colleague's received array
@@ -40,11 +40,11 @@ const colleagueRoutes = (app) => {
 						requestedColleague.save()
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not update receivers colleagues"})
+						return res.status(400).json({ couldnotupdate: "could not update receivers colleagues"})
 					})
 			})
 			.catch((errors) => {
-				res.status(404).json({ couldnotfind: "could not find this users colleagues"})
+				return res.status(400).json({ couldnotfind: "could not find this users colleagues"})
 			})
 	})
 
@@ -66,7 +66,7 @@ const colleagueRoutes = (app) => {
 						res.json(updatedColleagues)
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not add new colleague to network"})
+						return res.status(400).json({ couldnotupdate: "could not add new colleague to network"})
 					})
 				//remove active user from the receivedColleagues's requested array
 				Colleague.findOne({ user: receivedColleague })
@@ -80,12 +80,12 @@ const colleagueRoutes = (app) => {
 						receivedColleague.save()
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not update received colleagues network" })
+						return res.status(400).json({ couldnotupdate: "could not update received colleagues network" })
 					})
 				})
 
 			.catch((errors) => {
-				res.status(404).json({ couldnotupdate: "could not update this users colleagues"})
+				return res.status(400).json({ couldnotupdate: "could not update this users colleagues"})
 			})
 	})
 
@@ -104,7 +104,7 @@ const colleagueRoutes = (app) => {
 						res.json(updatedColleagues)
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not update active user's colleagues" })
+						return res.status(400).json({ couldnotupdate: "could not update active user's colleagues" })
 					})
 				//remove active user from the removedColleague's connected array
 				Colleague.findOne({user: removedColleague})
@@ -116,11 +116,11 @@ const colleagueRoutes = (app) => {
 						removedColleague.save()
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not update removedColleague's colleagues" })
+						return res.status(400).json({ couldnotupdate: "could not update removedColleague's colleagues" })
 					})
 			})
 			.catch((errors) => {
-				res.status(404).json({ couldnotdelete: "could not delete colleague from user's network" })
+				return res.status(400).json({ couldnotdelete: "could not delete colleague from user's network" })
 			})
 	})
 }

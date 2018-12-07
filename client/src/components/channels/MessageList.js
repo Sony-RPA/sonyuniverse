@@ -71,6 +71,7 @@ class MessageList extends React.Component{
 				messages.push({...roomMessage})
 			}
 		}
+		//transform the unique field to contain the name of the user 
 		let updatedMessages = []
 		for(var j = 0; j < messages.length; j++){
 			let matchingIdIndex = userIds.indexOf(messages[j].unique)

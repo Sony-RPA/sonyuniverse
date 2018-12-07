@@ -59,14 +59,18 @@ const authRoutes = (app) => {
 							newUser.password = hash
 							newUser.save()
 								.then((createdUser) => {
-									res.json(createdUser)
+									const payload = {
+										id: createdUser.id,
+										name: createdUser.name,
+										avatar: createdUser.avatar
+									}
 									//create a colleague model for the new user
 									const userId = createdUser._id
-									new Colleague({ user: userId}).save()
-
+									new Colleague({ user: userId }).save()
+									res.json(payload)
 								})
 								.catch((err) => {
-									console.log(err)
+									return res.status(400).json({ error: "We could not create a new account at this time. Please try again later."})
 								})
 						})
 					})
@@ -93,7 +97,7 @@ const authRoutes = (app) => {
 		    		.then((savedUser) => {
 		    			//generate the email to reset password
 						const emailData = {
-							from: 'CloseBrace <postmaster@sandboxcc80cfa391224d5d83e5aba2d09b7590.mailgun.org>',
+							from: 'Sony Universe <support@sonyuniverse.org>',
 							to: savedUser.email,
 							subject: 'Reset Your Password',
 							text: `A password reset has been requested for the Sony Universe account connected to this email address. If you made this request, please click the following link: https://www.sonyuniverse.org/change-password/${savedUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
@@ -103,18 +107,18 @@ const authRoutes = (app) => {
 						//send the email
 						mailgun.messages().send(emailData, (error, body) => {
 							if(error || !body){
-								res.status(404).json({ error: "Something went wrong while attempting to reset your password. Please Try again"})
+								return res.status(400).json({ error: "Something went wrong while attempting to reset your password. Please try again."})
 							} else {
 								res.json({ success: true })
 							}
 						})
 		    		})
 		    		.catch((errors) => {
-		    			res.status(404).json({ error: "Something went wrong while attempting to reset your password. Please Try again" })
+		    			return res.status(400).json({ error: "Something went wrong while attempting to reset your password. Please Try again." })
 		    		})
 		  	})
 		  	.catch((errors) => {
-		  		res.status(404).json({ error: "Something went wrong while attempting to reset your password. Please Try again" })
+		  		return res.status(400).json({ error: "Something went wrong while attempting to reset your pasword. Please try again."})
 		  	})
 		});
 
@@ -147,13 +151,13 @@ const authRoutes = (app) => {
 								res.json(updatedUser)
 							})
 							.catch((errors) => {
-								res.status(404).json({ couldnotupdate: "could not change the password"})
+								return res.status(400).json({ couldnotupdate: "could not change the password"})
 							})
 					})
 				})
 			})
 			.catch((errors) => {
-				res.status(404).json({ couldnotupdate: "The request to change this password has already expired. Please submit a new request." })
+				return res.status(400).json({ couldnotupdate: "The request to change this password has already expired. Please submit a new request." })
 			})
 	})
 
@@ -175,7 +179,7 @@ const authRoutes = (app) => {
 				//check for user
 				if(!foundUser){
 					errors.email = "User not found"
-					return res.status(404).json({ email: errors.email })
+					return res.status(400).json({ email: errors.email })
 				}
 				//check password
 				bcrypt.compare(password, foundUser.password)
@@ -210,7 +214,7 @@ const authRoutes = (app) => {
 		const { errors, isValid } = validateAvatarInput(req.body)
 
 		if(!isValid){
-			return res.status(404).json(errors)
+			return res.status(400).json(errors)
 		}
 
 		const avatar = req.body.avatar
@@ -227,7 +231,7 @@ const authRoutes = (app) => {
 					})
 			})
 			.catch((errors) => {
-				return res.status(404).json({ couldnotupdate: "Could not update avatar"})
+				return res.status(400).json({ couldnotupdate: "Could not update avatar" })
 			})
 
 		//update all user posts with the new avatar
@@ -238,7 +242,7 @@ const authRoutes = (app) => {
 						console.log(savedPosts)
 					})
 					.catch((errors) => {
-						return res.status(404).json({ couldnotupdate: "Could not update posts"})
+						return res.status(400).json({ couldnotupdate: "Could not update posts" })
 					})
 			})
 		//TODO: change the avatars and comments

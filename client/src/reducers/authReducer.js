@@ -8,6 +8,11 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
 	switch(action.type){
+		case "CREATE_USER":
+			return {
+				...state,
+				user: action.payload
+			}
 		case "SET_CURRENT_USER":
 			return {
 				...state,
@@ -23,10 +28,10 @@ const authReducer = (state = initialState, action) => {
 				}
 			}
 		case "AUTHENTICATION_PASSWORD_RESET_HASH_CREATED": {
-			//use object.assign to SET a new property in the state which has not yet been defined
-			const newState = Object.assign({}, state)
-			newState.isPasswordReset = true
-			return newState
+			return{
+				...state,
+				isPasswordReset: true
+			}
 		}
 		default:
 			return state
