@@ -178,7 +178,7 @@ class Highlight extends React.Component{
 											style={{display: "flex", justifyContent: "space-around"}}
 										>
 											<img 
-												src="https://media.licdn.com/dms/image/C5603AQHNh_F49XSM0A/profile-displayphoto-shrink_800_800/0?e=1543449600&v=beta&t=jxzTdPe5_IhN34_i4LYwHkVW4LuKFwvoClcmKW0LEeY"
+												src="https://s3-us-west-1.amazonaws.com/co-directory-images/angelinafjimenez.jpg"
 												className="rounded-circle"
 												style={{width: "50%", maxWidth: "120px", alignSelf: "center", boxShadow: "0px 3px 3px #000"}}
 

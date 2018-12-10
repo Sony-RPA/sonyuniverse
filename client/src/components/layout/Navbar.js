@@ -95,7 +95,7 @@ class Navbar extends React.Component{
 	        <ul className="navbar-nav ml-auto">
 	          <li className="nav-item">
 	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-success mr-2 nav-btn" : "nav-link text-light mr-2"} 
+	            	className={this.state.windowWidth >= 576 ? "btn btn-success mr-2 nav-btn rounded-0" : "nav-link text-light mr-2"} 
 	            	to="/register"
 	            	>SIGN UP
 
@@ -103,7 +103,7 @@ class Navbar extends React.Component{
 	          </li>
 	          <li className="nav-item">
 	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "btn btn-outline-info mr-2 nav-btn" : "nav-link text-light mr-2"} 
+	            	className={this.state.windowWidth >= 576 ? "btn btn-info mr-2 nav-btn rounded-0" : "nav-link text-light mr-2"} 
 	            	to="/login"
 	            	>LOGIN
 	            </Link>
@@ -115,17 +115,13 @@ class Navbar extends React.Component{
 			<div  
 				style={{fontFamily: "Kanit"}}
 				className="sticky-top">
-			  <nav 
-			  	className={ this.state.scrollThresholdMet ? (
-			  			"navbar navbar-expand-sm navbar-dark mb-4 transparent"
-			  		) : (
-			  			"navbar navbar-expand-sm navbar-dark mb-4 bg-black"
-			  		)
-			  	}
+			  <nav
+			  	style={{backgroundImage: "linear-gradient(to bottom, #0072CE, #003087)"}}
+			  	className="navbar navbar-expand-sm navbar-dark mb-4"
 			  >
 			    <div className="container">
 			      <Link className="navbar-brand" to="/"><img src={sonyUniverseLogo} className="logo"/></Link>
-			      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+			      <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#mobile-nav">
 			        <span className="navbar-toggler-icon"></span>
 			      </button>
 

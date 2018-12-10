@@ -171,7 +171,7 @@ class Profiles extends React.Component{
 						<div className="col-md-12">
 							<div style={{fontFamily: "Montserrat"}}>
 								<h1 className="text-center bg-black text-light shadow">
-									<img src={sonyLogo} style={{height: "51px", width: "85px"}}/>
+									<img src={sonyLogo} style={{height: "25px", width: "85px", marginBottom: "5px"}}/>
 								</h1>
 								<p className="lead text-center">Learn and connect with our team</p>
 								{ isAuthenticated && !loading && userHasProfile ? filterColleagueButtons : null}
