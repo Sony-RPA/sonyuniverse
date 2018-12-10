@@ -9,8 +9,8 @@ class ProfileHeader extends React.Component{
             <div className="col-md-12">
               <div className="card card-body bg-info text-white mb-3 shadow">
                 <div className="row">
-                  <div className="col-4 col-md-3 m-auto">
-                    <img className="rounded-circle" src={profile.user.avatar} style={{ height: "200px", width: "200px" }} alt="" />
+                  <div className="col-4 col-md-3 m-auto text-center">
+                    <img className="rounded-circle" src={profile.user.avatar} style={{ height: "200px", width: "200px"}} alt="" />
                   </div>
                 </div>
                 <div className="text-center">
