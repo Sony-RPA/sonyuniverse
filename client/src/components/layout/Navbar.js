@@ -59,22 +59,23 @@ class Navbar extends React.Component{
 	render(){
 		const isAuthenticated = this.props.auth.isAuthenticated
 		const user = this.props.auth.user
+		const windowWidth = this.state.windowWidth
 
 		const authLinks = (
 	        <ul className="navbar-nav">
 	          <li className="navbar-nav">
 	          	<Link to="/channels" className="nav-link text-light">
-	          		Channels
+	          		<span key={Math.random()}><i className="fa fa-comment"></i></span> {windowWidth < 576 && "Channels"}
 	          	</Link>
 	          </li>
  			  <li className="navbar-nav">
  			  	<Link to="/feed" className="nav-link text-light">
-					Posts			  		
+					<span key={Math.random()}><i className="fa fa-bullhorn"></i></span> {windowWidth < 576 && "Posts"}			  		
  			  	</Link>
  			  </li>	        
  			  <li className="navbar-nav">
  			  	<Link to="/dashboard" className="nav-link text-light">
-					Dashboard 			  		
+					<span key={Math.random()}><i className="fa fa-home"></i></span> {windowWidth < 576 && "Dashboard"} 			  		
  			  	</Link>
  			  </li>
 	          <li className="nav-item">
@@ -97,15 +98,16 @@ class Navbar extends React.Component{
 	            <Link 
 	            	className={this.state.windowWidth >= 576 ? "btn btn-success mr-2 nav-btn rounded-0" : "nav-link text-light mr-2"} 
 	            	to="/register"
-	            	>SIGN UP
-
+	            >
+	            	{ windowWidth < 576 ? <span><i className="fa fa-user-plus"></i> Sign Up</span> : "Sign Up"}
 	            </Link>
 	          </li>
 	          <li className="nav-item">
 	            <Link 
 	            	className={this.state.windowWidth >= 576 ? "btn btn-info mr-2 nav-btn rounded-0" : "nav-link text-light mr-2"} 
 	            	to="/login"
-	            	>LOGIN
+	            >
+	            	{ windowWidth < 576 ? <span><i className="fa fa-chevron-circle-right"></i> Login</span> : "Login" }
 	            </Link>
 	          </li>
 	        </ul>
@@ -128,7 +130,8 @@ class Navbar extends React.Component{
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link text-light" to="/profiles">NETWORK
+			            <Link className="nav-link text-light" to="/profiles">
+			            	<span key={Math.random()}><i className="fa fa-users"></i></span> Network
 			            </Link>
 			          </li>
 			        </ul>
