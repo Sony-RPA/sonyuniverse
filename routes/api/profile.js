@@ -25,12 +25,12 @@ const profileRoutes = (app) => {
 			.then((foundProfile) => {
 				if(!foundProfile){
 					errors.noprofile = "There is no profile for this user"
-					return res.status(404).json(errors)
+					return res.status(400).json(errors)
 				}
 				res.json(foundProfile)
 			})
 			.catch((error) => {
-				return res.status(404).json(error)
+				return res.status(400).json(error)
 			})
 	})
 
@@ -44,13 +44,13 @@ const profileRoutes = (app) => {
 			.then((foundProfiles) => {
 				if(!foundProfiles){
 					errors.noprofile = "There are no profiles"
-					return res.status(404).json(errors)
+					return res.status(400).json(errors)
 				}
 
 				res.json(foundProfiles)
 			})
 			.catch((error) => {
-				return res.status(404).json({ profile: "There are no profiles" })
+				return res.status(400).json({ profile: "There are no profiles" })
 			})
 	})
 
@@ -64,13 +64,13 @@ const profileRoutes = (app) => {
 			.then((foundProfile) => {
 				if(!foundProfile){
 					errors.noprofile = "There is no profile for this user"
-					res.status(404).json(errors)
+					return res.status(400).json(errors)
 				}
 
 				res.json(foundProfile)
 			})
 			.catch((error) => {
-				res.status(404).json(error)
+				return res.status(400).json(error)
 			})
 	})
 
@@ -83,13 +83,13 @@ const profileRoutes = (app) => {
 			.then((foundProfile) => {
 				if(!foundProfile){
 					errors.noprofile = "There is no profile for this user"
-					res.status(404).json(errors)
+					return res.status(400).json(errors)
 				}
 
 				res.json(foundProfile)
 			})
 			.catch((error) => {
-				res.status(404).json({profile: "There is no profile for this user"})
+				return res.status(400).json({profile: "There is no profile for this user"})
 			})
 	})	
 
@@ -147,7 +147,7 @@ const profileRoutes = (app) => {
 						.then((foundProfile) => {
 							if(foundProfile){
 								errors.handle = "That handle already exists"
-								res.status(400).json(errors)
+								return res.status(400).json(errors)
 							}
 							//Save Profile
 							new Profile(profileFields).save()
@@ -247,7 +247,7 @@ const profileRoutes = (app) => {
 					})
 			})
 			.catch((error) => {
-				res.status(404).json(error)
+				return res.status(400).json(error)
 			})
 	})
 
@@ -273,7 +273,7 @@ const profileRoutes = (app) => {
 					})
 			})
 			.catch((error) => {
-				res.status(404).json(error)
+				return res.status(400).json(error)
 			})
 	})
 
@@ -310,11 +310,11 @@ const profileRoutes = (app) => {
 						res.json(updatedProfile)
 					})
 					.catch((errors) => {
-						res.status(404).json({ couldnotupdate: "could not endorse colleague"})
+						return res.status(400).json({ couldnotupdate: "could not endorse colleague"})
 					})
 			})
 			.catch((errors) => {
-				res.status(404).json({ couldnotfind: "could not find colleague with this profile"})
+				return res.status(400).json({ couldnotfind: "could not find colleague with this profile"})
 			})
 	})
 

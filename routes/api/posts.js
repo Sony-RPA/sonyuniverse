@@ -20,7 +20,7 @@ const postsRoutes = (app) => {
 				res.json(allPosts)
 			})
 			.catch((error) => {
-				res.status(404).json({ nopostsfound: "No posts found" })
+				return res.status(400).json({ nopostsfound: "No posts found"})
 			})
 	})	
 
@@ -32,7 +32,7 @@ const postsRoutes = (app) => {
 				res.json(foundPost)
 			})
 			.catch((error) => {
-				res.status(404).json({ nopostfound: "No post found with that id" })
+				return res.status(400).json({ nopostfound: "No post found"})
 			})
 	})
 
@@ -63,11 +63,11 @@ const postsRoutes = (app) => {
 						res.json(createdPost)
 					})
 					.catch((errors) => {
-						res.status(404).json({ postnotcreated: "could not create a new post."})
+						return res.status(400).json({ postnotcreated: "could not create new post"})
 					})
 			})
 			.catch((errors) => {
-				res.status(404).json({profilenotfound: "You must set up your profile before creating a post."})
+				return res.status(400).json({ profilenotfound: "You must set up your profile before creating a post"})
 			})
 	})
 
@@ -80,7 +80,7 @@ const postsRoutes = (app) => {
 					.then((foundPost) => {
 						//Check for post owner
 						if(foundPost.user.toString() !== req.user.id){
-							return res.status(401).json({ notauthorized: "You are not authorized to delete this post."})
+							return res.status(400).json({ notauthorized: "You are not authorized to delete this post."})
 						}
 
 						//Delete
@@ -91,7 +91,7 @@ const postsRoutes = (app) => {
 
 					})
 					.catch((error) => {
-						res.status(404).json({ postnotfound: "No post found" })
+						return res.status(400).json({ postnotfound: "No post found" })
 					})
 			})
 	})
@@ -113,11 +113,11 @@ const postsRoutes = (app) => {
 
 						foundPost.save()
 							.then((savedPost) => {
-								return res.json(savedPost)
+								res.json(savedPost)
 							})
 					})
 					.catch((error) => {
-						res.status(404).json({ postnotfound: "No post found" })
+						return res.status(400).json({ postnofound: "No post found "})
 					})
 			})
 	})
@@ -147,11 +147,11 @@ const postsRoutes = (app) => {
 						//Save Post
 						foundPost.save()
 							.then((savedPost) => {
-								return res.json(savedPost)
+								res.json(savedPost)
 							})
 					})
 					.catch((error) => {
-						res.status(404).json({ postnotfound: "No post found" })
+						return res.status(400).json({ postnotfound: "No post found" })
 					})
 			})
 	})
@@ -190,11 +190,11 @@ const postsRoutes = (app) => {
 							})
 					})
 					.catch((errors) => {
-						res.status(404).json({ profilenotfound: "You must set up your profile before creating a post."})
+						return res.status(400).json({ profilenotfound: "You must set up your profile before creating a post."})
 					})
 			})
 			.catch((error) => {
-				res.status(404).json({ postnotfound: "No post found" })
+				return res.status(400).json({ postnotfound: "No post found" })
 			})
 	})
 
