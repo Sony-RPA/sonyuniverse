@@ -131,7 +131,7 @@ class Navbar extends React.Component{
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
 			            <Link className="nav-link text-light" to="/profiles">
-			            	<span key={Math.random()}><i className="fa fa-users"></i></span> Network
+			            	{windowWidth < 576 ? <span key={Math.random()}><i className="fa fa-users"></i> Network</span> : "Network"}
 			            </Link>
 			          </li>
 			        </ul>
