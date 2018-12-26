@@ -27,23 +27,36 @@ class Featured extends React.Component{
 
 	render(){
 		let windowWidth = this.state.windowWidth
-		return(
-			<div className="featured">
-				<Fade>
-					<div style={{height: "80vh", backgroundImage: `url(${godOfWar})`, backgroundSize: "cover"}}>								
-					</div>
-				</Fade>
+
+		let salesBanner = windowWidth <= 576 ? (
+			<div
+				className={ windowWidth <= 576 ? "p-4 d-md-block d-lg-flex sales-banner-sm" : "px-3 py-4 d-md-block d-lg-flex sales-banner-lg"}
+			>
+				<p 
+					className="font-weight-bold pb-2"
+					style={windowWidth < 992 ? {margin: "auto 0", fontSize: "26px"}:{margin: "auto 0"}}
+				>
+					Achievement Unlocked
+				</p>
+				<p 
+					className="font-weight-bold pb-2"
+					style={{margin: "auto 0"}}	
+				>
+					Sony Playstation 4's "God of War" wins Game of The Year at "The Game Awards." Bring home this epic tale today.
+				</p>
+				<div style={{marginLeft: "auto"}}>
+					<a 
+						href="https://www.playstation.com/en-us/games/god-of-war-ps4/"
+						className="sony-btn"
+						style={windowWidth < 992 ? {width: "100%", marginTop: "15px"}:{width: "initial"}}
+					>Buy Now
+					</a>
+				</div>
+			</div>			
+		) : (
+			<Fade bottom>
 				<div
-					className="p-5 d-md-block d-lg-flex sales-banner"
-					style={{
-						background: "rgba(31, 31, 31, 0.9)",
-						color: "#fff",
-						fontFamily: "Source Sans Pro",
-						fontSize: "20px",
-						position: "absolute",
-						bottom: "0",
-						width: "100%"
-					}}
+					className={ windowWidth <= 576 ? "p-4 d-md-block d-lg-flex sales-banner-sm" : "px-3 py-4 d-md-block d-lg-flex sales-banner-lg"}
 				>
 					<Fade bottom>
 						<p 
@@ -52,10 +65,9 @@ class Featured extends React.Component{
 						>
 							Achievement Unlocked
 						</p>
-						<h5 className="mx-3 pb-2 d-none d-lg-flex" style={{margin: "auto 0"}}>|</h5>
 						<p 
 							className="font-weight-bold pb-2"
-							style={{margin: "auto 0"}}	
+							style={ windowWidth < 992 ? {margin: "auto 0"} : {margin: "auto 0", borderLeft: "1px solid #fff", padding: "0px 25px"}}	
 						>
 							Sony Playstation 4's "God of War" wins Game of The Year at "The Game Awards." Bring home this epic tale today.
 						</p>
@@ -69,6 +81,17 @@ class Featured extends React.Component{
 						</div>
 					</Fade>
 				</div>
+			</Fade>
+		)
+		return(
+			<div className="featured">
+				<Fade>
+					<div
+						className={ windowWidth <= 576 ? "featured-sm" : "featured-lg"}
+					>								
+					</div>
+				</Fade>
+				{salesBanner}
 			</div>			
 		)
 	}

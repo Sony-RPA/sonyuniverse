@@ -11,7 +11,7 @@ class Message extends React.Component{
 		let sender = this.props.message.user
 		return(
 			<div 
-				className={ currentUser == sender && "text-right" }
+				className={ currentUser == sender ? "text-right" : undefined }
 			>
 				<span 
 					className={ currentUser == sender ? "bg-primary text-light px-1 py-2 rounded" : "bg-dark text-light px-1 py-2 rounded"}

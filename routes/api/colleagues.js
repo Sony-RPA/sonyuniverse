@@ -1,5 +1,7 @@
 const passport = require("passport")
 const Colleague = require("../../models/Colleague")
+const Notification = require("../../models/Notification")
+const User = require("../../models/User")
 
 const colleagueRoutes = (app) => {
 	//@desc get users colleagues
@@ -42,6 +44,29 @@ const colleagueRoutes = (app) => {
 					.catch((errors) => {
 						return res.status(400).json({ couldnotupdate: "could not update receivers colleagues"})
 					})
+
+				//get current user information and add a new notification for the receiever
+				User.findOne({ _id: req.user.id})
+					.then((currentUser) => {
+						Notification.findOne({ user: req.params.id })
+							.then((foundNotifications) => {
+								const newNotification = {
+									senderId: req.user.id,
+									name: currentUser.name,
+									avatar: currentUser.avatar,
+									description: `${currentUser.name} has invited you to connect.`
+								}
+								foundNotifications.notifications.unshift(newNotification)
+								//save updated notifications model
+								foundNotifications.save()
+							})
+							.catch((errors) => {
+								return res.status(400).json({ couldnotfind: "could not find notifications"})
+							})
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotfind: "could not find user"})
+					})
 			})
 			.catch((errors) => {
 				return res.status(400).json({ couldnotfind: "could not find this users colleagues"})
@@ -83,6 +108,26 @@ const colleagueRoutes = (app) => {
 						return res.status(400).json({ couldnotupdate: "could not update received colleagues network" })
 					})
 				})
+				//get current user information and create a notification for the requestor
+				User.findOne({ _id: req.user.id})
+					.then((currentUser) => {
+						Notification.findOne({ user: req.params.id })
+							.then((foundNotifications) => {
+								const newNotification = {
+									senderId: req.user.id,
+									name: currentUser.name,
+									avatar: currentUser.avatar,
+									description: `You are now connected with ${currentUser.name}!`
+								}
+
+								foundNotifications.notifications.unshift(newNotification)
+								//save updated notifications
+								foundNotifications.save()
+							})
+							.catch((errors) => {
+								return res.status(400).json({ couldnotfind: "could not find requestors notifications"})
+							})
+					})
 
 			.catch((errors) => {
 				return res.status(400).json({ couldnotupdate: "could not update this users colleagues"})

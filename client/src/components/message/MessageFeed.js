@@ -34,7 +34,7 @@ class MessageFeed extends React.Component{
 
 		return(
 			<div>
-				<ul style={{listStyle: "none"}} class="px-2 py-3">
+				<ul style={{listStyle: "none"}} className="px-2 py-3">
 					{ messages.map((message) => {
 						return(
 							<li 

@@ -2,6 +2,7 @@ const crypto = require("crypto")
 const User = require("../../models/User")
 const Post = require("../../models/Post")
 const Colleague = require("../../models/Colleague")
+const Notification = require("../../models/Notification")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const keys = require("../../config/keys")
@@ -64,9 +65,10 @@ const authRoutes = (app) => {
 										name: createdUser.name,
 										avatar: createdUser.avatar
 									}
-									//create a colleague model for the new user
+									//create new colleague and notification models for the new user
 									const userId = createdUser._id
 									new Colleague({ user: userId }).save()
+									new Notification({ user: userId }).save()
 									res.json(payload)
 								})
 								.catch((err) => {

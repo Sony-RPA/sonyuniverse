@@ -73,7 +73,7 @@ class Highlight extends React.Component{
 								<h4 className="room-title text-light p-3">SP Squad #5</h4>
 								{this.state.messages.map((message, i) => {
 									return(
-										<Slide bottom delay={this.state.delay[i]}>
+										<Slide key={i} bottom delay={this.state.delay[i]}>
 											<div className="pl-2">
 												<Fade delay={this.state.delay[i]}>
 													<img style={{width: "15rem"}}src={message}/>
@@ -90,8 +90,8 @@ class Highlight extends React.Component{
 								style={{ height: "100%", width: "100%" }} 
 								onEnded={this.showScore}
 								autoPlay
-								autobuffer
-								playsinline 
+								autobuffer="true"
+								playsInline 
 								muted
 							>
 								<source 

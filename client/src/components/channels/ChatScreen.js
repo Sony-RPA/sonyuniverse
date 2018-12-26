@@ -164,11 +164,11 @@ class ChatScreen extends React.Component{
 				return user.id
 			})
 			let ids = [...messageIds, ...roomUserIds]
-			let userIds = ids.filter((id, pos) => {
+			let uniqueIds = ids.filter((id, pos) => {
 				return ids.indexOf(id) === pos
 			})
 			let userData = {
-				userIds: userIds
+				userIds: uniqueIds
 			}
 			this.props.getChatkitUsers(userData)	
 		}		
