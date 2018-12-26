@@ -61,7 +61,7 @@ class Featured extends React.Component{
 					<Fade bottom>
 						<p 
 							className="font-weight-bold pb-2"
-							style={windowWidth < 992 ? {margin: "auto 0", fontSize: "26px"}:{margin: "auto 0"}}
+							style={windowWidth < 992 ? {margin: "auto 0", fontSize: "26px"}:{paddingRight: "25px", margin: "auto 0"}}
 						>
 							Achievement Unlocked
 						</p>

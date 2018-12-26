@@ -7,6 +7,7 @@ import fortnite from "../../img/fortnite.png"
 import sp_logo from "../../img/sp-logo.png"
 import { Slide } from "react-reveal"
 import ReactPlayer from "react-player"
+import LazyLoad from "react-lazy-load"
 
 class Highlight extends React.Component{
 	constructor(){
@@ -21,18 +22,18 @@ class Highlight extends React.Component{
 		}
 	}
 
-	componentDidMount(){
-		this.setState({
-			asset: "https://i.imgur.com/FSWUXBR.mp4"
-		})
-	}
-
 	componentDidUpdate(){
 		if(this.state.showScore){
 			setTimeout(() => {
 				this.updateScore()
 			}, 30)
 		}
+	}
+
+	retrieveVideo = () => {
+		this.setState({
+			asset: "https://i.imgur.com/FSWUXBR.mp4"
+		})
 	}
 
 	updateScore = () => {
@@ -86,19 +87,23 @@ class Highlight extends React.Component{
 						</div>
 
 						<div className="col-md-4 bg-black p-0">
-							<video
-								style={{ height: "100%", width: "100%" }} 
-								onEnded={this.showScore}
-								autoPlay
-								autobuffer="true"
-								playsInline 
-								muted
-							>
-								<source 
-									src={this.state.asset} 
-									type="video/mp4"
-								/>
-							</video>
+						<LazyLoad height={355} onContentVisible={this.retrieveVideo}>
+							<Fade>
+								<video
+									style={{ height: "100%", width: "100%" }} 
+									onEnded={this.showScore}
+									autoPlay
+									autobuffer="true"
+									playsInline 
+									muted
+								>
+									<source 
+										src={this.state.asset} 
+										type="video/mp4"
+									/>
+								</video>
+							</Fade>
+						</LazyLoad>
 						</div>
 
 						{ this.state.showScore ? (
