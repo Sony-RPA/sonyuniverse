@@ -7,8 +7,6 @@ const bodyParser = require("body-parser")
 const passport = require("passport")
 const passportAuthenticate = require("./config/passport")
 const path = require("path")
-const Notification = require("./models/Notification")
-const User = require("./models/User")
 
 //DB config
 const db = require("./config/keys").mongoURI
@@ -60,27 +58,6 @@ if(process.env.NODE_ENV === "production"){
 		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
 	})
 }
-
-if(process.env.NODE_ENV === "production"){
-	User.find({})
-		.then((foundUsers) => {
-			foundUsers.forEach((user) => {
-				const newNotification = new Notification({user: user._id})
-
-				newNotification.save()
-					.then((savedModel) => {
-						res.json(savedModel)
-					})
-					.catch((errors) => {
-						return res.status(404).json({ error: "could not create new users"})
-					})
-			})
-		})
-		.catch((errors) => {
-			return res.status(404).json({ error: "could not create users"})
-		})
-}
-
 
 //define ports
 const port = process.env.PORT || 5000;
