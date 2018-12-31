@@ -7,6 +7,8 @@ const bodyParser = require("body-parser")
 const passport = require("passport")
 const passportAuthenticate = require("./config/passport")
 const path = require("path")
+const Notification = "./models/Notification"
+const User = "./models/User"
 
 //DB config
 const db = require("./config/keys").mongoURI
@@ -57,6 +59,15 @@ if(process.env.NODE_ENV === "production"){
 	app.get("*", (req, res) => {
 		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
 	})
+}
+
+if(process.env.NODE_ENV == "production"){
+	User.find({})
+		.then((foundUsers) => {
+			foundUsers.forEach((user) => {
+				new Notification({user: user._id}).save()
+			})
+		})
 }
 
 
