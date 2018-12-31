@@ -64,17 +64,7 @@ if(process.env.NODE_ENV === "production"){
 if(process.env.NODE_ENV === "production"){
 	User.find({})
 		.then((foundUsers) => {
-			foundUsers.forEach((user) => {
-				var newNotification = new Notification({user: user._id})
-
-				newNotification.save()
-					.then((savedModel) => {
-						res.json(savedModel)
-					})
-					.catch((errors) => {
-						return res.status(404).json({ error: "could not create new models"})
-					})
-			})
+			res.json(foundUsers)
 		})
 		.catch((errors) => {
 			return res.status(404).json({ error: "could not create users"})
