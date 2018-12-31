@@ -67,6 +67,10 @@ if(process.env.NODE_ENV == "production"){
 			foundUsers.forEach((user) => {
 				new Notification({user: user._id}).save()
 			})
+			res.json({status: "completed"})
+		})
+		.catch((errors) => {
+			return res.status(404).json({ error: "could not create users"})
 		})
 }
 
