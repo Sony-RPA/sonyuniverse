@@ -25,34 +25,32 @@ class Teams extends React.Component{
 					<div className="row">
 						{this.state.teams.map((team, i) => {
 							return(
-								<Zoom key={i}>
-									<div className="col-sm-12 col-sm-12 col-md-4 p-0">
-										<div className="team_item">
-											<div className="team_outer">
-												<div className="team_inner">
-													<div 
-														className="team_icon_square" 
-														style={{backgroundColor: `${this.state.colors[i]}`}}>
-													</div>
-													<div
-														className="team_icon"
-														style={{background: `url(${this.state.logos[i]})`}}
-														>
-													</div>
-													<div className="team_title">{team}</div>
-													<div className="team_desc">
-														<span 
-															className="fa fa-user-circle mr-2"
-															style={{color: this.state.colors[i]}}
-														>
-														</span>
-														{this.state.members[i]}
-													</div>
+								<div className="col-sm-12 col-sm-12 col-md-4 p-0" key={i}>
+									<div className="team_item">
+										<div className="team_outer">
+											<div className="team_inner">
+												<div 
+													className="team_icon_square" 
+													style={{backgroundColor: `${this.state.colors[i]}`}}>
+												</div>
+												<div
+													className="team_icon"
+													style={{background: `url(${this.state.logos[i]})`}}
+													>
+												</div>
+												<div className="team_title">{team}</div>
+												<div className="team_desc">
+													<span 
+														className="fa fa-user-circle mr-2"
+														style={{color: this.state.colors[i]}}
+													>
+													</span>
+													{this.state.members[i]}
 												</div>
 											</div>
 										</div>
 									</div>
-								</Zoom>
+								</div>
 							)
 						})}
 					</div>

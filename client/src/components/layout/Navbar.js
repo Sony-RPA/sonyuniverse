@@ -3,18 +3,21 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { logoutUser } from "../../actions/authActions"
 import { clearCurrentProfile } from "../../actions/profileActions"
-import sonyUniverseLogo from"../common/sonyuniverselogo.png"
+import sonyUniverseLogo from "../common/sonyuniverselogo.png"
+import NotificationFeed from "../notifications/NotificationFeed"
 
 class Navbar extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
 			windowWidth: window.innerWidth,
-			scrollThresholdMet: 0
+			scrollThresholdMet: 0,
+			showDropdown: false
 		}
 
 		this.onLogoutClick = this.onLogoutClick.bind(this)
 		this.setWidth = this.setWidth.bind(this)
+		this.toggleDropdown = this.toggleDropdown.bind(this)
 	}
 
 	componentDidMount(){
@@ -56,6 +59,14 @@ class Navbar extends React.Component{
 		this.props.logoutUser()
 	}
 
+	toggleDropdown = (event) => {
+		this.setState((prevState) => {
+			return{
+				showDropdown: !prevState.showDropdown
+			}
+		})
+	}
+
 	render(){
 		const isAuthenticated = this.props.auth.isAuthenticated
 		const user = this.props.auth.user
@@ -64,13 +75,26 @@ class Navbar extends React.Component{
 		const authLinks = (
 	        <ul className="navbar-nav">
 	          <li className="navbar-nav">
+	          	<div className="sony-dropdown-menu" id="notifications-dropdown" onClick={this.toggleDropdown}>
+		          	<Link to="#" className="nav-link text-light">
+		          		<span 
+		          			key={Math.random()}
+		          		>
+		          			<i className="fa fa-bell"></i>
+		          		</span> { windowWidth < 576 && "Notifications"}
+		          		<NotificationFeed showDropdown={this.state.showDropdown} toggleDropdown={this.toggleDropdown}/>
+
+		          	</Link>
+	          	</div>
+	          </li>
+	          <li className="navbar-nav">
 	          	<Link to="/channels" className="nav-link text-light">
 	          		<span key={Math.random()}><i className="fa fa-comment"></i></span> {windowWidth < 576 && "Channels"}
 	          	</Link>
 	          </li>
  			  <li className="navbar-nav">
  			  	<Link to="/feed" className="nav-link text-light">
-					<span key={Math.random()}><i className="fa fa-bullhorn"></i></span> {windowWidth < 576 && "Posts"}			  		
+					<span key={Math.random()}><i className="fa fa-sticky-note"></i></span> {windowWidth < 576 && "Posts"}			  		
  			  	</Link>
  			  </li>	        
  			  <li className="navbar-nav">
@@ -116,7 +140,8 @@ class Navbar extends React.Component{
 		return(
 			<div  
 				style={{fontFamily: "Kanit"}}
-				className="sticky-top">
+				className="sticky-top"
+			>
 			  <nav
 			  	style={{backgroundImage: "linear-gradient(to bottom, #0072CE, #003087)"}}
 			  	className="navbar navbar-expand-sm navbar-dark mb-4"
@@ -138,7 +163,7 @@ class Navbar extends React.Component{
 			        { isAuthenticated ? authLinks : guestLinks }
 			      </div>
 			    </div>
-			  </nav>				
+			  </nav>			
 			</div>
 		)
 	}

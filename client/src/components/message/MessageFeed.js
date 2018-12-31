@@ -34,17 +34,17 @@ class MessageFeed extends React.Component{
 
 		return(
 			<div>
-				<ul style={{listStyle: "none"}} className="px-2 py-3">
+				<div className="px-2 py-3">
 					{ messages.map((message) => {
 						return(
-							<li 
+							<div 
 								className="mb-3"
 								key={message._id}>
 									<Message message={message}/>
-							</li>
+							</div>
 						)
 					})}
-				</ul>
+				</div>
 			</div>
 		)
 	}

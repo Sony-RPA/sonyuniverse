@@ -39,10 +39,10 @@ class PostItem extends React.Component{
 		return(
             <div className="card card-body mb-3 shadow">
               <div className="row">
-                <div className="col-md-2">
+                <div className="col-md-3 text-center">
                   <Link to={`/profile/${post.handle}`}>
                     <img 
-                    	className="rounded-circle d-none d-md-block avatar" 
+                    	className="rounded-circle d-none d-md-block avatar m-auto" 
                     	src={post.avatar}
                       alt="" 
                     />
@@ -50,7 +50,7 @@ class PostItem extends React.Component{
                   <br />
                   <p className="text-center">{post.name}</p>
                 </div>
-                <div className="col-md-10">
+                <div className="col-md-9 py-2 px-0">
                   <p className="lead">{post.text}</p>
 
                   { showActions ? (

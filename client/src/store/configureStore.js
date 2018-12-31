@@ -6,6 +6,7 @@ import postReducer from "../reducers/postReducer"
 import colleagueReducer from "../reducers/colleagueReducer"
 import chatkitReducer from "../reducers/chatkitReducer"
 import conversationReducer from "../reducers/conversationReducer"
+import notificationReducer from "../reducers/notificationReducer"
 import thunk from "redux-thunk"
 
 const initialStoreState = {}
@@ -17,7 +18,8 @@ const store = createStore(combineReducers({
 	post: postReducer,
 	colleague: colleagueReducer,
 	chatkit: chatkitReducer,
-	conversation: conversationReducer
+	conversation: conversationReducer,
+	notification: notificationReducer
 }), initialStoreState,
 	compose(
 		applyMiddleware(thunk)

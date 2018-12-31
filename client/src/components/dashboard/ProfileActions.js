@@ -5,8 +5,7 @@ class ProfileActions extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			width: 0,
-			height: 0
+			width: 0
 		}
 		this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
 	}
@@ -22,8 +21,7 @@ class ProfileActions extends React.Component{
 
 	updateWindowDimensions = () => {
 		this.setState({
-			width: window.innerWidth,
-			height: window.innerHeight
+			width: window.innerWidth
 		})
 	}
 
@@ -55,9 +53,10 @@ class ProfileActions extends React.Component{
 			actionsList = (
 				<div className="text-center">
 					<h5 
-						data-toggle="collapse" 
+						data-toggle="collapse"
 						data-target="#profileActions"
 						className="bg-black text-light p-3 mb-0 shadow"
+						id="profile-actions-toggle"
 					>
 						<i className="fas fa-chess-rook text-warning mr-2"></i>Actions
 					</h5>					

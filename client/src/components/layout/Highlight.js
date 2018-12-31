@@ -111,8 +111,8 @@ class Highlight extends React.Component{
 								<div 
 									className="col-md-4 font-weight-bold bg-dark p-0" 
 								>
-									<div className="scoreboard font-weight-bold text-warning p-4">
-										<h2 className="mb-4 font-weight-bold bg-warning text-dark shadow">VICTORY</h2>
+									<div className="scoreboard font-weight-bold sony-text-gold p-4">
+										<h2 className="mb-4 font-weight-bold sony-background-gold text-dark shadow">VICTORY</h2>
 										<div className="container">
 											<div className="row" style={{marginTop: "5px"}}>
 												<div className="col-sm-6 col-md-12 col-lg-6 p-0">

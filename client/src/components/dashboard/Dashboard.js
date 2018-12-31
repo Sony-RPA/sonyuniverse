@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions"
+import { getNotifications } from "../../actions/notificationActions"
 import Loader from "../common/Loader"
 import ProfileActions from "./ProfileActions"
 import Experience from "./Experience"
@@ -17,6 +18,7 @@ class Dashboard extends React.Component{
 
 	componentDidMount(){
 		this.props.getCurrentProfile()
+		this.props.getNotifications()
 	}
 
 	onDeleteAccount = (event) => {
@@ -109,6 +111,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		deleteAccount: () => {
 			dispatch(deleteAccount())
+		},
+		getNotifications: () => {
+			dispatch(getNotifications())
 		}
 	}
 }

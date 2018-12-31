@@ -9,7 +9,7 @@ const notificationSchema = new mongoose.Schema({
 			name: String,
 			avatar: String,
 			description: String,
-			seen: { type: String, default: false, required: true }
+			seen: { type: Boolean, default: false, required: true }
 		}
 	]
 })
