@@ -14,10 +14,6 @@ class Navbar extends React.Component{
 			scrollThresholdMet: 0,
 			showDropdown: false
 		}
-
-		this.onLogoutClick = this.onLogoutClick.bind(this)
-		this.setWidth = this.setWidth.bind(this)
-		this.toggleDropdown = this.toggleDropdown.bind(this)
 	}
 
 	componentDidMount(){
@@ -120,18 +116,18 @@ class Navbar extends React.Component{
 	        <ul className="navbar-nav ml-auto">
 	          <li className="nav-item">
 	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "btn btn-success mr-2 nav-btn rounded-0" : "nav-link text-light mr-2"} 
+	            	className={this.state.windowWidth >= 576 ? "signup-btn auth-btn mr-2" : "nav-link text-light mr-2"} 
 	            	to="/register"
 	            >
-	            	{ windowWidth < 576 ? <span><i className="fa fa-user-plus"></i> Sign Up</span> : "Sign Up"}
+	            	{ windowWidth < 576 ? <span><i className="fa fa-user-plus"></i> Sign Up</span> : "SIGN UP"}
 	            </Link>
 	          </li>
 	          <li className="nav-item">
 	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "btn btn-info mr-2 nav-btn rounded-0" : "nav-link text-light mr-2"} 
+	            	className={this.state.windowWidth >= 576 ? "login-btn auth-btn mr-2" : "nav-link text-light mr-2"} 
 	            	to="/login"
 	            >
-	            	{ windowWidth < 576 ? <span><i className="fa fa-chevron-circle-right"></i> Login</span> : "Login" }
+	            	{ windowWidth < 576 ? <span><i className="fa fa-chevron-circle-right"></i> Login</span> : "LOGIN" }
 	            </Link>
 	          </li>
 	        </ul>

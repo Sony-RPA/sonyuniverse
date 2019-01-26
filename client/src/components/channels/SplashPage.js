@@ -44,7 +44,7 @@ class SplashPage extends React.Component{
 
 const mapStateToProps = (state) => {
 	return{
-		chatkit: state.chatkit,
+		chatkit: state.chatkit
 	}
 }
 
