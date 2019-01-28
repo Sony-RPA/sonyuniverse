@@ -113,7 +113,7 @@ class Navbar extends React.Component{
 		)
 
 		const guestLinks = (
-	        <ul className="navbar-nav ml-auto">
+	        <ul className="navbar-nav ml-auto mt-1">
 	          <li className="nav-item">
 	            <Link 
 	            	className={this.state.windowWidth >= 576 ? "signup-btn auth-btn mr-2" : "nav-link text-light mr-2"} 
