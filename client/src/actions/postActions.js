@@ -40,7 +40,6 @@ export const getPost = (id) => {
 	}
 }
 
-
 //get all the posts
 export const getPosts = () => {
 	return (dispatch) => {
@@ -160,13 +159,50 @@ export const deleteComment = (postId, commentId) => {
 }
 
 
+//edit post
+export const editPost = (postId, postData) => {
+	return (dispatch, getState) => {
+		axios.put(`/api/posts/${postId}`, postData)
+			.then((res) => {
+				dispatch({
+					type: "EDIT_POST",
+					payload: res.data
+				})
+				if(Object.keys(getState().errors).length > 0){
+					dispatch(clearErrors())
+				}
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+//edit comment
+export const editComment = (postId, commentId, commentData) => {
+	return (dispatch) => {
+		axios.put(`/api/posts/comment/${postId}/${commentId}`, commentData)
+			.then((res) => {
+				dispatch(getPost(postId))
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
 //set loading state
 export const setPostLoading = () => {
 	return{
 		type: "POST_LOADING"
 	}
 }
-
 
 //clear errors
 export const clearErrors = () => {

@@ -224,6 +224,73 @@ const postsRoutes = (app) => {
 			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));
 	})
 
+//@desc edit post
+//@access Private
+	app.put("/api/posts/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
+		//check if post has at least 2 characters
+		const { errors, isValid } = validatePostInput(req.body)
+
+		if(!isValid){
+			return res.status(400).json(errors)
+		}
+
+		Post.findById({ _id: req.params.post_id })
+			.then((foundPost) => {
+				//update post
+				foundPost.text = req.body.text
+
+				//save post
+				foundPost.save()
+					.then((savedPost) => {
+						res.json(savedPost)
+					})
+					.catch((errors) => {
+						res.status(400).json({couldnotupdate: "Could not save this post. Please try again."})
+					})
+			})
+			.catch((errors) => {
+				res.status(400).json({ couldnotfind: "We could not find this post. Please try again."})
+			})
+	})
+
+//@desc edit comment
+//@access Private
+	app.put("/api/posts/comment/:post_id/:comment_id", passport.authenticate("jwt", { session: false }), (req, res) => {
+		//check if post has at least 2 characters
+		const { errors, isValid } = validatePostInput(req.body)
+
+		if(!isValid){
+			return res.status(400).json(errors)
+		}
+
+		Post.findById({ _id: req.params.post_id })
+			.then((foundPost) => {
+				//find comment
+				var commentIndex = null
+				foundPost.comments.forEach((comment, index) => {
+					if((comment._id).toString() === req.params.comment_id){
+						commentIndex = index
+					}
+				})
+
+				//update comment text
+				foundPost.comments[commentIndex].text = req.body.text
+
+				//save post with updated comments
+				foundPost.save()
+					.then((savedPost) => {
+						res.json(savedPost)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotupdate: "comment could not be updated. Please try again."})
+					})
+
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "we could not find this comment."})
+			})
+	})
+
 }
 
 module.exports = postsRoutes

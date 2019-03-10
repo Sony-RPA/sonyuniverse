@@ -1,11 +1,18 @@
 import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { deletePost, addLike, removeLike } from "../../actions/postActions"
+import { deletePost, addLike, removeLike, editPost } from "../../actions/postActions"
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup"
 
 class PostItem extends React.Component{
 	constructor(props){
 		super(props)
+
+    this.state = {
+      text: this.props.post.text,
+      editting: false,
+      errors: null
+    }
 
 		this.onDeleteClick = this.onDeleteClick.bind(this)
 		this.onLikeClick = this.onLikeClick.bind(this)
@@ -32,10 +39,50 @@ class PostItem extends React.Component{
       }
 	}
 
+  toggleEdit = () => {
+    this.setState((prevState) => {
+      return {
+        editting: !prevState.editting
+      }
+    })
+  }
+
+  onEditPostChange = (event) => {
+    this.setState({
+      text: event.target.value
+    })
+  }
+
+  onCancelClick = () => {
+    this.setState((prevState) => {
+      return {
+        editting: !prevState.editting,
+        text: this.props.post.text,
+        errors: null
+      }
+    })
+  }
+
+  onEditPostSubmit = () => {
+    const postId = this.props.post._id
+    const postData = {
+      text: this.state.text
+    }
+    if(postData.text.length < 2){
+      this.setState({
+        errors: "Post must be between 2 and 500 characters"
+      })
+    } else {
+      this.props.editPost(postId, postData)
+      this.toggleEdit()
+    }
+  }
+
 	render(){
 		const post = this.props.post
 		const auth = this.props.auth
     const showActions = this.props.showActions
+    const editting = this.state.editting
 		return(
             <div className="card card-body mb-3 shadow">
               <div className="row">
@@ -51,7 +98,15 @@ class PostItem extends React.Component{
                   <p className="text-center">{post.name}</p>
                 </div>
                 <div className="col-md-9 py-2 px-0">
-                  <p className="lead">{post.text}</p>
+                  { editting ? (
+                    <TextAreaFieldGroup
+                      value={this.state.text}
+                      onChange={this.onEditPostChange}
+                      error={this.state.errors}
+                    />
+                  ) : (
+                    <p className="lead">{post.text}</p>
+                  )}
 
                   { showActions ? (
                     <span key={Math.random()}>
@@ -75,6 +130,33 @@ class PostItem extends React.Component{
                       >
                         <i className="text-secondary fas fa-thumbs-down"></i>
                       </button>
+
+                      { post.user == auth.user.id ? (
+                        editting ? (
+                          <span>
+                          <button
+                            className="btn btn-success mr-1"
+                            onClick={this.onEditPostSubmit}
+                          >
+                            Save
+                          </button>
+                          <button
+                            className="btn btn-secondary mr-1"
+                            onClick={this.onCancelClick}
+                          >
+                            Cancel
+                          </button>
+                          </span>
+                        ) : (
+                          <button
+                            className="btn btn-secondary mr-1"
+                            onClick={this.toggleEdit}
+                          >
+                            Edit
+                          </button>
+                        )
+                      ) : null }
+
 
                       <Link to={`/posts/${post._id}`} className="btn btn-info mr-1">
                         Comments
@@ -121,7 +203,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		removeLike: (id) => {
 			dispatch(removeLike(id))
-		}
+		},
+    editPost: (id, postData) => {
+      dispatch(editPost(id, postData))
+    }
 	}
 }
 
