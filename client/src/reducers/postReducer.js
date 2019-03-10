@@ -61,6 +61,21 @@ const postReducer = (state = initialState, action) => {
 					}
 				})
 			}
+		case "EDIT_COMMENT":
+			return {
+				...state,
+				posts: state.posts.map((post) => {
+					if(post._id == action.payload._id){
+						return {
+							...post,
+							...action.payload
+						}
+					} else {
+						return post
+					}
+				}),
+				post: action.payload
+			}
 		default:
 			return state
 	}

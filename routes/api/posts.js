@@ -266,11 +266,8 @@ const postsRoutes = (app) => {
 		Post.findById({ _id: req.params.post_id })
 			.then((foundPost) => {
 				//find comment
-				var commentIndex = null
-				foundPost.comments.forEach((comment, index) => {
-					if((comment._id).toString() === req.params.comment_id){
-						commentIndex = index
-					}
+				var commentIndex = foundPost.comments.findIndex((comment) => {
+					return (comment._id).toString() == req.params.comment_id
 				})
 
 				//update comment text
