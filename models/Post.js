@@ -30,7 +30,8 @@ const postSchema = new mongoose.Schema({
 			date: { type: Date, default: Date.now() }	
 		}	
 	],
-	date: { type: Date, default: Date.now() }
+	date: { type: Date, default: Date.now() },
+	commenters: [String]
 })
 
 const Post = mongoose.model("Post", postSchema)

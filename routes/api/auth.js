@@ -229,7 +229,7 @@ const authRoutes = (app) => {
 						res.json(savedUser)
 					})
 					.catch((errors) => {
-						console.log(errors)
+						return res.status(400).json({ couldnotupdate: "could not save this avatar"})
 					})
 			})
 			.catch((errors) => {
@@ -241,13 +241,47 @@ const authRoutes = (app) => {
 			.then((updatedPosts) => {
 				updatedPosts.save()
 					.then((savedPosts) => {
-						console.log(savedPosts)
+						console.log("savedPosts")
 					})
 					.catch((errors) => {
 						return res.status(400).json({ couldnotupdate: "Could not update posts" })
 					})
 			})
-		//TODO: change the avatars and comments
+			.catch((errors) => {
+				console.log("no posts")
+			})
+		
+		//update all user comments with the new avatar
+		User.findOne({ _id: req.user.id })
+			.then((foundUser) => {
+				foundUser.comments.forEach((userComment) => {
+					Post.findById( { _id: userComment.postId} )
+						.then((foundPost) => {
+							//find comment
+							var commentIndex = foundPost.comments.findIndex((postComment) => {
+								return (postComment._id).toString() == userComment.commentId
+							})
+
+							//update comment avatar
+							foundPost.comments[commentIndex].avatar = avatar
+
+							foundPost.save()
+								.then((savedPost) => {
+									console.log("saved Post")
+								})
+								.catch((errors) => {
+									return res.status(400).json({ couldnotupdate : "could not updated posts"})
+								})
+
+							})
+							.catch((errors) => {
+								return res.status(400).json({ couldnotfind: "could not find this post"})
+						})
+				})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find this user"})
+			})
 	})
 
 

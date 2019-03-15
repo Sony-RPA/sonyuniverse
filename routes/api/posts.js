@@ -3,6 +3,7 @@ const passport = require("passport")
 const Post = require("../../models/Post")
 const Profile = require("../../models/Profile")
 const validatePostInput = require('../../validation/post')
+const User = require("../../models/User")
 
 const postsRoutes = (app) => {
 //@desc Tests posts route
@@ -57,7 +58,7 @@ const postsRoutes = (app) => {
 					user: req.user.id,
 					handle: foundProfile.handle
 				})
-
+				//save post
 				newPost.save()
 					.then((createdPost) => {
 						res.json(createdPost)
@@ -83,7 +84,28 @@ const postsRoutes = (app) => {
 							return res.status(400).json({ notauthorized: "You are not authorized to delete this post."})
 						}
 
-						//Delete
+						//Remove all references to this post in all participated User models
+						foundPost.commenters.forEach((commenter) => {
+							User.findOne({ _id: commenter })
+								.then((foundUser) => {
+									foundUser.comments = foundUser.comments.filter((comment) => {
+										return comment.postId !== req.params.post_id
+									})
+
+									foundUser.save()
+										.then((savedUser) => {
+											console.log(savedUser)
+										})
+										.catch((errors) => {
+											console.log("could not save User")
+										})
+								})
+								.catch((errors) => {
+									console.log("could not find commenters")
+								})
+						})
+
+						//Delete Post
 						foundPost.remove()
 							.then(() => {
 								res.json({ success: true })
@@ -182,11 +204,30 @@ const postsRoutes = (app) => {
 						}
 						//Add to comments array
 						foundPost.comments.unshift(newComment)
+						//check if commenter has been recorded
+						if(!foundPost.commenters.includes(req.user.id)){
+							foundPost.commenters.unshift(req.user.id)
+						}
 
 						//Save post with new comment
 						foundPost.save()
 							.then((savedPost) => {
-								res.json(savedPost)
+								//make a record of this post in User model
+								User.findOne({ _id: req.user.id })
+									.then((foundUser) => {
+										foundUser.comments.unshift({ postId: savedPost._id, commentId: savedPost.comments[0]._id })
+										//save user
+										foundUser.save()
+											.then((savedUser) => {
+												res.json(savedPost)
+											})
+											.catch((errors) => {
+												return res.status(400).json({ couldnotsave: "could not save comment for user"})
+											})
+									})
+									.catch((errors) => {
+										return res.status(400).json({ couldnotupdate: "could not find a user with this id"})
+									})
 							})
 					})
 					.catch((errors) => {
@@ -207,21 +248,61 @@ const postsRoutes = (app) => {
 				if (foundPost.comments.filter(comment => comment._id.toString() === req.params.comment_id).length === 0){
 					return res.status(404).json({ commentnotexists: 'Comment does not exist' });
 				}
-
 			//Get remove index
-			const removeIndex = foundPost.comments
+			var removeCommentIndex = foundPost.comments
 				.map((comment) => {
 					return comment._id.toString()
 				})
 				.indexOf(req.params.comment_id);
 
-			// Splice comment out of array
-			foundPost.comments.splice(removeIndex, 1);
+			//Splice comment out of array
+			foundPost.comments.splice(removeCommentIndex, 1);
 
-			foundPost.save().then(post => res.json(foundPost));
+			//remove from commenter array if there are no posts from this user
+			const commenters = foundPost.comments.map((comment) => comment.user.toString())
 
+			//check if there are any comments remaining from this user. if none, remove user completely from commenters list
+			if(!commenters.includes(req.user.id)){
+				var removeCommenterIndex = foundPost.commenters.findIndex((commenter) => {
+					return commenter == req.user.id
+				})
+
+				foundPost.commenters.splice(removeCommenterIndex, 1)
+			}
+
+			foundPost.save()
+				.then((post) => {
+					res.json(foundPost)
+				})
+				.catch((errors) => {
+					return res.status(400).json({ couldnotsave: "Could not save post"})
+				})
 			})
-			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+			.catch((err) => {
+				res.status(404).json({ postnotfound: 'No post found' })
+			});
+
+		//remove reference of comment in User model
+		User.findOne({ _id: req.user.id})
+			.then((foundUser) => {
+				var removeCommentIndex = foundUser.comments.findIndex((comment) => {
+					return comment.commentId == req.params.comment_id
+				})
+
+				//remove comment
+				foundUser.comments.splice(removeCommentIndex, 1)
+				//save user
+				foundUser.save()
+					.then((savedUser) => {
+						console.log(savedUser)
+					})
+					.catch((errors) => {
+						console.log("could not save user")
+					})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find the user model to update"})
+			})
 	})
 
 //@desc edit post
