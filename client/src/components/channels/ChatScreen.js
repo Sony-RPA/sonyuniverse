@@ -5,6 +5,7 @@ import SendMessageForm from "./SendMessageForm"
 import WhosOnlineList from "./WhosOnlineList"
 import RoomList from "./RoomList"
 import NewRoomForm from "./NewRoomForm"
+import TypingIndicator from "./TypingIndicator"
 import { recordLastRoom, clearRoom, getRefinedUser, getChatkitUsers } from "../../actions/chatkitActions"
 import { connect } from "react-redux"
 
@@ -335,8 +336,9 @@ class ChatScreen extends React.Component{
 						)}
 					</div>
 					<div style={{flex: "1"}}>
-						<MessageList messages={this.state.messages} room={this.state.currentRoom.id} usersWhoAreTyping={this.state.usersWhoAreTyping}/>
+						<MessageList messages={this.state.messages} room={this.state.currentRoom.id}/>
 					</div>
+					<TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping}/>
 					<SendMessageForm 
 						sendMessage={this.sendMessage}
 						userTyping={this.sendTypingEvent} 

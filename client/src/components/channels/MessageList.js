@@ -137,7 +137,6 @@ class MessageList extends React.Component{
 						ref={this.messageList}
 					>
 						{messageList}
-						<TypingIndicator usersWhoAreTyping={this.props.usersWhoAreTyping}/>
 						<div 
 							style={{float: "left", clear: "both"}}
 							ref={this.messagesEnd}>		
