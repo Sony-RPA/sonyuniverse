@@ -186,7 +186,6 @@ export const editComment = (postId, commentId, commentData) => {
 	return (dispatch) => {
 		axios.put(`/api/posts/comment/${postId}/${commentId}`, commentData)
 			.then((res) => {
-				// dispatch(getPost(postId))
 				dispatch({
 					type: "EDIT_COMMENT",
 					payload: res.data

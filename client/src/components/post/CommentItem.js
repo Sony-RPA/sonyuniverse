@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup"
 
 class CommentItem extends React.Component{
-	constructor(props){
+  constructor(props){
 		super(props)
 
     this.state = {
@@ -43,8 +43,8 @@ class CommentItem extends React.Component{
         errors: "Post must be between 2 and 500 characters"
       })
     } else {
-      this.props.editComment(postId, commentId, commentData)
-      this.toggleEdit()
+        this.props.editComment(postId, commentId, commentData)
+        this.toggleEdit()
     }
   }
 
@@ -52,7 +52,8 @@ class CommentItem extends React.Component{
     this.setState((prevState) => {
       return {
         editting: !prevState.editting,
-        text: this.props.comment.text
+        text: this.props.comment.text,
+        errors: null
       }
     })
   }

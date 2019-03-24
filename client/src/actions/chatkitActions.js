@@ -22,10 +22,10 @@ export const createChatkitUser = () => {
 
 export const recordLastRoom = (lastRoom) => {
 	axios.post("/api/channels/record-last-room", lastRoom)
-	return{
-		type: "RECORD_LAST_ROOM",
-		payload: lastRoom
-	}
+		return{
+			type: "RECORD_LAST_ROOM",
+			payload: lastRoom
+		}
 }
 
 export const getRefinedUser = (user) => {
