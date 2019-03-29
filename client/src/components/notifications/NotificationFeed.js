@@ -23,20 +23,20 @@ class NotificationFeed extends React.Component{
 		let showDropdown = this.props.showDropdown
 		let opened = this.state.opened
 		//on mount, the dropdown should be closed
-		if(!event.target.matches(".anything") && showDropdown && !opened){
+		if(showDropdown && !opened){
 			//confirm that the dropdown is open
 			this.setState({
 				opened: true
 			})
 		//if dropdown is viewable and open
-		} else if(!event.target.matches(".anything") && showDropdown && opened){
+		} else if(showDropdown && opened){
 			//close and hide dropdown
 			this.props.toggleDropdown()
 			this.setState({
 				opened: false
 			})
 		//if dropdown is hidden but still open
-		} else if(!event.target.matches(".anything") && !showDropdown && opened){
+		} else if(!showDropdown && opened){
 			//close dropdown
 			this.setState({
 				opened: false

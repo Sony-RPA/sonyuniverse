@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { logoutUser } from "../../actions/authActions"
 import { clearCurrentProfile } from "../../actions/profileActions"
 import sonyUniverseLogo from "../common/sonyuniverselogo.png"
+import notificationDot from "../../img/notification_dot.png"
 import NotificationFeed from "../notifications/NotificationFeed"
 
 class Navbar extends React.Component{
@@ -68,6 +69,9 @@ class Navbar extends React.Component{
 		const user = this.props.auth.user
 		const windowWidth = this.state.windowWidth
 
+		//unseen notifications
+		const notifications = this.props.notification.notifications.filter((notification) => !notification.seen) || []
+
 		const authLinks = (
 	        <ul className="navbar-nav">
 	          <li className="navbar-nav">
@@ -77,9 +81,30 @@ class Navbar extends React.Component{
 		          			key={Math.random()}
 		          		>
 		          			<i className="fa fa-bell"></i>
-		          		</span> { windowWidth < 576 && "Notifications"}
-		          		<NotificationFeed showDropdown={this.state.showDropdown} toggleDropdown={this.toggleDropdown}/>
+		          		</span>
+		          		{ notifications.length > 0 && (
+			          		<span style={{ position: "absolute"}}>
+			          			<span style={{ position: "absolute", bottom: "-17px", right: "-9px" }}>
+			          				<img src={notificationDot}/>
+			          			</span>
+			          			<span style={{ position: "absolute", top: "-5px", left: "-3px", fontSize: "15px" }}>
+			          				{ notifications.length }
+			          			</span>
+			          		</span>
+		          		)}
 
+		      			{ windowWidth < 576 && (
+			          		<span 
+			          			style={ 
+			          				notifications.length > 0 ? {paddingLeft: "10px"} : 
+			          				notifications.length == 0 ? {paddingLeft: "5px"} :
+			          				{paddingLeft: "0px"}
+			          			}
+			          		>
+			          			Notifications
+			          		</span>
+		      			)}
+		          		<NotificationFeed showDropdown={this.state.showDropdown} toggleDropdown={this.toggleDropdown}/>
 		          	</Link>
 	          	</div>
 	          </li>
@@ -168,6 +193,7 @@ class Navbar extends React.Component{
 const mapStateToProps = (state) => {
 	return{
 		auth: state.auth,
+		notification: state.notification,
 		errors: state.errors
 	}
 }

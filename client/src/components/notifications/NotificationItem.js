@@ -26,15 +26,15 @@ class NotificationItem extends React.Component{
 					)
 				}
 				>
-				<div>
+				<div className="notification-avatar">
 					<img src={avatar} style={{ width: "25px"}} className="mr-2 rounded-circle"/>
 				</div>
-				<div>
+				<div className="notification-desc">
 					{description}
 				</div>
 				<div className="ml-auto">
 					<span key={Math.random()}>
-						<i className={seen ? "fa fa-check-circle text-success ml-1" : "hide-content"}></i>
+						<i className={seen ? "notification-check fa fa-check-circle text-success ml-1" : "hide-content"}></i>
 					</span>
 				</div>
 			</div>
