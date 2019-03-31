@@ -1,5 +1,5 @@
 import React from "react"
-import Chatkit from "@pusher/chatkit"
+import Chatkit from "@pusher/chatkit-client"
 import MessageList from "./MessageList"
 import SendMessageForm from "./SendMessageForm"
 import WhosOnlineList from "./WhosOnlineList"
@@ -199,7 +199,7 @@ class ChatScreen extends React.Component{
 			roomId: roomId,
 			messageLimit: 100,
 			hooks: {
-				onNewMessage: (message) => {
+				onMessage: (message) => {
 					//give component some time to update its state before we get the messages from the API
 					setTimeout(() => {
 						if(message.room.id === this.state.currentRoom.id){
@@ -244,6 +244,10 @@ class ChatScreen extends React.Component{
 				onUserJoined: () => {
 					this.forceUpdate()
 					this.findChatkitUsers()
+				},
+				onPresenceChanged: () => {
+					this.forceUpdate()
+					this.findChatkitUsers()					
 				}
 			}			
 		})
