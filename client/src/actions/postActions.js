@@ -61,6 +61,25 @@ export const getPosts = () => {
 	}
 }
 
+//get related posts
+export const getRelatedPosts = (text) => {
+	return (dispatch) => {
+		axios.get(`/api/posts/search/${text}`)
+			.then((res) => {
+				dispatch({
+					type: "GET_POSTS",
+					payload: res.data
+				})
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_POSTS",
+					payload: null
+				})
+			})
+	}
+}
+
 //delete post
 export const deletePost = (id) => {
 	return (dispatch) => {

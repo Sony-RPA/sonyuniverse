@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getNotifications } from "./notificationActions"
 
 export const getColleagues = () => {
 	return (dispatch) => {
@@ -38,6 +39,7 @@ export const acceptColleague = (receivedColleagueId) => {
 		axios.put(`/api/colleagues/${receivedColleagueId}`)
 			.then((res) => {
 				dispatch(getColleagues())
+				dispatch(getNotifications())				
 			})
 			.catch((errors) => {
 				dispatch({
@@ -51,6 +53,52 @@ export const acceptColleague = (receivedColleagueId) => {
 export const removeColleague = (removedColleagueId) => {
 	return (dispatch) => {
 		axios.delete(`/api/colleagues/${removedColleagueId}`)
+			.then((res) => {
+				dispatch(getColleagues())
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+export const cancelConnectionRequest = (cancelledColleagueId) => {
+	return (dispatch) => {
+		axios.post(`/api/colleagues/cancel/${cancelledColleagueId}`)
+			.then((res) => {
+				dispatch(getColleagues())
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+export const declineConnectionRequest = (declinedColleagueId) => {
+	return (dispatch) => {
+		axios.post(`/api/colleagues/decline/${declinedColleagueId}`)
+			.then((res) => {
+				dispatch(getColleagues())
+				dispatch(getNotifications())				
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+export const whitelistColleague = (whitelistColleagueId) => {
+	return (dispatch) => {
+		axios.put(`/api/colleagues/whitelist/${whitelistColleagueId}`)
 			.then((res) => {
 				dispatch(getColleagues())
 			})

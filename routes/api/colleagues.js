@@ -54,6 +54,8 @@ const colleagueRoutes = (app) => {
 									senderId: req.user.id,
 									name: currentUser.name,
 									avatar: currentUser.avatar,
+									category: "connection-request",
+									actionRequired: true,
 									description: `${currentUser.name} has invited you to connect.`
 								}
 								foundNotifications.notifications.unshift(newNotification)
@@ -108,6 +110,28 @@ const colleagueRoutes = (app) => {
 						return res.status(400).json({ couldnotupdate: "could not update received colleagues network" })
 					})
 				})
+				//update status of notification corresponding to the connection request in user's notification model
+				Notification.findOne({user: req.user.id})
+					.then((userNotifications) => {
+						const targetNotification = userNotifications.notifications.filter((notification) => {
+							return notification.senderId == req.params.id && notification.category == "connection-request"
+						})[0]
+
+						targetNotification.actionRequired = false
+						targetNotification.seen = true
+
+						userNotifications.save()
+							.then((savedNotifcations) => {
+								console.log(savedNotifcations)
+							})
+							.catch((errors) => {
+								return res.status(400).json({ couldnotupdate: "could not update users notifications"})
+							})
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotfind: "could not find users notifications"})
+					})
+
 				//get current user information and create a notification for the requestor
 				User.findOne({ _id: req.user.id})
 					.then((currentUser) => {
@@ -168,6 +192,120 @@ const colleagueRoutes = (app) => {
 				return res.status(400).json({ couldnotdelete: "could not delete colleague from user's network" })
 			})
 	})
+
+	//@desc cancel request
+	//access private
+	app.post("/api/colleagues/cancel/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+		//find active user's colleagues
+		Colleague.findOne({user: req.user.id})
+			.then((userColleagues) => {
+				const cancelledColleague = req.params.id
+				userColleagues.requested = userColleagues.requested.filter((colleague) => {
+					return colleague !== cancelledColleague
+				})
+				userColleagues.save()
+					.then((updatedColleagues) => {
+						res.json(updatedColleagues)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotupdate: "could not save active user's colleagues"})
+					})
+				//remove active user from the cancelledColleague's received array
+				Colleague.findOne({ user: cancelledColleague })
+					.then((cancelledColleague) => {
+						const activeUser = req.user.id
+						cancelledColleague.received = cancelledColleague.received.filter((colleague) => {
+							return colleague !== activeUser
+						})
+						cancelledColleague.save()
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotdelete: "could not remove requester from user's received list.'"})
+					})
+
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotdelete: "could not cancel request to connect with colleague"})
+			})
+	})
+
+	//@desc decline request
+	//@access private
+	app.post("/api/colleagues/decline/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+		//find active user's colleague model
+		Colleague.findOne({ user: req.user.id })
+			.then((userColleagues) => {
+				const declinedColleague = req.params.id
+				userColleagues.received = userColleagues.received.filter((colleague) => {
+					return colleague !== declinedColleague
+				})
+
+				//add declined colleague to active user's denied list
+				userColleagues.denied.unshift(declinedColleague)
+
+				//save usersColleagues
+				userColleagues.save()
+					.then((updatedColleagues) => {
+						res.json(updatedColleagues)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotupdate: "could not update users colleagues upon declining connection request"})
+					})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find users colleagues"})
+			})
+
+		//update status of notification corresponding to the connection request in user's notification model
+		Notification.findOne({user: req.user.id})
+			.then((userNotifications) => {
+				const targetNotification = userNotifications.notifications.filter((notification) => {
+					return notification.senderId == req.params.id && notification.category == "connection-request"
+				})[0]
+
+				targetNotification.actionRequired = false
+				targetNotification.seen = true
+
+				userNotifications.save()
+					.then((updatedNotifications) => {
+						console.log(updatedNotifications)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotupdate: "could not update users notifications upon declining connection request"})
+					})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find users notifications"})
+			})
+	})
+
+	//@desc whitelist user
+	//@access private
+	app.put("/api/colleagues/whitelist/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+		//find current user's colleague model
+		Colleague.findOne({ user: req.user.id })
+			.then((userColleagues) => {
+				const whitelistColleague = req.params.id
+				userColleagues.denied = userColleagues.denied.filter((colleague) => {
+					return colleague !== whitelistColleague
+				})
+				//add whitelist colleague to active user's received list
+				userColleagues.received.unshift(whitelistColleague)
+
+				//save userColleagues
+				userColleagues.save()
+					.then((updatedColleagues) => {
+						res.json(updatedColleagues)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotupdate: "could not add user to whitelist"})
+					})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find users colleagues"})
+			})
+	})
+
 }
 
 module.exports = colleagueRoutes

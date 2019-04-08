@@ -8,6 +8,9 @@ const passport = require("passport")
 const passportAuthenticate = require("./config/passport")
 const path = require("path")
 
+const User = require("./models/User")
+const Profile = require("./models/Profile")
+
 //DB config
 const db = require("./config/keys").mongoURI
 
@@ -47,6 +50,31 @@ colleagueRoutes(app)
 chatKitRoutes(app)
 conversationRoutes(app)
 notificationRoutes(app)
+
+Profile.find()
+	.then((foundProfiles) => {
+		foundProfiles.forEach((profile) => {
+			User.findOne({ _id: profile.user })
+				.then((foundUser) => {
+					profile.name = foundUser.name
+
+					profile.save()
+						.then((savedProfile) => {
+							console.log(savedProfile)
+						})
+						.catch((errors) => {
+							console.log("could not save profile")
+						})
+				})
+				.catch((errors) => {
+					console.log("error")
+				})
+		})
+	})
+	.catch((errors) => {
+		console.log("could not find profiles")
+	})
+
 
 //serve static assets if in production
 if(process.env.NODE_ENV === "production"){

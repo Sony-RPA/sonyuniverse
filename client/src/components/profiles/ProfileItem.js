@@ -5,7 +5,7 @@ import EndorseModal from "../endorse/EndorseModal"
 import RemoveColleagueModal from "../disconnect/RemoveColleagueModal"
 import SideDrawer from "../layout/SideDrawer"
 import { connect } from "react-redux"
-import { addColleague, acceptColleague, removeColleague } from "../../actions/colleagueActions"
+import { addColleague, acceptColleague, removeColleague, cancelConnectionRequest, declineConnectionRequest, whitelistColleague } from "../../actions/colleagueActions"
 import { endorseColleague } from "../../actions/profileActions"
 import { startConversation } from "../../actions/conversationActions"
 
@@ -15,7 +15,8 @@ class ProfileItem extends React.Component{
 		this.state = {
 			endorseModalOpen: false,
 			removeColleagueModalOpen: false,
-			openDrawer: false
+			openDrawer: false,
+			cancelButtonEnabled: false
 		}
 
 		this.handleRequestColleague = this.handleRequestColleague.bind(this)
@@ -46,6 +47,11 @@ class ProfileItem extends React.Component{
 				removeColleagueModalOpen: !prevState.removeColleagueModalOpen
 			}
 		})
+	}
+
+	handleDeclineConnectionRequest = (evemt) => {
+		const declinedColleague = this.props.profile.user._id
+		this.props.declineConnectionRequest(declinedColleague)
 	}
 
 	handleEndorseModalOpen = (event) => {
@@ -88,6 +94,28 @@ class ProfileItem extends React.Component{
 		})
 	}
 
+	onPendingButtonEnter = (event) => {
+		this.setState({
+			cancelButtonEnabled: true
+		})
+	}
+
+	onCancelButtonLeave = (event) => {
+		this.setState({
+			cancelButtonEnabled: false
+		})
+	}
+
+	handleCancelConnectionRequest = (event) => {
+		const cancelledColleagueId = this.props.profile.user._id
+		this.props.cancelConnectionRequest(cancelledColleagueId)
+	}
+
+	handleWhitelistColleague = (event) => {
+		const whitelistColleagueId = this.props.profile.user._id
+		this.props.whitelistColleague(whitelistColleagueId)
+	}
+
 	render(){
 		const profile = this.props.profile
 		const userHasProfile = this.props.userHasProfile
@@ -100,12 +128,15 @@ class ProfileItem extends React.Component{
 		let received = colleagues.received
 		let denied = colleagues.denied
 
+		let cancelButtonEnabled = this.state.cancelButtonEnabled
+
 		let connectButton
 		if(isAuthenticated &&
 		 userId !== profile.user._id && 
 		 !requested.includes(profile.user._id) && 
 		 !received.includes(profile.user._id) && 
-		 !connected.includes(profile.user._id)){
+		 !connected.includes(profile.user._id) &&
+		 !denied.includes(profile.user._id)){
 		//display connect button
 			connectButton = (
 				<button  
@@ -118,19 +149,33 @@ class ProfileItem extends React.Component{
 		//display pending invitation button 
 		} else if(isAuthenticated && requested.includes(profile.user._id)){
 			connectButton = (
-				<button className="btn btn-outline-dark ml-2" disabled>
-					Pending
+				<button 
+					className="btn btn-outline-dark ml-2"
+					onMouseEnter={this.onPendingButtonEnter}
+					onMouseLeave={this.onCancelButtonLeave}
+					onClick={this.handleCancelConnectionRequest}
+					disabled={!this.state.cancelButtonEnabled}
+				>
+					{cancelButtonEnabled ? "Cancel" : "Pending"}
 				</button>
 			)
 		//display accept invitation button
 		} else if(isAuthenticated && received.includes(profile.user._id)){
 			connectButton = (
-				<button 
-					className="btn btn-outline-success ml-2"
-					onClick={this.handleReceivedColleague}
-				>
-					Accept <i className="fas fa-check-circle"></i>
-				</button>
+				<div style={{display: "inline-block"}}>
+					<button 
+						className="btn btn-outline-success ml-2"
+						onClick={this.handleReceivedColleague}
+					>
+						Accept <span key={Math.random()}><i className="fas fa-check-circle"></i></span>
+					</button>
+					<button
+						className="btn btn-outline-secondary ml-2"
+						onClick={this.handleDeclineConnectionRequest}
+					>
+						Decline <span key={Math.random()}><i className="fas fa-times-circle"></i></span>
+					</button>
+				</div>
 			)
 		//display messsage, endorse and delete button
 		} else if(isAuthenticated && connected.includes(profile.user._id)){
@@ -143,21 +188,30 @@ class ProfileItem extends React.Component{
 							this.toggleDrawer()
 						}}
 					>
-						<i className="fas fa-comments"></i>
+						<span key={Math.random()}><i className="fas fa-comments"></i></span>
 					</button>
 					<button 
 						className="btn btn-success ml-2"
 						onClick={this.handleEndorseModalOpen}
 					>
-						<i className="fas fa-chevron-circle-up"></i>
+						<span key={Math.random()}><i className="fas fa-chevron-circle-up"></i></span>
 					</button>					
 					<button 
 						className="btn btn-danger ml-2"
 						onClick={this.handleRemoveColleagueModalOpen}
 					>
-						<i className="fas fa-minus-circle"></i>
+						<span key={Math.random()}><i className="fas fa-minus-circle"></i></span>
 					</button>
 				</div>
+			)
+		} else if(isAuthenticated && denied.includes(profile.user._id)){
+			connectButton = (
+				<button 
+					className="btn btn-outline-secondary ml-2"
+					onClick={this.handleWhitelistColleague}
+				>
+					Whitelist <span key={Math.random()}><i className="fas fa-angle-double-right"></i></span>
+				</button>
 			)
 		}
 
@@ -246,6 +300,15 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		startConversation: (users) => {
 			dispatch(startConversation(users))
+		},
+		cancelConnectionRequest: (cancelledColleagueId) => {
+			dispatch(cancelConnectionRequest(cancelledColleagueId))
+		},
+		declineConnectionRequest: (declinedColleagueId) => {
+			dispatch(declineConnectionRequest(declinedColleagueId))
+		},
+		whitelistColleague: (whitelistColleagueId) => {
+			dispatch(whitelistColleague(whitelistColleagueId))
 		}
 	}
 }

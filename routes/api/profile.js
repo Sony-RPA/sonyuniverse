@@ -108,6 +108,7 @@ const profileRoutes = (app) => {
 		//Get fields from req.body and store them in our profileFields object
 		const profileFields = {} //will be used to create or update the profile
 		profileFields.user = req.user.id
+		profileFields.name = req.user.name
 		if(req.body.handle) profileFields.handle = req.body.handle
 		if(req.body.company) profileFields.company = req.body.company
 		if(req.body.website) profileFields.website = req.body.website

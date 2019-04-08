@@ -9,6 +9,8 @@ const notificationSchema = new mongoose.Schema({
 			name: String,
 			avatar: String,
 			description: String,
+			category: String,
+			actionRequired: Boolean, default: false,
 			seen: { type: Boolean, default: false, required: true }
 		}
 	]

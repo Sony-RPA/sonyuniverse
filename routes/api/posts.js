@@ -4,6 +4,7 @@ const Post = require("../../models/Post")
 const Profile = require("../../models/Profile")
 const validatePostInput = require('../../validation/post')
 const User = require("../../models/User")
+const escapeRegex = require("../../validation/escapeRegex")
 
 const postsRoutes = (app) => {
 //@desc Tests posts route
@@ -366,6 +367,21 @@ const postsRoutes = (app) => {
 			})
 			.catch((errors) => {
 				return res.status(400).json({ couldnotfind: "we could not find this comment."})
+			})
+	})
+
+//@desc get posts related to search
+//@access Private
+	app.get("/api/posts/search/:text", passport.authenticate("jwt", { session: false}), (req, res) => {
+		var query = req.params.text
+		var regex = new RegExp(escapeRegex(query), "gi")
+		//find profiles that match the users query
+		Post.find({ text: regex })
+			.then((foundPosts) => {
+				res.json(foundPosts)
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find any posts related to this search"})
 			})
 	})
 
