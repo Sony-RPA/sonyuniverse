@@ -198,3 +198,22 @@ export const deleteAccount = () => {
 		}
 	}
 }
+
+//find related profiles
+export const getRelatedProfiles = (text) => {
+	return (dispatch) => {
+		axios.get(`/api/profile/search/${text}`)
+			.then((res) => {
+				dispatch({
+					type: "GET_PROFILES",
+					payload: res.data
+				})
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}

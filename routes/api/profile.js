@@ -5,7 +5,7 @@ const passport = require("passport")
 const validateProfileInput = require("../../validation/profile")
 const validateExperienceInput = require("../../validation/experience")
 const validateEducationInput = require("../../validation/education")
-
+const escapeRegex = require("../../validation/escapeRegex")
 
 //@desc Tests profile route
 //@access Public
@@ -331,6 +331,21 @@ const profileRoutes = (app) => {
 			})
 	})
 
+//@desc get profiles related to search
+//@access Public
+	app.get("/api/profile/search/:text", (req, res) => {
+		var query = req.params.text
+		var regex = new RegExp(escapeRegex(query), "gi")
+		//find profiles that much query
+		Profile.find({ name: regex })
+			.populate("user", ["name", "avatar"])
+			.then((foundProfiles) => {
+				res.json(foundProfiles)
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find any profiles related to this search"})
+			})
+	})
 }
 
 module.exports = profileRoutes

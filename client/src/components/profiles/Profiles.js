@@ -2,9 +2,10 @@ import React from "react"
 import { connect } from "react-redux"
 import Spinner from "../common/Spinner"
 import ProfileItem from "./ProfileItem"
-import { getProfiles } from "../../actions/profileActions"
+import { getProfiles, getRelatedProfiles } from "../../actions/profileActions"
 import { getColleagues } from "../../actions/colleagueActions"
 import sonyLogo from "../common/sonylogo.gif"
+import SearchBar from "../common/SearchBar"
 import { Link } from "react-router-dom"
 
 
@@ -12,11 +13,13 @@ class Profiles extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
+			userHasProfile: false,
 			profiles: null,
 			connectedActive: false,
 			pendingActive: false,
 			receivedActive: false,
-			everyoneActive: false
+			everyoneActive: false,
+			text: ""
 		}
 		this.filterConnectedColleagues = this.filterConnectedColleagues.bind(this)
 		this.filterPendingColleagues = this.filterPendingColleagues.bind(this)
@@ -29,11 +32,27 @@ class Profiles extends React.Component{
 		this.props.getColleagues()
 	}
 
+
 	componentWillReceiveProps(nextProps){
-		if(nextProps.profile){
-			this.setState({
-				profiles: nextProps.profile.profiles
+		let usersWithProfiles = []
+		let currentUserId = this.props.auth.user.id
+
+		let foundProfiles = nextProps.profile.profiles
+
+		if(foundProfiles){
+			usersWithProfiles = foundProfiles.map((profile) => {
+				return profile.user._id
 			})
+			this.setState({
+				profiles: foundProfiles
+			})
+		}
+
+		//check if user has a profile
+		if(usersWithProfiles.includes(currentUserId) && !this.state.userHasProfile){
+			this.setState({
+				userHasProfile: true
+			})				
 		}
 	}
 
@@ -73,11 +92,11 @@ class Profiles extends React.Component{
 		const receivedColleagues = this.props.colleague.received
 		const allProfiles = this.props.profile.profiles
 		//get the profiles of the requestedColleagues only
-		const requestedColleaguesProfiles = allProfiles.filter((profile) => {
+		const receivedColleaguesProfiles = allProfiles.filter((profile) => {
 			return receivedColleagues.includes(profile.user._id)
 		})
 		this.setState({
-			profiles: requestedColleaguesProfiles,
+			profiles: receivedColleaguesProfiles,
 			connectedActive: false,
 			pendingActive: false,
 			receivedActive: true,
@@ -96,6 +115,30 @@ class Profiles extends React.Component{
 		})
 	}
 
+	handleOnChange = (event) => {
+		this.setState({
+			[event.target.name]: event.target.value
+		})
+	}
+
+	handleOnSubmit = (event) => {
+		event.preventDefault()
+		const text = this.state.text
+
+		this.setState({
+			connectedActive: false,
+			pendingActive: false,
+			receivedActive: false,
+			everyoneActive: false				
+		})
+
+		if(text.length > 0){
+			this.props.getRelatedProfiles(text)
+		} else {
+			this.props.getProfiles()
+		}
+	}
+
 	render(){
 		const { isAuthenticated } = this.props.auth
 		const { loading } = this.props.profile
@@ -108,23 +151,8 @@ class Profiles extends React.Component{
 		const connectedTotal = this.props.colleague.connected.length
 		const requestedTotal = this.props.colleague.requested.length
 		const receivedTotal = this.props.colleague.received.length
-		let userHasProfile = false
-		let usersWithProfiles
+		let userHasProfile = this.state.userHasProfile
 		let profileItems
-
-		//get list of users who has profiles
-		if(profiles === null || loading){
-			usersWithProfiles = []
-		} else {
-			usersWithProfiles = this.props.profile.profiles.map((profile) => {
-				return profile.user._id
-			})
-		}
-
-		//check if user has a profile
-		if(usersWithProfiles.includes(currentUserId)){
-			userHasProfile = true
-		}
 
 		//create profileItems to be displayed
 		if(profiles === null || loading){
@@ -132,7 +160,7 @@ class Profiles extends React.Component{
 		} else {
 			if(profiles.length > 0){
 				profileItems = profiles.map((profile) => {
-					return <ProfileItem key={profile._id} profile={profile} userHasProfile={userHasProfile}/>
+					return <ProfileItem key={profile._id} profile={profile} userHasProfile={this.state.userHasProfile}/>
 				})
 			} else {
 				profileItems = <h4>No profiles found</h4>
@@ -185,6 +213,11 @@ class Profiles extends React.Component{
 									</div>
 								) : null }
 							</div>
+							<SearchBar 
+								text={this.state.text} 
+								handleOnChange={this.handleOnChange} 
+								handleOnSubmit={this.handleOnSubmit}
+							/>
 							{profileItems}
 						</div>
 					</div>
@@ -209,6 +242,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		getColleagues: () => {
 			dispatch(getColleagues())
+		},
+		getRelatedProfiles: (text) => {
+			dispatch(getRelatedProfiles(text))
 		}
 	}
 }

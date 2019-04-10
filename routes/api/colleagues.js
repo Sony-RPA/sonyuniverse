@@ -218,6 +218,12 @@ const colleagueRoutes = (app) => {
 							return colleague !== activeUser
 						})
 						cancelledColleague.save()
+							.then((updatedCancelledColleague) => {
+								console.log(updatedCancelledColleague)
+							})
+							.catch((errors) => {
+								return res.status(400).json({ couldnotsave: "could not save cancelled-connections colleague model "})
+							})
 					})
 					.catch((errors) => {
 						return res.status(400).json({ couldnotdelete: "could not remove requester from user's received list.'"})
@@ -226,6 +232,29 @@ const colleagueRoutes = (app) => {
 			})
 			.catch((errors) => {
 				return res.status(400).json({ couldnotdelete: "could not cancel request to connect with colleague"})
+			})
+		//remove corresponding notification from cancelled-connection's model
+		Notification.findOne({ user: req.params.id })
+			.then((foundNotifications) => {
+
+				var removeNotificationIndex = foundNotifications.notifications.findIndex((notification) => {
+					return notification.senderId == req.user.id && notification.category == "connection-request"
+				})
+
+				//remove notification
+				foundNotifications.notifications.splice(removeNotificationIndex, 1)
+
+				//save updated notifications
+				foundNotifications.save()
+					.then((savedNotifications) => {
+						console.log(savedNotifications)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotsave: "could not save notifications upon cancelling connection request"})
+					})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find cancelled-connections notifications"})
 			})
 	})
 
