@@ -17,8 +17,13 @@ class Highlight extends React.Component{
 			delay: [1000, 6500, 7000],
 			initialScore: 16170,
 			updatedScore: 16300,
-			showScore: false
+			showScore: false,
+			windowWidth: window.innerWidth
 		}
+	}
+
+	componentDidMount(){
+		window.addEventListener("resize", this.setWidth)
 	}
 
 	componentDidUpdate(){
@@ -27,6 +32,10 @@ class Highlight extends React.Component{
 				this.updateScore()
 			}, 30)
 		}
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener("resize", this.setWidth)
 	}
 
 	updateScore = () => {
@@ -44,13 +53,22 @@ class Highlight extends React.Component{
 		}
 	}
 
+	setWidth = () => {
+		this.setState({
+			windowWidth: window.innerWidth
+		})
+	}
+
 	showScore = () => {
 		this.setState({
 			showScore: true
 		})
 	}
 
+	highlight = React.createRef()
+
 	render(){
+		const { windowWidth } = this.state
 		return(
 			<div
 				className="highlight px-4 py-5 d"
@@ -59,27 +77,10 @@ class Highlight extends React.Component{
 				<Fade>
 					<h1 className="highlight_title text-light mb-4">Highlight of the week</h1>
 					<div 
-						className="row"
-						style={{border: "5px solid #fff"}}
+						className="row m-auto border border-light"
+						style={ windowWidth <= 1024 ? { width: "100%"} : {width: "60%"} }
 					>
-						<div className="col-md-4 bg-light p-0">
-							<div style={{ height: "100%"}}>
-								<h4 className="room-title text-light p-3">SP Squad #5</h4>
-								{this.state.messages.map((message, i) => {
-									return(
-										<Slide key={i} bottom delay={this.state.delay[i]}>
-											<div className="pl-2">
-												<Fade delay={this.state.delay[i]}>
-													<img style={{width: "15rem"}}src={message}/>
-												</Fade>
-											</div>
-										</Slide>
-									)
-								})}
-							</div>
-						</div>
-
-						<div className="col-md-4 bg-black p-0">
+						<div className="col-md-12 bg-black p-0 border border-light">
 							<LazyLoad height={355}>
 								<Fade>
 									<video
@@ -99,16 +100,36 @@ class Highlight extends React.Component{
 							</LazyLoad>
 						</div>
 
+						<div className="col-md-6 bg-light p-0 border border-light">
+							<div style={{ height: "100%"}}>
+								<h4 className="room-title text-light p-3">SP Squad #5</h4>
+								{this.state.messages.map((message, i) => {
+									return(
+										<Slide key={i} bottom delay={this.state.delay[i]}>
+											<div className="pl-2">
+												<Fade delay={this.state.delay[i]}>
+													<img style={{width: "15rem"}}src={message}/>
+												</Fade>
+											</div>
+										</Slide>
+									)
+								})}
+							</div>
+						</div>
+
 						{ this.state.showScore ? (
 							<Fade left>
 								<div 
-									className="col-md-4 font-weight-bold bg-dark p-0" 
+									className="col-md-6 font-weight-bold bg-dark p-0 border border-light" 
 								>
-									<div className="scoreboard font-weight-bold sony-text-gold p-4">
+									<div
+										className="scoreboard font-weight-bold sony-text-gold p-4"
+										style={{backgroundColor: "#0e1a20"}}
+									>
 										<h2 className="mb-4 font-weight-bold sony-background-gold text-dark shadow">VICTORY</h2>
 										<div className="container">
 											<div className="row" style={{marginTop: "5px"}}>
-												<div className="col-sm-6 col-md-12 col-lg-6 p-0">
+												<div className="col-sm-12 col-md-12 col-lg-6 p-0">
 													<h5 className="font-weight-bold mb-2">Total Points</h5>
 													<div 
 														className="scoreboard_circle rounded-circle text-center px-2 py-3"
@@ -121,7 +142,7 @@ class Highlight extends React.Component{
 														</span>
 													</div>
 												</div>
-												<div className="col-sm-6 col-md-12 col-lg-6 px-3 text-left">
+												<div className="col-sm-6 col-md-12 col-lg-6 px-3 text-left mt-3">
 													<div className="d-none d-sm-block d-md-none d-lg-block">
 														<Fade left delay={1000}>
 															<div className="mt-5">
@@ -159,7 +180,7 @@ class Highlight extends React.Component{
 								</div>
 							</Fade>
 							) : (
-								<div className="col-md-4 p-0">
+								<div className="col-md-6 p-0 border border-light">
 									<div className="spotlight text-warning px-2 py-4">
 										<div className="team_item" style={{display: "inline-block"}}>
 											<div 

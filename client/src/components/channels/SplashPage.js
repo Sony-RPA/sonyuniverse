@@ -31,7 +31,7 @@ class SplashPage extends React.Component{
 							<div className="col-md-6" style={{margin: "0 auto"}}>
 								<h3 className="text-light mb-3">Welcome back to the party</h3>
 								<form onSubmit={this.handleOnSubmit}>
-									<button className="su-button" style={{background: "#25a86e", width: "75%"}}>Enter</button>
+									<button className="su-button">Enter</button>
 								</form>
 							</div>
 						</div>

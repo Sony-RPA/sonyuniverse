@@ -32,7 +32,6 @@ class Profiles extends React.Component{
 		this.props.getColleagues()
 	}
 
-
 	componentWillReceiveProps(nextProps){
 		let usersWithProfiles = []
 		let currentUserId = this.props.auth.user.id
