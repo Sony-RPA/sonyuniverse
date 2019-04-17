@@ -6,14 +6,18 @@ import MessageFeed from "../message/MessageFeed"
 
 const SideDrawer = (props) => {
 	return(
-		<div>
+		<div className="d-flex">
 			<Drawer
 				anchor="left"
 				open={props.open}
 				onClose={() => (props.toggleDrawer())}
 			>
-				<MessageFeed/>
-				<MessageForm/>
+				<div style={{flex: "1"}}>
+					<MessageFeed/>
+				</div>
+				<div>
+					<MessageForm/>
+				</div>
 			</Drawer>
 		</div>
 	)

@@ -218,7 +218,6 @@ class ProfileItem extends React.Component{
 		return(
 			<div 
 				className="profileItem card card-body bg-light mb-3 transition-med shadow"
-				style={{ fontFamily: "Roboto"}}
 			>
 				<div className="row">
 					<div className="col-2">

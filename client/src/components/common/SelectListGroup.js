@@ -15,7 +15,7 @@ const SelectListGroup = ({
     </option>
   ))
 	return(
-    <div className="form-group" style={{fontFamily: "Roboto"}}>
+    <div className="form-group">
       <select 
       	className={ error ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
       	name={name} 

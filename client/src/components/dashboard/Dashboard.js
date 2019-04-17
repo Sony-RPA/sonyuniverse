@@ -77,7 +77,7 @@ class Dashboard extends React.Component{
 		}
 
 		return(
-			<div className="dashboard pt-5 pb-5" style={{fontFamily: "roboto", minHeight: "100vh"}}>
+			<div className="dashboard pt-5 pb-5" style={{minHeight: "100vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

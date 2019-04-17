@@ -139,7 +139,7 @@ class CreateProfile extends React.Component{
 		]
 
 		return(
-			<div className="create-profile mt-5" style={{fontFamily: "Montserrat"}}>
+			<div className="create-profile mt-5">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">

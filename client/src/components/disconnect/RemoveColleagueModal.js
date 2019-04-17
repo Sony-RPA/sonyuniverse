@@ -14,7 +14,6 @@ class RemoveColleagueModal extends React.Component{
 					},
 					content: {
 						background: "rgba(31, 31, 31, .85)",
-						fontFamily: "montserrat",
 						minHeight: "10rem",
 						top: "35%",
 						left: "50%",

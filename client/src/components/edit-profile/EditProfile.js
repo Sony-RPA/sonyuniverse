@@ -184,7 +184,7 @@ class EditProfile extends React.Component{
 		]
 		
 		return(
-			<div className="create-profile" style={{fontFamily: "Montserrat"}}>
+			<div className="create-profile">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">

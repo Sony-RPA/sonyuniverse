@@ -12,7 +12,7 @@ const InputGroup = ({
   disabled
 }) => {
 	return(
-    <div className="input-group mb-3" style={{fontFamily: "Roboto"}}>
+    <div className="input-group mb-3">
       <div className="input-group-prepend">
         <span className="input-group-text">
           <i className={icon}/>

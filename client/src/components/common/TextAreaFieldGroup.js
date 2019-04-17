@@ -11,7 +11,7 @@ const TextAreaFieldGroup = ({
 	onChange
 }) => {
 	return(
-    <div className="form-group" style={{fontFamily: "Roboto"}}>
+    <div className="form-group">
       <textarea 
       	className={ error || errorProfile ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
       	placeholder={placeholder} 

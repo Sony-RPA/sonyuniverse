@@ -36,8 +36,6 @@ class Register extends React.Component{
 
 	onChange = (event) => {
 		this.setState({
-			//[event.target.name] is dynamic, it refers to the name of the input being updated,
-			//which shares the same name as the piece of state its connected to
 			[event.target.name]: event.target.value
 		})
 	}
@@ -55,12 +53,11 @@ class Register extends React.Component{
 		this.props.registerUser(newUser, this.props.history)
 	}
 
-
 	render(){
 		const errors = this.state.errors
 
 		return(
-			<div style={{fontFamily: "Montserrat", height: "80vh"}}>
+			<div style={{height: "80vh"}}>
 			  <div className="register mt-5 px-3">
 			    <div className="container">
 			      <div className="row">

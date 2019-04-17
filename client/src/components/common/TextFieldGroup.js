@@ -10,10 +10,11 @@ const TextFieldGroup = ({
 	info,
 	type,
 	onChange,
+  autocomplete,
 	disabled
 }) => {
 	return(
-    <div className="form-group" style={{fontFamily: "Roboto"}}>
+    <div className="form-group">
       <input 
       	type={type} 
       	className={ error ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
@@ -21,6 +22,7 @@ const TextFieldGroup = ({
       	name={name} 
       	value={value}
       	onChange={onChange}
+        autocomplete={autocomplete}
       	disabled={disabled}
       />
       { info && <small className="form-text text-muted">{info}</small> }

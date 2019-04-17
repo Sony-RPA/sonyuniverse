@@ -65,7 +65,7 @@ class AddExperience extends React.Component{
 	render(){
 		const errors = this.state.errors
 		return(
-			<div className="add-experience" style={{fontFamily: "Montserrat"}}>
+			<div className="add-experience">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">

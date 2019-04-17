@@ -44,7 +44,7 @@ class EditAvatar extends React.Component{
 		const errors = this.state.errors
 		const currentAvatar = this.props.auth.user.avatar
 		return(
-			<div className="update-avatar" style={{fontFamily: "Montserrat", height: "80vh"}}>
+			<div className="update-avatar" style={{height: "80vh"}}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">

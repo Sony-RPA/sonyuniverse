@@ -167,7 +167,7 @@ class Profiles extends React.Component{
 		}
 
 		const filterColleagueButtons = (
-			<div className="text-center mb-3" style={{fontFamily: "roboto"}}>
+			<div className="text-center mb-3">
 				<button 
 					className={connectedActive ? "btn btn-info btn-sm mr-2" : "btn btn-dark btn-sm mr-2"}
 					onClick={this.filterConnectedColleagues}

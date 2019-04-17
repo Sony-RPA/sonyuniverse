@@ -25,7 +25,7 @@ class SplashPage extends React.Component{
 	render(){
 		return(
 			<div className="channels">
-				<div className="dark-overlay landing-inner" style={{fontFamily: "montserrat"}}>
+				<div className="dark-overlay landing-inner">
 					<div className="container text-center">
 						<div className="row">
 							<div className="col-md-6" style={{margin: "0 auto"}}>

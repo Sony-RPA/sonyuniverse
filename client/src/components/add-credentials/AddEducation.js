@@ -65,7 +65,7 @@ class AddEducation extends React.Component{
 	render(){
 		const errors = this.state.errors
 		return(
-			<div className="add-education" style={{fontFamily: "Montserrat"}}>
+			<div className="add-education">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 m-auto">
