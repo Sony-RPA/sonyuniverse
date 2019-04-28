@@ -78,6 +78,13 @@ class PostItem extends React.Component{
     }
   }
 
+  formatTimestamp = (timestamp) => {
+    const dateString = new Date(timestamp).toLocaleDateString()
+    const timeString = new Date(timestamp).toLocaleTimeString()
+
+    return `${dateString} - ${timeString}`
+  }
+
 	render(){
 		const post = this.props.post
 		const auth = this.props.auth
@@ -98,6 +105,9 @@ class PostItem extends React.Component{
                   <p className="text-center">{post.name}</p>
                 </div>
                 <div className="col-md-9 py-2 px-0">
+                  <div className="text-left mb-2">
+                    <small className="text-secondary">{this.formatTimestamp(post.date)}</small>
+                  </div>
                   { editting ? (
                     <TextAreaFieldGroup
                       value={this.state.text}
