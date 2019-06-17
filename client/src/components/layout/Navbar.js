@@ -6,6 +6,7 @@ import { clearCurrentProfile } from "../../actions/profileActions"
 import sonyUniverseLogo from "../common/sonyuniverselogo.png"
 import notificationDot from "../../img/notification_dot.png"
 import NotificationFeed from "../notifications/NotificationFeed"
+import AuthModal from "./AuthModal"
 
 class Navbar extends React.Component{
 	constructor(props){
@@ -13,7 +14,10 @@ class Navbar extends React.Component{
 		this.state = {
 			windowWidth: window.innerWidth,
 			scrollThresholdMet: 0,
-			showDropdown: false
+			showDropdown: false,
+			openToggler: false,
+			modalOpen: false,
+			registerOrLogin: null
 		}
 	}
 
@@ -64,10 +68,29 @@ class Navbar extends React.Component{
 		})
 	}
 
+	openToggler = (event) => {
+		this.setState((prevState) => {
+			return{
+				openToggler: !prevState.openToggler
+			}
+		})
+	}
+
+	handleModalOpen = (event) => {
+		const name = event ? event.target.name : null
+		this.setState((prevState) => {
+			return {
+				modalOpen: !prevState.modalOpen,
+				registerOrLogin: prevState.modalOpen ? null : name == "register" ? "register" : name == "login" ? "login" : null 
+			}
+		})
+	}
+
 	render(){
 		const isAuthenticated = this.props.auth.isAuthenticated
 		const user = this.props.auth.user
 		const windowWidth = this.state.windowWidth
+		const openToggler = this.state.openToggler
 
 		//unseen notifications
 		const notifications = this.props.notification.notifications.filter((notification) => !notification.seen) || []
@@ -76,7 +99,7 @@ class Navbar extends React.Component{
 	        <ul className="navbar-nav">
 	          <li className="navbar-nav">
 	          	<div className="sony-dropdown-menu" id="notifications-dropdown" onClick={this.toggleDropdown}>
-		          	<Link to="#" className="nav-link text-light">
+		          	<Link to="#" className="nav-link text-dark">
 		          		<span 
 		          			key={Math.random()}
 		          		>
@@ -109,22 +132,22 @@ class Navbar extends React.Component{
 	          	</div>
 	          </li>
 	          <li className="navbar-nav">
-	          	<Link to="/channels" className="nav-link text-light">
+	          	<Link to="/channels" className="nav-link text-dark">
 	          		<span key={Math.random()}><i className="fa fa-comment"></i></span> {windowWidth < 576 && "Channels"}
 	          	</Link>
 	          </li>
  			  <li className="navbar-nav">
- 			  	<Link to="/feed" className="nav-link text-light">
+ 			  	<Link to="/feed" className="nav-link text-dark">
 					<span key={Math.random()}><i className="fa fa-sticky-note"></i></span> {windowWidth < 576 && "Posts"}			  		
  			  	</Link>
  			  </li>	        
  			  <li className="navbar-nav">
- 			  	<Link to="/dashboard" className="nav-link text-light">
+ 			  	<Link to="/dashboard" className="nav-link text-dark">
 					<span key={Math.random()}><i className="fa fa-home"></i></span> {windowWidth < 576 && "Dashboard"} 			  		
  			  	</Link>
  			  </li>
 	          <li className="nav-item">
-	            <a href="/login" onClick={this.onLogoutClick} className="nav-link text-light">
+	            <a href="/" onClick={this.onLogoutClick} className="nav-link text-dark">
 	            	<img 
 	            		className="rounded-circle"
 	            		src={user.avatar}
@@ -140,20 +163,22 @@ class Navbar extends React.Component{
 		const guestLinks = (
 	        <ul className="navbar-nav ml-auto mt-1">
 	          <li className="nav-item">
-	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "signup-btn auth-btn mr-2" : "nav-link text-light mr-2"} 
-	            	to="/register"
+	            <a 
+	            	className={this.state.windowWidth >= 576 ? "signup-btn auth-btn mr-2 text-light" : "auth-link nav-link text-dark mr-2"}
+	            	onClick={this.handleModalOpen}
+	            	name="register"
 	            >
 	            	{ windowWidth < 576 ? <span><i className="fa fa-user-plus"></i> Sign Up</span> : "SIGN UP"}
-	            </Link>
+	            </a>
 	          </li>
 	          <li className="nav-item">
-	            <Link 
-	            	className={this.state.windowWidth >= 576 ? "login-btn auth-btn mr-2" : "nav-link text-light mr-2"} 
-	            	to="/login"
+	            <a 
+	            	className={this.state.windowWidth >= 576 ? "login-btn auth-btn mr-2 text-light" : "auth-link nav-link text-dark mr-2"} 
+	            	onClick={this.handleModalOpen}
+	            	name="login"
 	            >
 	            	{ windowWidth < 576 ? <span><i className="fa fa-chevron-circle-right"></i> Login</span> : "LOGIN" }
-	            </Link>
+	            </a>
 	          </li>
 	        </ul>
 		)		
@@ -164,19 +189,27 @@ class Navbar extends React.Component{
 				className="sticky-top"
 			>
 			  <nav
-			  	style={{backgroundImage: "linear-gradient(to bottom, #0072CE, #003087)"}}
+			  	style={{background: "#fff"}}
 			  	className="navbar navbar-expand-sm navbar-dark mb-4"
 			  >
 			    <div className="container">
 			      <Link className="navbar-brand" to="/"><img src={sonyUniverseLogo} className="logo"/></Link>
-			      <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#mobile-nav">
-			        <span className="navbar-toggler-icon"></span>
+			      <button
+			      	onClick={this.openToggler}
+			      	className="navbar-toggler border-0" 
+			      	type="button" 
+			      	data-toggle="collapse" 
+			      	data-target="#mobile-nav"
+			      >
+					  <div className={ openToggler ? "opened bar-1" : "bar-1"}></div>
+					  <div className={ openToggler ? "opened bar-2" : "bar-2"}></div>
+					  <div className={ openToggler ? "opened bar-3" : "bar-3"}></div>
 			      </button>
 
 			      <div className="collapse navbar-collapse" id="mobile-nav">
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
-			            <Link className="nav-link text-light" to="/profiles">
+			            <Link className="nav-link text-dark" to="/profiles">
 			            	{windowWidth < 576 ? <span key={Math.random()}><i className="fa fa-users"></i> Network</span> : "Network"}
 			            </Link>
 			          </li>
@@ -184,7 +217,13 @@ class Navbar extends React.Component{
 			        { isAuthenticated ? authLinks : guestLinks }
 			      </div>
 			    </div>
-			  </nav>			
+			  </nav>
+			  <AuthModal
+			  	modalOpen={this.state.modalOpen}
+			  	handleModalOpen={this.handleModalOpen}
+			  	registerOrLogin={this.state.registerOrLogin}
+			  />
+
 			</div>
 		)
 	}

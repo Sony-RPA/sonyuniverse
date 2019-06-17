@@ -1,5 +1,4 @@
 import React from "react"
-import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { registerUser } from "../../actions/authActions"
 import TextFieldGroup from "../common/TextFieldGroup"
@@ -50,21 +49,21 @@ class Register extends React.Component{
 			password2: this.state.password2,
 		}
 
-		this.props.registerUser(newUser, this.props.history)
+		this.props.registerUser(newUser)
 	}
 
 	render(){
 		const errors = this.state.errors
 
 		return(
-			<div style={{height: "80vh"}}>
-			  <div className="register mt-5 px-3">
+			<div style={{minHeight: "48vh"}}>
+			  <div className="register">
 			    <div className="container">
-			      <div className="row">
-			        <div className="col-md-6 m-auto p-0">
+			      <div className="row d-block">
+			        <div className="m-auto p-0">
 			        	<div className="text-center">
 				          <h2 className="bg-black text-light p-2 shadow">SIGN UP</h2>
-				          <p className="lead">Create your Sony Universe account</p>
+				          <p className="text-light">Create your Sony Universe account</p>
 			          	</div>
 			          <form noValidate onSubmit={this.onSubmit}>
 			          	<TextFieldGroup
@@ -73,6 +72,7 @@ class Register extends React.Component{
 			          		value={this.state.name}
 			          		onChange={this.onChange}
 			          		error={errors.name}
+			          		additionalClass="dark-noRounded-Input"
 			          	/>
 			          	<TextFieldGroup
 			          		placeholder="Sony Email Address"
@@ -82,6 +82,7 @@ class Register extends React.Component{
 			          		onChange={this.onChange}
 			          		error={errors.email}
 			          		info="Please provide your Sony registered email address."
+			          		additionalClass="dark-noRounded-Input"
 			          	/>
 			          	<TextFieldGroup
 			          		placeholder="Password"
@@ -90,6 +91,7 @@ class Register extends React.Component{
 			          		value={this.state.password}
 			          		onChange={this.onChange}
 			          		error={errors.password}
+			          		additionalClass="dark-noRounded-Input"
 			          	/>
 			          	<TextFieldGroup
 			          		placeholder="Confirm Password"
@@ -98,6 +100,7 @@ class Register extends React.Component{
 			          		value={this.state.password2}
 			          		onChange={this.onChange}
 			          		error={errors.password2}
+			          		additionalClass="dark-noRounded-Input"
 			          	/>
 			            <input 
 			            	type="submit" 
@@ -122,11 +125,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		registerUser: (userData, history) => {
-			dispatch(registerUser(userData, history))
+		registerUser: (userData) => {
+			dispatch(registerUser(userData))
 		}
 	}
 }
 
 //use withRouter to have the ability to redirect within an action creator
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register))
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

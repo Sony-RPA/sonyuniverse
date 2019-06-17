@@ -4,10 +4,10 @@ import { Provider } from "react-redux"
 import store from "../store/configureStore"
 import Banner from "../components/common/Banner"
 import Navbar from "../components/layout/Navbar"
+import Login from "../components/auth/Login"
+import ResetPassword from "../components/auth/ResetPassword"
 import Landing from "../components/layout/Landing"
 import Footer from "../components/layout/Footer"
-import Register from "../components/auth/Register"
-import Login from "../components/auth/Login"
 import Dashboard from "../components/dashboard/Dashboard"
 import CreateProfile from "../components/create-profile/CreateProfile"
 import EditProfile from "../components/edit-profile/EditProfile"
@@ -18,7 +18,6 @@ import Profiles from "../components/profiles/Profiles"
 import Profile from "../components/profile/Profile"
 import Posts from "../components/posts/Posts"
 import Post from "../components/post/Post"
-import ResetPassword from "../components/auth/ResetPassword"
 import ChangePassword from "../components/auth/ChangePassword"
 import ChannelsContainer from "../components/channels/ChannelsContainer"
 import NotFound from "../components/not-found/NotFound"
@@ -56,11 +55,10 @@ class App extends React.Component{
 				<div>
 					<Switch>
 						<Route path="/" component={Landing} exact={true}/>
-						<Route path="/register" component={Register}/>
 						<Route path="/login" component={Login}/>
+						<Route path="/reset-password" component={ResetPassword}/>
 						<Route path="/profiles" component={Profiles}/>
 						<Route path="/profile/:handle" component={Profile}/>
-						<Route path="/reset-password" component={ResetPassword}/>
 						<Route path="/change-password/:hash" component={ChangePassword}/>
 						<PrivateRoute path="/dashboard" component={Dashboard}/>
 						<PrivateRoute path="/create-profile" component={CreateProfile}/>

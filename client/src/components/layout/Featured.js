@@ -1,6 +1,6 @@
 import React from "react"
 import godOfWar from "../../img/godofwar.jpg"
-import { Fade, Zoom } from "react-reveal"
+import { Fade } from "react-reveal"
 
 
 class Featured extends React.Component{

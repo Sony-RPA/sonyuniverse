@@ -61,38 +61,74 @@ class ResetPassword extends React.Component{
 	render(){
 		const resetRequested = this.state.resetRequested
 		const errors = this.state.errors
+		const { insideModal } = this.props
 		return(
-			<div className="container" style={{height: "80vh"}}>
-				<div className="mt-5 row justify-content-center">
-					<div className="col-md-6 col-sm-8">
-						{ resetRequested ? (
-							<p className="bg-success p-3 text-light text-center rounded">
-								Great! An email to reset your password has been sent to this address.
-							</p>
-							) : (
-								<p className="bg-dark p-3 text-light text-center rounded"> 
-									To reset your password, please enter your email below 
-									and a link will be sent to you.
+			 !insideModal ? (
+				<div className="container" style={{height: "80vh"}}>
+					<div className="mt-5 row justify-content-center">
+						<div className="col-md-6 col-sm-8">
+							{ resetRequested ? (
+								<p className="bg-success p-3 text-light text-center rounded">
+									Great! An email to reset your password has been sent to this address.
 								</p>
-							)
-						}
+								) : (
+									<p className="bg-dark p-3 text-light text-center rounded"> 
+										To reset your password, please enter your email below 
+										and a link will be sent to you.
+									</p>
+								)
+							}
 
-						<form onSubmit={this.handleValidSubmit}>
-								<InputGroup
-									name="email"
-									onChange={this.handleEmailChange}
-									onKeyPress={this.handleKeyPress}
-									placeholder="godofwar@sony.com"
-									required
-									type="email"
-									value={this.state.email}
-									error={errors.error}
-								/>
-							<button className="su-button" style={{background: "#17a2b8"}}>Reset Password</button>
-						</form>
+							<form onSubmit={this.handleValidSubmit}>
+									<InputGroup
+										name="email"
+										onChange={this.handleEmailChange}
+										onKeyPress={this.handleKeyPress}
+										placeholder="godofwar@sony.com"
+										required
+										type="email"
+										value={this.state.email}
+										error={errors.error}
+									/>
+								<button className="su-button" style={{background: "#17a2b8"}}>Reset Password</button>
+							</form>
+						</div>
 					</div>
 				</div>
-			</div>
+			):(
+				<div className="container" style={{minHeight: "24vh"}}>
+					<div className="row justify-content-center">
+						<div>
+							{ resetRequested ? (
+								<p className="bg-success p-3 text-light text-center rounded">
+									Great! An email to reset your password has been sent to this address.
+								</p>
+								) : (
+									<p className="bg-dark p-3 text-light text-center rounded"> 
+										To reset your password, please enter your email below 
+										and a link will be sent to you.
+									</p>
+								)
+							}
+
+							<form onSubmit={this.handleValidSubmit}>
+									<InputGroup
+										name="email"
+										onChange={this.handleEmailChange}
+										onKeyPress={this.handleKeyPress}
+										placeholder="godofwar@sony.com"
+										required
+										type="email"
+										value={this.state.email}
+										error={errors.error}
+										additionalClass="dark-noRounded-Input"
+									/>
+								<button className="su-button" style={{background: "#17a2b8"}}>Reset Password</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			)
 		)
 	}
 }

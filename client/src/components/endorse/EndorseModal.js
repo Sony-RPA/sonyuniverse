@@ -30,6 +30,12 @@ class EndorseModal extends React.Component{
 		})
 	}
 
+	resetModal = () => {
+		this.setState({
+			endorsedSkills: []
+		}, this.props.handleEndorseModalOpen)
+	}
+
 	render(){
 		const colleagueName = this.props.profile.user.name
 		const skills = this.props.profile.skills.map((skill, index) => {
@@ -39,6 +45,7 @@ class EndorseModal extends React.Component{
 		return(
 			<Modal
 				isOpen={this.props.modalOpen}
+				onRequestClose={this.resetModal}
 				ariaHideApp={false}
 				style={{
 					overlay: {
@@ -77,7 +84,7 @@ class EndorseModal extends React.Component{
 					</button>
 					<button
 						className="btn btn-dark btn-md"
-						onClick={this.props.handleEndorseModalOpen}
+						onClick={this.resetModal}
 					>
 						Close
 					</button>

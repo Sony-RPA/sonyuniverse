@@ -5,13 +5,25 @@ import { Fade } from "react-reveal"
 import Teams from "./Teams"
 import Featured from "./Featured"
 import Highlight from "./Highlight"
+import AuthModal from "./AuthModal"
 
 class Landing extends React.Component{
+	state = {
+		modalOpen: false
+	}
+
 	componentDidMount(){
 		if(this.props.auth.isAuthenticated){
 			this.props.history.push("/dashboard")
 		}
-	}	
+	}
+
+	handleModalOpen = () => {
+		this.setState({
+			modalOpen: !this.state.modalOpen
+		})
+	}
+
 	render(){
 		return(
 			<div>
@@ -33,13 +45,14 @@ class Landing extends React.Component{
 						        				Share. Connect. Live.
 						        		    </p>
 						        		    <hr/>
-						        		    <Link 
+						        		    <a
+						        		    	onClick={this.handleModalOpen}
 						        		    	to="/login" 
 						        		    	className="landing-login-button"
 						        		    	style={{width: "180px"}}
 						        		    >
 						        		    	LOGIN
-						        		    </Link>
+						        		    </a>
 						      		    </div>
 						    		</div>
 						      	</div>
@@ -47,6 +60,11 @@ class Landing extends React.Component{
 					    </div>
 				    </Fade>
 		  		</div>
+		  		<AuthModal
+		  			modalOpen={this.state.modalOpen}
+		  			registerOrLogin="login"
+		  			handleModalOpen={this.handleModalOpen}
+		  		/>
 		  		<Featured/>
 		  		<Teams/>
 		  		<Highlight/>

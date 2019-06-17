@@ -9,7 +9,8 @@ const InputGroup = ({
   icon,
   type,
 	onChange,
-  disabled
+  disabled,
+  additionalClass
 }) => {
 	return(
     <div className="input-group mb-3">
@@ -19,7 +20,7 @@ const InputGroup = ({
         </span>
       </div>
       <input 
-      	className={ error ? "form-control form-control-lg is-invalid" : "form-control form-control-lg" } 
+      	className={ error ? `${additionalClass} form-control form-control-lg is-invalid` : `${additionalClass} form-control form-control-lg` } 
       	placeholder={placeholder} 
       	name={name} 
       	value={value}

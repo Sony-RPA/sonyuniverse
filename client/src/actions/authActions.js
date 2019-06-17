@@ -4,12 +4,12 @@ import jwt_decode from "jwt-decode"
 import { clearErrors } from "./postActions"
 
 //register user
-export const registerUser = (userData, history) => {
+export const registerUser = (userData) => {
 	return (dispatch) => {
 		//axios makes a request to the route and passes in data to be used as the req.body
 		axios.post("/api/users/register", userData)
 			.then((res) => {
-				history.push("/login")
+				dispatch(clearErrors())
 				dispatch({
 					type: "CREATE_USER",
 					payload: res.data
