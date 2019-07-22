@@ -22,9 +22,9 @@ const store = createStore(combineReducers({
 	notification: notificationReducer
 }), initialStoreState,
 	compose(
-		applyMiddleware(thunk),
+		applyMiddleware(thunk)
 		//need this for redux dev tools to work
-		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+		// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 	)
 )
 
