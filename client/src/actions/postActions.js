@@ -219,6 +219,43 @@ export const editComment = (postId, commentId, commentData) => {
 	}
 }
 
+//add favorite
+export const addFavorite = (postId) => {
+	return (dispatch) => {
+		axios.post(`/api/posts/favorite/${postId}`)
+			.then((res) => {
+				dispatch({
+					type: "ADD_FAVORITE",
+					payload: res.data
+				})
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
+export const removeFavorite = (postId) => {
+	return (dispatch) => {
+		axios.post(`/api/posts/unfavorite/${postId}`)
+			.then((res) => {
+				dispatch({
+					type: "REMOVE_FAVORITE",
+					payload: res.data
+				})
+			})
+			.catch((errors) => {
+				dispatch({
+					type: "GET_ERRORS",
+					payload: errors.response.data
+				})
+			})
+	}
+}
+
 //set loading state
 export const setPostLoading = () => {
 	return{

@@ -76,6 +76,34 @@ const postReducer = (state = initialState, action) => {
 				}),
 				post: action.payload
 			}
+		case "ADD_FAVORITE":
+			return {
+				...state,
+				posts: state.posts.map((post) => {
+					if(post._id == action.payload._id){
+						return {
+							...post,
+							...action.payload
+						}
+					} else {
+						return post
+					}
+				})
+			}
+		case "REMOVE_FAVORITE":
+			return {
+				...state,
+				posts: state.posts.map((post) => {
+					if(post._id == action.payload._id){
+						return {
+							...post,
+							...action.payload
+						}
+					} else {
+						return post
+					}
+				})
+			}
 		default:
 			return state
 	}

@@ -385,6 +385,65 @@ const postsRoutes = (app) => {
 			})
 	})
 
+//@desc add favoriter
+//@access Private
+	app.post("/api/posts/favorite/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
+		Post.findById({ _id: req.params.post_id })
+			.then((foundPost) => {
+
+				if(foundPost.favoriters.filter((favoriter) => favoriter.user.toString() == req.user.id).length > 0){
+					return res.status(400).json({ couldnotfavorite: "could not favorite post, already favorited."})
+				}
+
+				//Add user to favorites array
+				foundPost.favoriters.unshift({ user: req.user.id })
+
+				foundPost.save()
+					.then((savedPost) => {
+						res.json(savedPost)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotsave: "could not save favorited post"})
+					})
+
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find post" })
+			})
+	})
+
+//@desc remove favoriter
+//@access Private
+	app.post("/api/posts/unfavorite/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
+		Post.findById({ _id: req.params.post_id })
+			.then((foundPost) => {
+
+				if(foundPost.favoriters.filter((favoriter) => favoriter.user.toString() == req.user.id).length === 0){
+					return res.status(400).json({ couldnotunfavorite: "could not unfavorite, not yet favorited"})
+				}
+
+				//get index of user in list
+				const removeIndex = foundPost.favoriters.findIndex((favoriter) => {
+					(favoriter.user).toString() == req.user.id
+				})
+
+				//remove user from list
+				foundPost.favoriters.splice(removeIndex, 1)
+
+				//savePost
+				foundPost.save()
+					.then((savedPost) => {
+						res.json(savedPost)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotsave: "could not save post"})
+					})
+			})
+			.catch((errors) => {
+				return res.status(404).json({ couldnotfind: "could not find post" })
+			})
+	})
+
 }
 
 module.exports = postsRoutes

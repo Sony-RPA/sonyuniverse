@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { deletePost, addLike, removeLike, editPost } from "../../actions/postActions"
+import { deletePost, addLike, removeLike, editPost, addFavorite, removeFavorite } from "../../actions/postActions"
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup"
 
 class PostItem extends React.Component{
@@ -85,6 +85,27 @@ class PostItem extends React.Component{
     return `${dateString} - ${timeString}`
   }
 
+  onToggleFavorite = (id) => {
+    const favoriters = this.props.post.favoriters
+
+    //remove user from list if they already exist
+    if(this.findUserFavorite(favoriters)){
+      this.props.removeFavorite(id)
+    //add user to list
+    } else {
+      this.props.addFavorite(id)
+    }
+  }
+
+  findUserFavorite = (favoriters) => {
+    const auth = this.props.auth
+     if(favoriters.filter((favoriter) => favoriter.user === auth.user.id).length > 0){
+       return true
+     } else {
+       return false
+     }
+  }
+
 	render(){
 		const post = this.props.post
 		const auth = this.props.auth
@@ -139,6 +160,16 @@ class PostItem extends React.Component{
                         }}
                       >
                         <i className="text-secondary fas fa-thumbs-down"></i>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn btn-light mr-1"
+                        onClick={() => {
+                          this.onToggleFavorite(post._id)
+                        }}
+                      >
+                        <i className={this.findUserFavorite(post.favoriters) ? "text-warning fas fa-star" : "text-warning far fa-star"}></i>
                       </button>
 
                       { post.user == auth.user.id ? (
@@ -216,6 +247,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
     editPost: (id, postData) => {
       dispatch(editPost(id, postData))
+    },
+    addFavorite: (id) => {
+      dispatch(addFavorite(id))
+    },
+    removeFavorite: (id) => {
+      dispatch(removeFavorite(id))
     }
 	}
 }

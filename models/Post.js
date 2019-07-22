@@ -30,6 +30,14 @@ const postSchema = new mongoose.Schema({
 			date: { type: Date, default: Date.now() }	
 		}	
 	],
+	favoriters: [
+		{
+			user: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "User"
+			}
+		}
+	],
 	date: { type: Date, default: Date.now() },
 	commenters: [String]
 })
