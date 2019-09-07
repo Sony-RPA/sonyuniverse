@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import PostForm from "./PostForm"
 import PostFeed from "./PostFeed"
 import Spinner from "../common/Spinner"
-import { getPosts, getRelatedPosts } from "../../actions/postActions"
+import { getPosts, getRelatedPosts, getFavoritePosts } from "../../actions/postActions"
 import SearchBar from "../common/SearchBar"
 
 class Posts extends React.Component{
@@ -34,6 +34,23 @@ class Posts extends React.Component{
 		this.props.getPosts()
 	}
 
+	getAllPosts = () => {
+		this.props.getPosts()
+	}
+
+	getFavoritePosts = () => {
+		this.props.getFavoritePosts()
+	}
+
+	renderPostTypeButtons = () => {
+		return(
+			<div className="my-4 text-center">
+				<button onClick={this.getAllPosts} className="btn btn-dark mr-2">All Posts</button>
+				<button onClick={this.getFavoritePosts} className="btn btn-dark">Favorites</button>
+			</div>
+		)
+	}
+
 	render(){
 		const { posts, loading } = this.props.post
 		let postContent;
@@ -55,6 +72,7 @@ class Posts extends React.Component{
 								handleOnSubmit={this.handleOnSubmit}
 							/>
 							<PostForm/>
+							{this.renderPostTypeButtons()}
 							{postContent}
 						</div>
 					</div>
@@ -77,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		getRelatedPosts: (text) => {
 			dispatch(getRelatedPosts(text))
+		},
+		getFavoritePosts: () => {
+			dispatch(getFavoritePosts())
 		}
 	}
 }

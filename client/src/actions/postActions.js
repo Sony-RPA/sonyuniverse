@@ -238,6 +238,7 @@ export const addFavorite = (postId) => {
 	}
 }
 
+//remove favorite
 export const removeFavorite = (postId) => {
 	return (dispatch) => {
 		axios.post(`/api/posts/unfavorite/${postId}`)
@@ -255,6 +256,25 @@ export const removeFavorite = (postId) => {
 			})
 	}
 }
+
+//get all favorite posts
+	export const getFavoritePosts = () => {
+		return (dispatch) => {
+			axios.get("/api/favorites")
+				.then((res) => {
+					dispatch({
+						type: "GET_FAVORITES",
+						payload: res.data
+					})
+				})
+				.catch((errors) => {
+					dispatch({
+						type: "GET_ERRORS",
+						payload: errors.response.data
+					})
+				})
+		}
+	}
 
 //set loading state
 export const setPostLoading = () => {

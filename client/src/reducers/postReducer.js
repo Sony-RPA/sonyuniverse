@@ -104,6 +104,12 @@ const postReducer = (state = initialState, action) => {
 					}
 				})
 			}
+		case "GET_FAVORITES":
+			return {
+				...state,
+				posts: action.payload,
+				loading: false
+			}
 		default:
 			return state
 	}

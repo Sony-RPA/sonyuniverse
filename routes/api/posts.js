@@ -7,14 +7,14 @@ const User = require("../../models/User")
 const escapeRegex = require("../../validation/escapeRegex")
 
 const postsRoutes = (app) => {
-//@desc Tests posts route
-//@access Public
+	//@desc Tests posts route
+	//@access Public
 	app.get("/api/posts/tests", (req, res) => {
 		res.json({msg: "posts work"})
 	})
 
-//@desc get all posts
-//access Public
+	//@desc get all posts
+	//access Public
 	app.get("/api/posts/", (req, res) => {
 		Post.find()
 			.sort({ date: -1 })
@@ -26,8 +26,8 @@ const postsRoutes = (app) => {
 			})
 	})	
 
-//desc get post by id
-//access Public
+	//desc get post by id
+	//access Public
 	app.get("/api/posts/:post_id", (req, res) => {
 		Post.findById({ _id: req.params.post_id })
 			.then((foundPost) => {
@@ -38,8 +38,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc create new post
-//access Private
+	//@desc create new post
+	//access Private
 	app.post("/api/posts/", passport.authenticate("jwt", { session: false }), (req, res) => {
 		//destructure return output from function, which checks our inputs for any errors
 		const { errors, isValid } = validatePostInput(req.body)
@@ -73,8 +73,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc delete post
-//access Private
+	//@desc delete post
+	//access Private
 	app.delete("/api/posts/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		Profile.findOne({ user: req.user.id })
 			.then((foundProfile) => {
@@ -119,8 +119,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc like post
-//@access Private
+	//@desc like post
+	//@access Private
 	app.post("/api/posts/like/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		Profile.findOne({ user: req.user.id })
 			.then((foundProfile) => {
@@ -145,8 +145,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc unlike post	
-//@access Private
+	//@desc unlike post	
+	//@access Private
 	app.post("/api/posts/unlike/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		Profile.findOne({ user: req.user.id })
 			.then((foundProfile) => {
@@ -179,8 +179,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc add comment
-//@access Private
+	//@desc add comment
+	//@access Private
 	app.post("/api/posts/comment/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		//destructure return output from function, which checks our inputs for any errors
 		const { errors, isValid } = validatePostInput(req.body)
@@ -240,8 +240,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc delete comment
-//@access Private
+	//@desc delete comment
+	//@access Private
 	app.delete("/api/posts/comment/:post_id/:comment_id", passport.authenticate('jwt', { session: false }), (req, res) => {
 		Post.findById({ _id: req.params.post_id })
 			.then(foundPost => {
@@ -306,8 +306,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc edit post
-//@access Private
+	//@desc edit post
+	//@access Private
 	app.put("/api/posts/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		//check if post has at least 2 characters
 		const { errors, isValid } = validatePostInput(req.body)
@@ -335,8 +335,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc edit comment
-//@access Private
+	//@desc edit comment
+	//@access Private
 	app.put("/api/posts/comment/:post_id/:comment_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		//check if post has at least 2 characters
 		const { errors, isValid } = validatePostInput(req.body)
@@ -370,8 +370,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc get posts related to search
-//@access Private
+	//@desc get posts related to search
+	//@access Private
 	app.get("/api/posts/search/:text", passport.authenticate("jwt", { session: false}), (req, res) => {
 		var query = req.params.text
 		var regex = new RegExp(escapeRegex(query), "gi")
@@ -385,8 +385,8 @@ const postsRoutes = (app) => {
 			})
 	})
 
-//@desc add favoriter
-//@access Private
+	//@desc add favoriter
+	//@access Private
 	app.post("/api/posts/favorite/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		Post.findById({ _id: req.params.post_id })
 			.then((foundPost) => {
@@ -406,14 +406,32 @@ const postsRoutes = (app) => {
 						return res.status(400).json({ couldnotsave: "could not save favorited post"})
 					})
 
+				//get current user
+				User.findOne({ _id: req.user.id })
+					.then((foundUser) => {
+						//add postId to favorites list
+						foundUser.favorites.unshift({ postId: req.params.post_id})
+
+						foundUser.save()
+							.then((savedUser) => {
+								// console.log(savedUser.favorites)
+							})
+							.catch((errors) => {
+								console.log("could not save user favorites")
+							})
+					})
+					.catch((errors) => {
+						console.log("could not find current user")
+					})
+
 			})
 			.catch((errors) => {
 				return res.status(400).json({ couldnotfind: "could not find post" })
 			})
 	})
 
-//@desc remove favoriter
-//@access Private
+	//@desc remove favoriter
+	//@access Private
 	app.post("/api/posts/unfavorite/:post_id", passport.authenticate("jwt", { session: false }), (req, res) => {
 		Post.findById({ _id: req.params.post_id })
 			.then((foundPost) => {
@@ -438,11 +456,54 @@ const postsRoutes = (app) => {
 					.catch((errors) => {
 						return res.status(400).json({ couldnotsave: "could not save post"})
 					})
+
+				User.findOne({ _id: req.user.id })
+					.then((foundUser) => {
+
+						const allFavoritesPostId = foundUser.favorites.map((favorite) => favorite.postId.toString())
+
+						const thisPostIndex = allFavoritesPostId.indexOf(req.params.post_id)
+
+						foundUser.favorites.splice(thisPostIndex, 1)
+
+						foundUser.save()
+							.then((savedUser) => {
+								// console.log(savedUser)
+							})
+							.catch((errors) => {
+								// console.log(errors)
+							})
+					})
+					.catch((errors) => {
+						console.log("could not find user")
+					})
+
 			})
 			.catch((errors) => {
 				return res.status(404).json({ couldnotfind: "could not find post" })
 			})
 	})
+
+	//@desc	Get favorite posts
+	//@access Private
+	app.get("/api/favorites", passport.authenticate("jwt", { session: false }), (req, res) => {
+		User.findOne({ _id: req.user.id })
+			.then((foundUser) => {
+				const favoritePostsIds = foundUser.favorites.map((post) => post.postId)
+
+				Post.find({ _id: { $in:  [...favoritePostsIds] }})
+					.then((foundPosts) => {
+						res.json(foundPosts)
+					})
+					.catch((errors) => {
+						return res.status(400).json({ couldnotfind: "could not find favorite posts"})
+					})
+			})
+			.catch((errors) => {
+				return res.status(400).json({ couldnotfind: "could not find user"})
+			})
+	})
+
 
 }
 

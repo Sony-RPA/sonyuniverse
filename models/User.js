@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
 			postId: String,
 			commentId: String
 		}
+	],
+	favorites: [
+		{
+			postId: String
+		}
 	]
 }, { minimize: false })
 

@@ -29,7 +29,10 @@ class Login extends React.Component{
 	componentWillReceiveProps(nextProps){
 		if(nextProps.auth.isAuthenticated){
 			this.props.history.push("/dashboard")
-			this.props.closeModal()
+
+			if(this.props.insideModal){
+				this.props.closeModal()
+			}
 		}
 
 		if(nextProps.errors){

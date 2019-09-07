@@ -8,7 +8,8 @@ import { connect } from "react-redux"
 class AuthModal extends React.Component{
 	state = {
 		windowWidth: window.innerWidth,
-		createdUser: false
+		createdUser: false,
+		slideIn: false
 	}
 
 	componentDidMount(){
@@ -29,7 +30,8 @@ class AuthModal extends React.Component{
 		if(this.props.auth !== prevProps.auth){
 			const { user } = this.props.auth 
 			this.setState({
-				createdUser: Object.keys(user).length > 0 ? true : false
+				createdUser: Object.keys(user).length > 0 ? true : false,
+				slideIn: true
 			})
 		}
 	}
@@ -72,13 +74,20 @@ class AuthModal extends React.Component{
 		)
 	}
 
+	disableFirstLoginModal = () => {
+		console.log("woof")
+		this.setState({
+			slideIn: false
+		}, this.props.handleModalOpen())
+	}
+
 	renderFirstLoginModal = () => {
 		const { windowWidth } = this.state
 		const modalWidth = windowWidth < 576 ? "90%" : windowWidth >= 768 && windowWidth < 1024 ? "50%" : windowWidth >= 1024 && "30%"
 		return(
 			<Modal
 				isOpen={this.props.modalOpen}
-				onRequestClose={this.props.handleModalOpen}
+				onRequestClose={this.disableFirstLoginModal}
 				ariaHideApp={false}
 				style={{
 					overlay: {
@@ -98,23 +107,23 @@ class AuthModal extends React.Component{
 						textAlign: "center",
 						overflow:"hidden"
 	      			}
-				}}				
+				}}
 			>
 				<Slide right>
 					<p className="text-light">
 						Your <span className="text-info">Sony Universe<sup>TM</sup></span>{" "}
 						account has been successfully created!
 					</p>
-					<Login insideModal={true} closeModal={this.props.handleModalOpen}/>
+					<Login insideModal={true} closeModal={this.disableFirstLoginModal}/>
 				</Slide>
 			</Modal>			
 		)
 	}
 
 	render(){
-		const { createdUser } = this.state
+		const { createdUser, slideIn } = this.state
 		return(
-			!createdUser ? this.createInitialModal() : this.renderFirstLoginModal()
+			!createdUser ? this.createInitialModal() : slideIn ? this.renderFirstLoginModal() : this.createInitialModal()
 		)
 	}
 }
