@@ -41,6 +41,7 @@ const colleagueRoutes = require("./routes/api/colleagues")
 const chatKitRoutes = require("./routes/api/chatkit")
 const conversationRoutes = require("./routes/api/conversation")
 const notificationRoutes = require("./routes/api/notification")
+const videoRoutes = require("./routes/api/video")
 
 //Use Routes
 authRoutes(app)
@@ -50,6 +51,7 @@ colleagueRoutes(app)
 chatKitRoutes(app)
 conversationRoutes(app)
 notificationRoutes(app)
+videoRoutes(app)
 
 //serve static assets if in production
 if(process.env.NODE_ENV === "production"){

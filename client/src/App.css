@@ -1,6 +1,6 @@
 .scoreboard,
 .spotlight,
-=.highlight {
+.highlight {
     overflow: hidden
 }
 
@@ -551,4 +551,121 @@ body {
 
 .auth-link span {
     pointer-events: none
+}
+
+.small-avatar {
+    max-width: 33px;
+    max-height: 33px;
+}
+
+.small-icon {
+    width: 0.25em !important;
+}
+
+.solid-link {
+    color: #343a40;
+}
+
+.solid-link:hover{
+    color: #343a40 !important;
+}
+
+.tag-editor{
+    cursor: text;
+    overflow: hidden;
+}
+
+.no-focus:focus{
+    border: none;
+    outline: none;
+}
+
+input.no-focus::placeholder{
+    color: #aaa;
+}
+
+.tag-input:disabled {
+    background: transparent;
+    color: transparent;
+}
+
+.tag-editor-selected {
+    cursor: text;
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    overflow: hidden;
+}
+
+
+.star, .star-filled, .star-partially-filled {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.star-filled:before,
+.star-partially-filled:before {
+    content: "\2605";
+    position: absolute;
+}
+
+.rating > .star:hover:before {
+    content: "\2605";
+    position: absolute;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   color: #006786;
+   position: absolute;
+}
+
+.comment-form form{
+    width: 100%;
+}
+
+.comment-form img{
+    margin-top: 5px;
+}
+
+.comment-form input{
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: unset;
+}
+
+.comment-form input:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+.comment-form button{
+    border-radius: 2px !important;
+}
+
+.comment-form .btn-light, .comment-form .btn-light:hover{
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.comment-dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.comment-dropdown .dropdown-content {
+    top: 10px;
+    right: 0px;
+}
+
+.comment-dropdown .dropdown-item:hover {
+    background: #ddd
 }

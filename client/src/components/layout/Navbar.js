@@ -210,9 +210,22 @@ class Navbar extends React.Component{
 			        <ul className="navbar-nav mr-auto">
 			          <li className="nav-item">
 			            <Link className="nav-link text-dark" to="/profiles">
-			            	{windowWidth < 576 ? <span key={Math.random()}><i className="fa fa-users"></i> Network</span> : "Network"}
+			            	{ windowWidth < 576 ? (
+			            		<span key={Math.random()}><i className="fa fa-users mr-2"></i>Network</span>
+			            	) : (
+			            		<span key={Math.random()}><i className="fa fa-users mr-2"></i></span>
+			            	)}
 			            </Link>
 			          </li>
+			          <li className="nav-item">
+			            <Link className="nav-link text-dark" to="/videos">
+			            	{ windowWidth < 576 ? (
+			            		<span key={Math.random()}><i className="fa fa-film mr-2"></i>Browse</span>
+			            	) : (
+			            		<span key={Math.random()}><i className="fa fa-film mr-2"></i></span>
+			            	)}
+			            </Link>
+			          </li>			          
 			        </ul>
 			        { isAuthenticated ? authLinks : guestLinks }
 			      </div>

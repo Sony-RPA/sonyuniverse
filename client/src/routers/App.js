@@ -20,10 +20,14 @@ import Posts from "../components/posts/Posts"
 import Post from "../components/post/Post"
 import ChangePassword from "../components/auth/ChangePassword"
 import ChannelsContainer from "../components/channels/ChannelsContainer"
+import Videos from "../components/videos/Videos"
+import UploadVideo from "../components/upload-video/UploadVideo"
+import ConfirmVideo from "../components/upload-video/ConfirmVideo"
 import NotFound from "../components/not-found/NotFound"
 import jwt_decode from "jwt-decode"
 import setAuthToken from "../utils/setAuthToken"
 import PrivateRoute from "../components/common/PrivateRoute"
+import Video from "../components/video/Video"
 import {setCurrentUser, logoutUser} from "../actions/authActions"
 import {clearCurrentProfile} from "../actions/profileActions"
 import "../App.css"
@@ -60,6 +64,8 @@ class App extends React.Component{
 						<Route path="/profiles" component={Profiles}/>
 						<Route path="/profile/:handle" component={Profile}/>
 						<Route path="/change-password/:hash" component={ChangePassword}/>
+						<Route path="/videos" component={Videos}/>
+						<Route path="/video/:id" component={Video}/>
 						<PrivateRoute path="/dashboard" component={Dashboard}/>
 						<PrivateRoute path="/create-profile" component={CreateProfile}/>
 						<PrivateRoute path="/edit-profile" component={EditProfile}/>
@@ -68,6 +74,8 @@ class App extends React.Component{
 						<PrivateRoute path="/add-education" component={AddEducation}/>
 						<PrivateRoute path="/feed" component={Posts}/>
 						<PrivateRoute path="/posts/:id" component={Post}/>
+						<PrivateRoute path="/upload-video/confirm" component={ConfirmVideo}/>
+						<PrivateRoute path="/upload-video" component={UploadVideo}/>
 						<Route component={NotFound}/>				
 					</Switch>																											
 					<Footer/>

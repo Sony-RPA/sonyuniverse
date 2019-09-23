@@ -9,6 +9,7 @@ const TextFieldGroup = ({
 	error,
 	info,
 	type,
+	onClick,
 	onChange,
   autocomplete,
 	disabled,
@@ -21,7 +22,8 @@ const TextFieldGroup = ({
       	className={ error ? `${additionalClass} form-control form-control-lg is-invalid` : `${additionalClass} form-control form-control-lg` } 
       	placeholder={placeholder} 
       	name={name} 
-      	value={value}
+				value={value}
+				onClick={onClick}
       	onChange={onChange}
         autoComplete={autocomplete}
       	disabled={disabled}

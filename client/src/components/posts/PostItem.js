@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { deletePost, addLike, removeLike, editPost, addFavorite, removeFavorite } from "../../actions/postActions"
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup"
+import formatTimestamp from "../../utils/formatTimestamp"
 
 class PostItem extends React.Component{
 	constructor(props){
@@ -78,13 +79,6 @@ class PostItem extends React.Component{
     }
   }
 
-  formatTimestamp = (timestamp) => {
-    const dateString = new Date(timestamp).toLocaleDateString()
-    const timeString = new Date(timestamp).toLocaleTimeString()
-
-    return `${dateString} - ${timeString}`
-  }
-
   onToggleFavorite = (id) => {
     const favoriters = this.props.post.favoriters
 
@@ -127,7 +121,7 @@ class PostItem extends React.Component{
                 </div>
                 <div className="col-md-9 py-2 px-0">
                   <div className="text-left mb-2">
-                    <small className="text-secondary">{this.formatTimestamp(post.date)}</small>
+                    <small className="text-secondary">{formatTimestamp(post.date)}</small>
                   </div>
                   { editting ? (
                     <TextAreaFieldGroup
